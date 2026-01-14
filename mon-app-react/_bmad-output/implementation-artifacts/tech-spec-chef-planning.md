@@ -94,7 +94,7 @@ Une application React frontend-only permettant de visualiser une grille de plann
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  🗓️ ChefPlanning                                    [+ Employé]     │  <- Header
+│  🗓️ ChefPlanning                           [🌙] [+ Employé]         │  <- Header + ThemeToggle
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │  ┌──────────┐  ┌─────────────────────────────────────────────────┐  │
@@ -131,6 +131,177 @@ Légende:
 - **Props** : Destructuring avec valeurs par défaut
 - **Imports** : Absolute imports via alias `@/`
 - **Exports** : Barrel exports (index.js) pour clean imports
+
+### 🎨 Design System : Light/Dark Mode
+
+**ChefPlanning** utilise un système de couleurs moderne et identitaire avec support complet Light/Dark mode.
+
+#### Palette de Couleurs
+
+| Token CSS                | Light Mode | Dark Mode | Usage                               |
+| ------------------------ | ---------- | --------- | ----------------------------------- |
+| `--color-bg-primary`     | `#FFFFFF`  | `#0F172A` | Background principal (slate-900)    |
+| `--color-bg-secondary`   | `#F8FAFC`  | `#1E293B` | Background secondaire (slate-800)   |
+| `--color-bg-tertiary`    | `#F1F5F9`  | `#334155` | Cards, surfaces élevées (slate-700) |
+| `--color-text-primary`   | `#0F172A`  | `#F8FAFC` | Texte principal                     |
+| `--color-text-secondary` | `#475569`  | `#94A3B8` | Texte secondaire (slate-400)        |
+| `--color-text-muted`     | `#94A3B8`  | `#64748B` | Texte désactivé (slate-500)         |
+| `--color-border`         | `#E2E8F0`  | `#334155` | Bordures (slate-700)                |
+| `--color-border-hover`   | `#CBD5E1`  | `#475569` | Bordures hover                      |
+
+#### Couleurs d'Accent (Identité ChefPlanning)
+
+| Token CSS              | Light Mode | Dark Mode | Usage                         |
+| ---------------------- | ---------- | --------- | ----------------------------- |
+| `--color-accent`       | `#6366F1`  | `#818CF8` | Couleur principale (Indigo)   |
+| `--color-accent-hover` | `#4F46E5`  | `#6366F1` | Hover accent                  |
+| `--color-accent-soft`  | `#EEF2FF`  | `#312E81` | Background accent léger       |
+| `--color-success`      | `#10B981`  | `#34D399` | Succès, validations (Emerald) |
+| `--color-warning`      | `#F59E0B`  | `#FBBF24` | Alertes, warnings (Amber)     |
+| `--color-danger`       | `#EF4444`  | `#F87171` | Erreurs, suppressions (Red)   |
+| `--color-info`         | `#3B82F6`  | `#60A5FA` | Informations (Blue)           |
+
+#### Couleurs des Shifts (Planning)
+
+| Shift      | Light Mode | Dark Mode | Border Light | Border Dark |
+| ---------- | ---------- | --------- | ------------ | ----------- |
+| Matin      | `#FEF3C7`  | `#78350F` | `#FCD34D`    | `#F59E0B`   |
+| Après-midi | `#DBEAFE`  | `#1E3A8A` | `#60A5FA`    | `#3B82F6`   |
+| Journée    | `#D1FAE5`  | `#064E3B` | `#34D399`    | `#10B981`   |
+| Coupé (V2) | `#F3E8FF`  | `#581C87` | `#A78BFA`    | `#8B5CF6`   |
+
+#### Implémentation Technique (Tailwind 4)
+
+```css
+/* src/index.css - Tailwind 4 utilise @theme pour les custom colors */
+@import "tailwindcss";
+
+/* Variables CSS pour Light/Dark */
+:root {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
+  --color-accent-soft: #eef2ff;
+  --color-border: #e2e8f0;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  /* Shifts */
+  --color-shift-matin: #fef3c7;
+  --color-shift-matin-border: #fcd34d;
+  --color-shift-aprem: #dbeafe;
+  --color-shift-aprem-border: #60a5fa;
+  --color-shift-journee: #d1fae5;
+  --color-shift-journee-border: #34d399;
+}
+
+.dark {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-accent: #818cf8;
+  --color-accent-hover: #6366f1;
+  --color-accent-soft: #312e81;
+  --color-border: #334155;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  /* Shifts Dark */
+  --color-shift-matin: #78350f;
+  --color-shift-matin-border: #f59e0b;
+  --color-shift-aprem: #1e3a8a;
+  --color-shift-aprem-border: #3b82f6;
+  --color-shift-journee: #064e3b;
+  --color-shift-journee-border: #10b981;
+}
+
+/* Tailwind 4: @theme mappe les variables vers des classes utilitaires */
+@theme {
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-border: var(--color-border);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-danger: var(--color-danger);
+  --color-shift-matin: var(--color-shift-matin);
+  --color-shift-matin-border: var(--color-shift-matin-border);
+  --color-shift-aprem: var(--color-shift-aprem);
+  --color-shift-journee: var(--color-shift-journee);
+}
+```
+
+```javascript
+// src/hooks/useTheme.js
+export function useTheme() {
+  const [theme, setTheme] = useLocalStorage("chef-planning-theme", "system");
+
+  // 'light' | 'dark' | 'system'
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  return { theme, setTheme, toggleTheme };
+}
+```
+
+#### Utilisation dans les Composants
+
+```jsx
+// ✅ Utiliser les classes Tailwind mappées aux variables CSS
+// Les variables changent automatiquement selon la classe .dark sur <html>
+<div className="bg-bg-primary text-text-primary">
+  <button className="bg-accent hover:bg-accent-hover text-white">
+    Action
+  </button>
+</div>
+
+// ✅ Utiliser les couleurs de shift (fond + bordure)
+<div className="bg-shift-matin border-l-4 border-shift-matin-border">
+  Shift Matin
+</div>
+
+// ❌ NE PAS mélanger variables CSS et dark: variants
+// <div className="bg-bg-primary dark:bg-slate-900">  ← Redondant !
+```
+
+#### Toggle Theme Component
+
+> **Implémenté en Story 6.2** après avoir appris useEffect et useLocalStorage.
+
+```jsx
+// src/components/ui/ThemeToggle.jsx
+import { useTheme } from "@/hooks";
+
+export function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <button
+      onClick={toggleTheme}
+      className="p-2 rounded-lg hover:bg-bg-tertiary transition-colors"
+      aria-label="Toggle theme"
+    >
+      {theme === "dark" ? "☀️" : "🌙"}
+    </button>
+  );
+}
+```
+
+> **Note** : Le ThemeToggle sera ajouté dans le Header à côté du bouton "+ Employé" (Task 6.2.4).
+> Le hook `useTheme` utilise `useLocalStorage` pour persister la préférence utilisateur.
+> La classe `dark` est ajoutée sur `<html>` via useEffect pour activer le dark mode globalement.
 
 ### Modern Project Structure
 
@@ -327,6 +498,29 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 - [ ] **Task 0.1.4** : Créer le barrel utils
   - File: `src/utils/index.js`
   - Action: `export { generateId } from './generateId';`
+
+### Story 0.2 : Configurer le Design System (CSS uniquement)
+
+**🎯 Objectif** : Mettre en place les variables CSS pour le thème Light/Dark.
+
+**📚 Concept** : CSS Custom Properties permettent de changer toutes les couleurs en une seule classe.
+
+> **Note pédagogique F23/F24** : En Phase 0, on prépare juste le CSS. Les hooks React (`useTheme`) viendront en Phase 6 après avoir appris useEffect.
+
+- [ ] **Task 0.2.1** : Configurer les variables CSS dans index.css
+
+  - File: `src/index.css`
+  - Action: Ajouter les variables CSS pour light mode (`:root`) et dark mode (`.dark`)
+  - Notes: Suivre la palette définie dans "Design System : Light/Dark Mode"
+  - Code: Copier le bloc CSS de la section "Implémentation Technique (Tailwind 4)"
+
+- [ ] **Task 0.2.2** : Tester le dark mode manuellement
+
+  - File: `index.html`
+  - Action: Ajouter temporairement `class="dark"` sur `<html>` pour vérifier les couleurs
+  - Notes: On automatisera avec React en Phase 6
+
+> ⏭️ La suite du Design System (useTheme, ThemeToggle) sera implémentée en **Story 6.2** après avoir appris useEffect.
 
 ---
 
@@ -528,6 +722,7 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 
   - File: `src/constants/shifts.js`
   - Action: Définir les 3 shifts de base
+  - Notes: Utiliser les variables CSS du Design System pour les couleurs
   - Code:
     ```javascript
     export const DEFAULT_SHIFTS = [
@@ -536,7 +731,7 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
         name: "Matin",
         startTime: "06:00",
         endTime: "13:00",
-        color: "#FCD34D",
+        colorClass: "bg-shift-matin border-shift-matin-border", // Tailwind classes
         hours: 7,
       },
       {
@@ -544,7 +739,7 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
         name: "Après-midi",
         startTime: "13:00",
         endTime: "20:00",
-        color: "#60A5FA",
+        colorClass: "bg-shift-aprem border-shift-aprem-border",
         hours: 7,
       },
       {
@@ -552,7 +747,7 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
         name: "Journée",
         startTime: "09:00",
         endTime: "17:00",
-        color: "#34D399",
+        colorClass: "bg-shift-journee border-shift-journee-border",
         hours: 8,
       },
     ];
@@ -616,6 +811,92 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 - [ ] **Task 6.1.4** : Persister shifts et tasks
   - Files: `src/features/shifts/`, `src/features/tasks/`
   - Action: Même pattern useLocalStorage
+
+### Story 6.2 : Implémenter le Theme Toggle (F23/F24)
+
+**🎯 Objectif** : Appliquer useEffect pour synchroniser le thème avec le DOM.
+
+**📚 Concept React** : useEffect permet de manipuler le DOM (ajouter/retirer la classe `dark` sur `<html>`).
+
+> **Note** : Maintenant qu'on connaît useLocalStorage, on peut créer un vrai système de thème !
+
+- [ ] **Task 6.2.1** : Créer le hook `useTheme`
+
+  - File: `src/hooks/useTheme.js`
+  - Action: Hook qui gère le thème ('light' | 'dark' | 'system')
+  - Code:
+
+    ```javascript
+    import { useLocalStorage } from "./useLocalStorage";
+    import { useEffect } from "react";
+
+    export function useTheme() {
+      const [theme, setTheme] = useLocalStorage(
+        "chef-planning-theme",
+        "system"
+      );
+
+      useEffect(() => {
+        const root = document.documentElement;
+        const systemDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const isDark = theme === "dark" || (theme === "system" && systemDark);
+
+        if (isDark) {
+          root.classList.add("dark");
+        } else {
+          root.classList.remove("dark");
+        }
+      }, [theme]);
+
+      const toggleTheme = () => {
+        setTheme((prev) => (prev === "light" ? "dark" : "light"));
+      };
+
+      return { theme, setTheme, toggleTheme };
+    }
+    ```
+
+- [ ] **Task 6.2.2** : Mettre à jour le barrel hooks
+
+  - File: `src/hooks/index.js`
+  - Action: Ajouter `export { useTheme } from './useTheme';`
+
+- [ ] **Task 6.2.3** : Créer le composant `ThemeToggle`
+
+  - File: `src/components/ui/ThemeToggle.jsx`
+  - Action: Bouton toggle avec icône soleil/lune
+  - Code:
+
+    ```jsx
+    import { useTheme } from "@/hooks";
+
+    export function ThemeToggle() {
+      const { theme, toggleTheme } = useTheme();
+
+      return (
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg hover:bg-bg-tertiary transition-colors"
+          aria-label="Toggle theme"
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+      );
+    }
+    ```
+
+- [ ] **Task 6.2.4** : Ajouter ThemeToggle dans Header (F28)
+
+  - File: `src/components/layout/Header.jsx`
+  - Action: Importer et placer ThemeToggle à côté du bouton "+ Employé"
+  - Notes: Voir wireframe - position: `[🌙] [+ Employé]`
+
+- [ ] **Task 6.2.5** : Mettre à jour le barrel UI
+
+  - File: `src/components/ui/index.js`
+  - Action: Ajouter `export { ThemeToggle } from './ThemeToggle';`
 
 ---
 
@@ -772,6 +1053,7 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 - [ ] **AC 0.1** : Given `vite.config.js` modifié, when je lance `npm run dev`, then pas d'erreur de build
 - [ ] **AC 0.2** : Given le projet, when j'écris `import { generateId } from '@/utils'` dans App.jsx, then l'import résout correctement
 - [ ] **AC 0.3** : Given `generateId()`, when je l'appelle, then je reçois un string unique (ex: `lxyz123abc`)
+- [ ] **AC 0.4** : Given les variables CSS ajoutées, when j'ajoute `class="dark"` sur `<html>`, then les couleurs de l'app changent
 
 #### Phase 1 : Layout
 
@@ -801,6 +1083,8 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 
 - [ ] **AC 6.1** : Given des employés ajoutés, when je refresh la page, then les employés sont toujours là (localStorage)
 - [ ] **AC 6.2** : Given le localStorage, when j'ouvre DevTools > Application > Local Storage, then je vois les données JSON
+- [ ] **AC 6.3** : Given le bouton ThemeToggle, when je clique dessus, then l'app passe de light à dark mode
+- [ ] **AC 6.4** : Given le thème changé, when je refresh la page, then le thème est conservé (localStorage)
 
 #### Phase 7 : Lifting State
 
