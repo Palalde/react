@@ -1,4 +1,5 @@
 import { Header, Container } from "@/components/layout";
+import { Button } from "@/components/ui";
 
 function App() {
   return (
@@ -9,6 +10,13 @@ function App() {
           <h2 className="text-xl text-text-primary">
             Bienvenue dans ChefPlanning ! 🚀
           </h2>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => alert("Button clicked!")}
+          >
+            Click Me
+          </Button>
         </main>
       </Container>
     </div>
