@@ -1,2 +1,1 @@
-// Barrel export for layout components
-// Export components as they are created
+export { default as Header } from "./Header";
