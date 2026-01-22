@@ -1,6 +1,5 @@
 import { Header, Container } from "@/components/layout";
-import { EmployeeCard } from "@/features/employees/components";
-import { MOCK_EMPLOYEES } from "@/data";
+import { EmployeeList } from "@/features/employees/components";
 
 function App() {
   return (
@@ -8,12 +7,7 @@ function App() {
       <Header />
       <Container>
         <main className="py-8">
-          <h2 className="text-xl text-text-primary mb-6">Employés</h2>
-          <EmployeeCard
-            employee={MOCK_EMPLOYEES[0]}
-            onEdit={() => {}}
-            onDelete={() => {}}
-          />
+          <EmployeeList />
         </main>
       </Container>
     </div>
