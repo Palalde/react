@@ -1,2 +1,2 @@
 // Barrel export for data/mock data
-// Export data as it is created
+export { MOCK_EMPLOYEES } from "./mockData";
