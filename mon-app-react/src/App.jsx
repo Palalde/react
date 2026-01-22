@@ -1,5 +1,5 @@
 import { Header, Container } from "@/components/layout";
-import { Button, Card } from "@/components/ui";
+import { Button, Card, Badge } from "@/components/ui";
 
 function App() {
   return (
@@ -12,9 +12,11 @@ function App() {
           </h2>
           <Card title="Exemple de carte">
             <p>Exemple 1</p>
+            <Badge label="Nouveau" color="blue" icon="🆕" />
           </Card>
           <Card title="Deuxième carte">
             <p>Exemple 2</p>
+            <Badge label="Important" color="red" icon="❗" />
           </Card>
           <Button
             variant="primary"
