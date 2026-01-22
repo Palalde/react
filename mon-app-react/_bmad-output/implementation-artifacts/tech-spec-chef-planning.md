@@ -94,7 +94,7 @@ Une application React frontend-only permettant de visualiser une grille de plann
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│  🗓️ ChefPlanning                           [🌙] [+ Employé]         │  <- Header + ThemeToggle
+│  🗓️ ChefPlanning                           [🌙] [+ Employé]        │  <- Header + ThemeToggle
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
 │  ┌──────────┐  ┌─────────────────────────────────────────────────┐  │
@@ -105,10 +105,10 @@ Une application React frontend-only permettant de visualiser une grille de plann
 │  │ │ 35h  │ │  │ │Jean│ │    │ │Jean│ │    │ │Jean│ │    │ │    ││  │
 │  │ └──────┘ │  │ │Mat.│ │    │ │Mat.│ │    │ │Apr.│ │    │ │    ││  │
 │  │ ┌──────┐ │  │ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘│  │
-│  │ │Marie │ │  │ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐      │  │
-│  │ │ 20h  │ │  │ │    │ │Marie│ │    │ │Marie│ │    │ │Marie│     │  │
-│  │ └──────┘ │  │ │    │ │Apr.│ │    │ │Mat.│ │    │ │Jour.│     │  │
-│  │          │  │ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘      │  │
+│  │ │Marie │ │  │ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐       │  │
+│  │ │ 20h  │ │  │ │    │ │Mari│ │    │ │Mari│ │    │ │Mari│       │  │
+│  │ └──────┘ │  │ │    │ │Apr.│ │    │ │Mat.│ │    │ │Jour│       │  │
+│  │          │  │ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘       │  │
 │  └──────────┘  └─────────────────────────────────────────────────┘  │
 │   ~200px                        ~flex-1                             │
 └─────────────────────────────────────────────────────────────────────┘
@@ -478,18 +478,15 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept** : Les imports absolus évitent les `../../../` et rendent le code plus lisible.
 
 - [ ] **Task 0.1.1** : Modifier `vite.config.js`
-
   - File: `vite.config.js`
   - Action: Ajouter la configuration `resolve.alias` pour mapper `@` vers `./src`
   - Notes: Utiliser `path.resolve` de Node.js
 
 - [ ] **Task 0.1.2** : Créer la structure de dossiers
-
   - Files: `src/components/ui/`, `src/components/layout/`, `src/features/`, `src/hooks/`, `src/utils/`, `src/constants/`
   - Action: Créer les dossiers vides avec fichiers `index.js` placeholder
 
 - [ ] **Task 0.1.3** : Créer le helper `generateId`
-
   - File: `src/utils/generateId.js`
   - Action: Fonction qui génère un ID unique
   - Code: `export const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);`
@@ -508,14 +505,12 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 > **Note pédagogique F23/F24** : En Phase 0, on prépare juste le CSS. Les hooks React (`useTheme`) viendront en Phase 6 après avoir appris useEffect.
 
 - [ ] **Task 0.2.1** : Configurer les variables CSS dans index.css
-
   - File: `src/index.css`
   - Action: Ajouter les variables CSS pour light mode (`:root`) et dark mode (`.dark`)
   - Notes: Suivre la palette définie dans "Design System : Light/Dark Mode"
   - Code: Copier le bloc CSS de la section "Implémentation Technique (Tailwind 4)"
 
 - [ ] **Task 0.2.2** : Tester le dark mode manuellement
-
   - File: `index.html`
   - Action: Ajouter temporairement `class="dark"` sur `<html>` pour vérifier les couleurs
   - Notes: On automatisera avec React en Phase 6
@@ -533,19 +528,16 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : JSX = JavaScript + HTML. Un composant = une fonction qui retourne du JSX.
 
 - [ ] **Task 1.1.1** : Créer le composant `Header`
-
   - File: `src/components/layout/Header.jsx`
   - Action: Composant affichant le titre "ChefPlanning" avec TailwindCSS
   - Notes: Structure `<header>` avec flex, bg-color, padding
 
 - [ ] **Task 1.1.2** : Créer le composant `Container`
-
   - File: `src/components/layout/Container.jsx`
   - Action: Wrapper avec max-width et padding responsive
   - Notes: Utiliser `children` pour wrapper le contenu
 
 - [ ] **Task 1.1.3** : Créer le barrel export layout
-
   - File: `src/components/layout/index.js`
   - Action: Exporter Header et Container
 
@@ -565,19 +557,16 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : Props = paramètres d'un composant. Parent → Enfant. Read-only.
 
 - [ ] **Task 2.1.1** : Créer le composant `Button`
-
   - File: `src/components/ui/Button.jsx`
   - Action: Bouton avec props `variant`, `size`, `onClick`, `children`
   - Notes: Utiliser destructuring + defaults : `{ variant = 'primary', size = 'md', ... }`
 
 - [ ] **Task 2.1.2** : Créer le composant `Card`
-
   - File: `src/components/ui/Card.jsx`
   - Action: Card avec props `title`, `children`, `className`
   - Notes: Composition pattern avec `Card.Header`, `Card.Body` (bonus)
 
 - [ ] **Task 2.1.3** : Créer le composant `Badge`
-
   - File: `src/components/ui/Badge.jsx`
   - Action: Badge pour skills avec props `label`, `color`, `icon`
   - Notes: Sera utilisé pour afficher les compétences
@@ -591,14 +580,12 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **🎯 Objectif** : Utiliser les props pour afficher les données d'un employé.
 
 - [ ] **Task 2.2.1** : Créer le composant `EmployeeCard`
-
   - File: `src/features/employees/components/EmployeeCard.jsx`
   - Action: Afficher nom, couleur, contrat (heures), skills en badges
   - Props: `{ employee, onEdit, onDelete }`
   - Notes: Utiliser les composants UI créés (Card, Badge)
 
 - [ ] **Task 2.2.2** : Créer les données mock
-
   - File: `src/data/mockData.js`
   - Action: 3 employés exemple avec skills et contrats différents
   - Notes: Suivre exactement le **Data Model MVP** (id, name, color, weeklyHours, skills)
@@ -619,13 +606,11 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : `useState` = stocker des données qui peuvent changer. Quand le state change → React re-render.
 
 - [ ] **Task 3.1.1** : Créer le composant `EmployeeList`
-
   - File: `src/features/employees/components/EmployeeList.jsx`
   - Action: useState pour stocker la liste, map pour afficher EmployeeCard
   - Notes: Initialiser avec mockData
 
 - [ ] **Task 3.1.2** : Créer le barrel export employees
-
   - File: `src/features/employees/index.js`
   - Action: Exporter EmployeeCard, EmployeeList
 
@@ -644,25 +629,21 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : `key` = identifiant unique pour chaque élément. React l'utilise pour optimiser les re-renders.
 
 - [ ] **Task 4.1.1** : Créer les constantes jours
-
   - File: `src/constants/days.js`
   - Action: `DAYS_OF_WEEK` array avec id, name, shortName
   - Notes: `[{ id: 'monday', name: 'Lundi', shortName: 'Lun' }, ...]`
 
 - [ ] **Task 4.1.2** : Créer le composant `DayColumn`
-
   - File: `src/features/planning/components/DayColumn.jsx`
   - Action: Colonne pour un jour avec header + zone assignments
   - Props: `{ day, assignments, employees }`
 
 - [ ] **Task 4.1.3** : Créer le composant `PlanningGrid`
-
   - File: `src/features/planning/components/PlanningGrid.jsx`
   - Action: Grid 7 colonnes, map sur DAYS_OF_WEEK
   - Notes: Utiliser CSS Grid ou Flexbox avec Tailwind
 
 - [ ] **Task 4.1.4** : Créer le barrel export planning
-
   - File: `src/features/planning/index.js`
   - Action: Exporter DayColumn, PlanningGrid
 
@@ -681,31 +662,26 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : `onClick`, `onChange`, `onSubmit` = gestionnaires d'événements. Toujours modifier le state, jamais muter directement.
 
 - [ ] **Task 5.1.1** : Créer le composant `Input`
-
   - File: `src/components/ui/Input.jsx`
   - Action: Input contrôlé avec props `value`, `onChange`, `label`, `type`
   - Notes: Pattern controlled component
 
 - [ ] **Task 5.1.2** : Créer le composant `Modal`
-
   - File: `src/components/ui/Modal.jsx`
   - Action: Modal overlay avec props `isOpen`, `onClose`, `title`, `children`
   - Notes: Utiliser createPortal (bonus) ou position fixed
 
 - [ ] **Task 5.1.3** : Créer le composant `EmployeeForm`
-
   - File: `src/features/employees/components/EmployeeForm.jsx`
   - Action: Formulaire création/édition employé
   - Notes: useState pour chaque champ, onSubmit pour sauvegarder
 
 - [ ] **Task 5.1.4** : Implémenter Add Employee
-
   - File: `src/features/employees/components/EmployeeList.jsx`
   - Action: Bouton "+", ouvrir modal, ajouter au state
   - Notes: Générer ID unique avec `generateId()`
 
 - [ ] **Task 5.1.5** : Implémenter Edit/Delete Employee
-
   - File: `src/features/employees/components/EmployeeList.jsx`
   - Action: Callbacks onEdit/onDelete dans EmployeeCard
   - Notes: filter() pour delete, map() pour update
@@ -719,7 +695,6 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 ### Story 5.2 : Créer les Presets Horaires (F18)
 
 - [ ] **Task 5.2.1** : Créer les constantes shifts MVP
-
   - File: `src/constants/shifts.js`
   - Action: Définir les 3 shifts de base
   - Notes: Utiliser les variables CSS du Design System pour les couleurs
@@ -762,19 +737,16 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 ### Story 5.3 : CRUD Shifts Avancé (V2)
 
 - [ ] **Task 5.3.1** : Créer le preset employee-rayon complet
-
   - File: `src/constants/presets/employee-rayon.js`
   - Action: Exporter EMPLOYEE_RAYON_PRESET avec skills, shifts, tasks
   - Notes: Suivre le **Data Model V2** (pour Phase 9)
 
 - [ ] **Task 5.3.2** : Créer le composant `ShiftCard`
-
   - File: `src/features/shifts/components/ShiftCard.jsx`
   - Action: Afficher nom, horaires, couleur du shift
   - Props: `{ shift, onEdit, onDelete }`
 
 - [ ] **Task 5.3.3** : Créer le composant `ShiftList`
-
   - File: `src/features/shifts/components/ShiftList.jsx`
   - Action: Liste des presets horaires avec CRUD
 
@@ -792,18 +764,15 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : `useEffect` = exécuter du code après le render. Parfait pour sync avec localStorage, API, etc.
 
 - [ ] **Task 6.1.1** : Créer le hook `useLocalStorage`
-
   - File: `src/hooks/useLocalStorage.js`
   - Action: Hook custom qui sync useState avec localStorage
   - Notes: `const [value, setValue] = useLocalStorage('key', defaultValue)`
 
 - [ ] **Task 6.1.2** : Créer le barrel hooks
-
   - File: `src/hooks/index.js`
   - Action: Exporter useLocalStorage
 
 - [ ] **Task 6.1.3** : Utiliser useLocalStorage pour employees
-
   - File: `src/features/employees/components/EmployeeList.jsx`
   - Action: Remplacer useState par useLocalStorage
   - Notes: Les données persistent au refresh !
@@ -821,7 +790,6 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 > **Note** : Maintenant qu'on connaît useLocalStorage, on peut créer un vrai système de thème !
 
 - [ ] **Task 6.2.1** : Créer le hook `useTheme`
-
   - File: `src/hooks/useTheme.js`
   - Action: Hook qui gère le thème ('light' | 'dark' | 'system')
   - Code:
@@ -833,13 +801,13 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
     export function useTheme() {
       const [theme, setTheme] = useLocalStorage(
         "chef-planning-theme",
-        "system"
+        "system",
       );
 
       useEffect(() => {
         const root = document.documentElement;
         const systemDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
+          "(prefers-color-scheme: dark)",
         ).matches;
         const isDark = theme === "dark" || (theme === "system" && systemDark);
 
@@ -859,12 +827,10 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
     ```
 
 - [ ] **Task 6.2.2** : Mettre à jour le barrel hooks
-
   - File: `src/hooks/index.js`
   - Action: Ajouter `export { useTheme } from './useTheme';`
 
 - [ ] **Task 6.2.3** : Créer le composant `ThemeToggle`
-
   - File: `src/components/ui/ThemeToggle.jsx`
   - Action: Bouton toggle avec icône soleil/lune
   - Code:
@@ -888,13 +854,11 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
     ```
 
 - [ ] **Task 6.2.4** : Ajouter ThemeToggle dans Header (F28)
-
   - File: `src/components/layout/Header.jsx`
   - Action: Importer et placer ThemeToggle à côté du bouton "+ Employé"
   - Notes: Voir wireframe - position: `[🌙] [+ Employé]`
 
 - [ ] **Task 6.2.5** : Mettre à jour le barrel UI
-
   - File: `src/components/ui/index.js`
   - Action: Ajouter `export { ThemeToggle } from './ThemeToggle';`
 
@@ -909,25 +873,21 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : Lifting State = remonter le state au plus petit ancêtre commun. Props down, events up.
 
 - [ ] **Task 7.1.1** : Créer le composant `AssignmentCard`
-
   - File: `src/features/assignments/components/AssignmentCard.jsx`
   - Action: Afficher employé + shift + task (optionnel)
   - Props: `{ assignment, employee, shift, task, onEdit, onDelete }`
 
 - [ ] **Task 7.1.2** : Créer le composant `AssignmentForm`
-
   - File: `src/features/assignments/components/AssignmentForm.jsx`
   - Action: Sélecteurs pour employé, shift, task (optionnel), jour
   - Notes: Override horaires possible
 
 - [ ] **Task 7.1.3** : Remonter le state dans App
-
   - File: `src/App.jsx`
   - Action: Centraliser employees, shifts, tasks, assignments
   - Notes: Passer en props aux composants enfants
 
 - [ ] **Task 7.1.4** : Connecter PlanningGrid aux assignments
-
   - File: `src/features/planning/components/PlanningGrid.jsx`
   - Action: Filtrer assignments par jour, afficher dans DayColumn
 
@@ -947,28 +907,23 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **📚 Concept React** : Custom Hook = fonction commençant par `use` qui utilise d'autres hooks. Sépare logique et UI.
 
 - [ ] **Task 8.1.1** : Créer `useEmployees` hook
-
   - File: `src/features/employees/hooks/useEmployees.js`
   - Action: Encapsuler CRUD + useLocalStorage + helpers (getBySkill, etc.)
   - Notes: Retourne `{ employees, addEmployee, updateEmployee, deleteEmployee, getEmployeesBySkill }`
 
 - [ ] **Task 8.1.2** : Créer `useShifts` hook
-
   - File: `src/features/shifts/hooks/useShifts.js`
   - Action: CRUD shifts + merge avec presets
 
 - [ ] **Task 8.1.3** : Créer `useTasks` hook
-
   - File: `src/features/tasks/hooks/useTasks.js`
   - Action: CRUD tasks + filtrage par activeWhen
 
 - [ ] **Task 8.1.4** : Créer `useAssignments` hook
-
   - File: `src/features/assignments/hooks/useAssignments.js`
   - Action: CRUD + calcul heures + validation règles métier
 
 - [ ] **Task 8.1.5** : Créer `useStoreConfig` hook
-
   - File: `src/features/settings/hooks/useStoreConfig.js`
   - Action: Horaires magasin + jours fériés
 
@@ -986,13 +941,11 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 **🎯 Objectif** : Maîtriser la composition de composants et la gestion de données complexes.
 
 - [ ] **Task 9.1.1** : Créer `SkillSelector` composant
-
   - File: `src/features/skills/components/SkillSelector.jsx`
   - Action: Multi-select skills avec niveaux (1-5)
   - Notes: Presets + custom skills
 
 - [ ] **Task 9.1.2** : Créer `useSkills` hook
-
   - File: `src/features/skills/hooks/useSkills.js`
   - Action: Merge preset skills + custom skills
 
@@ -1003,13 +956,11 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 ### Story 9.2 : Validation & Alertes
 
 - [ ] **Task 9.2.1** : Créer `useValidation` hook
-
   - File: `src/hooks/useValidation.js`
   - Action: Valider règles métier (heures contrat, repos 11h, skills requis...)
   - Notes: Retourne `{ errors, warnings }`
 
 - [ ] **Task 9.2.2** : Créer composant `AlertBanner`
-
   - File: `src/components/ui/AlertBanner.jsx`
   - Action: Afficher warnings/errors
 
@@ -1020,12 +971,10 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 ### Story 9.3 : Navigation Semaine
 
 - [ ] **Task 9.3.1** : Créer `useWeekNavigation` hook
-
   - File: `src/features/planning/hooks/useWeekNavigation.js`
   - Action: Gérer semaine courante, prev/next
 
 - [ ] **Task 9.3.2** : Créer `WeekNavigator` composant
-
   - File: `src/features/planning/components/WeekNavigator.jsx`
   - Action: Boutons prev/next + affichage semaine
 
@@ -1036,7 +985,6 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 ### Story 9.4 : Settings & Configuration
 
 - [ ] **Task 9.4.1** : Créer page Settings
-
   - File: `src/features/settings/components/SettingsPage.jsx`
   - Action: Config magasin (horaires, jours fériés)
 
