@@ -24,10 +24,12 @@ function Button({
   return (
     <button
       onClick={onClick}
-      className={`rounded-lg font-medium transition-colors
-            ${variants[variant]} 
-            ${sizes[size]} 
-            ${className}`}
+      className={`
+        rounded-lg font-medium transition-colors
+        ${variants[variant]} 
+        ${sizes[size]} 
+        ${className}
+      `}
     >
       {children}
     </button>

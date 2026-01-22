@@ -1,5 +1,5 @@
 import { Header, Container } from "@/components/layout";
-import { Button } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 
 function App() {
   return (
@@ -10,6 +10,12 @@ function App() {
           <h2 className="text-xl text-text-primary">
             Bienvenue dans ChefPlanning ! 🚀
           </h2>
+          <Card title="Exemple de carte">
+            <p>Exemple 1</p>
+          </Card>
+          <Card title="Deuxième carte">
+            <p>Exemple 2</p>
+          </Card>
           <Button
             variant="primary"
             size="sm"
