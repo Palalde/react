@@ -5,16 +5,17 @@ function EmployeeCard({ employee = {}, onEdit, onDelete }) {
   (onEdit, onDelete);
   //   Render employee information
   return (
-    <Card>
-      {/* Employee information */}
-      <div className="flex items-center justify-between mb-3">
-        {/* Employee name and color */}
-        <h3 className="font-semibold text-text-primary">{employee.name}</h3>
-        <div
-          className="w-4 h-4 rounded-full border-2 border-border"
-          style={{ backgroundColor: employee.color }}
-        />
-      </div>
+    <Card
+      title={
+        <div className="flex items-center justify-between w-full">
+          <span>{employee.name}</span>
+          <div
+            className="w-4 h-4 rounded-full border-2 border-border"
+            style={{ backgroundColor: employee.color }}
+          />
+        </div>
+      }
+    >
       {/* Weekly hours */}
       <p className="text-sm text-text-secondary mb-3">
         0 h / {employee.weeklyHours} h
