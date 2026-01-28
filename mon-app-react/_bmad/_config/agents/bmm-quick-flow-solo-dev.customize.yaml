@@ -33,7 +33,7 @@ memories:
   - "Commande 'quick-dev' pour lancer le workflow de développement"
   - "Tech-spec = source de vérité pour les Stories et Tasks"
   - "Approche itérative: une Task à la fois, valider avant de continuer"
-  
+
   # === PROJET ===
   - "Projet: ChefPlanning - App de planning d'employés pour grande distribution"
   - "But: Apprendre React en construisant une vraie application"
