@@ -320,90 +320,28 @@ scroll-smooth
 
 #### Implémentation Technique (Tailwind 4)
 
+> **Référence** : Les variables CSS complètes sont implémentées dans `src/index.css`.
+> Utilise les tableaux ci-dessus pour les valeurs exactes Light/Dark.
+
 ```css
-/* src/index.css - Tailwind 4 utilise @theme pour les custom colors */
+/* src/index.css - Structure */
 @import "tailwindcss";
 
-/* Variables CSS pour Light/Dark */
 :root {
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-bg-tertiary: #f1f5f9;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted: #94a3b8;
-  --color-accent: #6366f1;
-  --color-accent-hover: #4f46e5;
-  --color-accent-soft: #eef2ff;
-  --color-border: #e2e8f0;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-  /* Shifts */
-  --color-shift-matin: #fef3c7;
-  --color-shift-matin-border: #fcd34d;
-  --color-shift-aprem: #dbeafe;
-  --color-shift-aprem-border: #60a5fa;
-  --color-shift-journee: #d1fae5;
-  --color-shift-journee-border: #34d399;
+  /* Variables Light - voir tableaux */
 }
-
 .dark {
-  --color-bg-primary: #0f172a;
-  --color-bg-secondary: #1e293b;
-  --color-bg-tertiary: #334155;
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-accent: #818cf8;
-  --color-accent-hover: #6366f1;
-  --color-accent-soft: #312e81;
-  --color-border: #334155;
-  --color-success: #34d399;
-  --color-warning: #fbbf24;
-  --color-danger: #f87171;
-  /* Shifts Dark */
-  --color-shift-matin: #78350f;
-  --color-shift-matin-border: #f59e0b;
-  --color-shift-aprem: #1e3a8a;
-  --color-shift-aprem-border: #3b82f6;
-  --color-shift-journee: #064e3b;
-  --color-shift-journee-border: #10b981;
+  /* Variables Dark - voir tableaux */
 }
 
-/* Tailwind 4: @theme mappe les variables vers des classes utilitaires */
 @theme {
+  /* Mappe les CSS vars vers Tailwind classes */
   --color-bg-primary: var(--color-bg-primary);
-  --color-bg-secondary: var(--color-bg-secondary);
-  --color-bg-tertiary: var(--color-bg-tertiary);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-border: var(--color-border);
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-danger: var(--color-danger);
-  --color-shift-matin: var(--color-shift-matin);
-  --color-shift-matin-border: var(--color-shift-matin-border);
-  --color-shift-aprem: var(--color-shift-aprem);
-  --color-shift-journee: var(--color-shift-journee);
+  /* ... autres tokens */
 }
 ```
 
-```javascript
-// src/hooks/useTheme.js
-export function useTheme() {
-  const [theme, setTheme] = useLocalStorage("chef-planning-theme", "system");
-
-  // 'light' | 'dark' | 'system'
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
-
-  return { theme, setTheme, toggleTheme };
-}
-```
+> **Hook useTheme** : Implémenté en Story 6.2 après avoir appris useEffect.
 
 #### Utilisation dans les Composants
 
@@ -427,29 +365,8 @@ export function useTheme() {
 
 #### Toggle Theme Component
 
-> **Implémenté en Story 6.2** après avoir appris useEffect et useLocalStorage.
-
-```jsx
-// src/components/ui/ThemeToggle.jsx
-import { useTheme } from "@/hooks";
-
-export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  return (
-    <button
-      onClick={toggleTheme}
-      className="p-2 rounded-lg hover:bg-bg-tertiary transition-colors"
-      aria-label="Toggle theme"
-    >
-      {theme === "dark" ? "☀️" : "🌙"}
-    </button>
-  );
-}
-```
-
-> **Note** : Le ThemeToggle sera ajouté dans le Header à côté du bouton "+ Employé" (Task 6.2.4).
-> Le hook `useTheme` utilise `useLocalStorage` pour persister la préférence utilisateur.
-> La classe `dark` est ajoutée sur `<html>` via useEffect pour activer le dark mode globalement.
+> **Implémenté en Story 6.2** — Voir le code complet dans la section Implementation Plan > Phase 6.
+> Le ThemeToggle sera ajouté dans le Header à côté du bouton "+ Employé" (Task 6.2.4).
 
 ### Modern Project Structure
 
@@ -508,24 +425,14 @@ src/
 
 ### Files to Reference
 
-| File                      | Purpose                                          |
-| ------------------------- | ------------------------------------------------ |
-| src/App.jsx               | Composant racine, orchestration                  |
-| src/main.jsx              | Point d'entrée React                             |
-| src/index.css             | Styles globaux + Tailwind                        |
-| vite.config.js            | Config Vite (absolute imports `@/`)              |
-| src/components/ui/        | Primitives UI (Button, Card, Input, Modal)       |
-| src/components/layout/    | Layout (Header, Sidebar, Container)              |
-| src/features/employees/   | Employés + contrats + compétences                |
-| src/features/skills/      | Compétences dynamiques                           |
-| src/features/shifts/      | Presets d'horaires (Matin, Coupé...)             |
-| src/features/tasks/       | Presets de tâches avec priorités                 |
-| src/features/assignments/ | Assignations (employé + jour + horaire + tâche?) |
-| src/features/planning/    | Grille planning + navigation semaine             |
-| src/features/settings/    | Config magasin + jours fériés                    |
-| src/hooks/                | Hooks globaux (useLocalStorage)                  |
-| src/utils/                | Helpers (generateId, dateUtils, hoursCalc)       |
-| src/constants/presets/    | Presets métiers (employee-rayon.js)              |
+> Voir **Modern Project Structure** ci-dessus pour l'arborescence complète.
+
+| Fichiers clés     | Purpose                                          |
+| ----------------- | ------------------------------------------------ |
+| `src/App.jsx`     | Composant racine, orchestration                  |
+| `src/index.css`   | Design System (variables CSS + Tailwind)         |
+| `vite.config.js`  | Config Vite (alias `@/`)                         |
+| `src/features/*/` | Domaines métier (employees, planning, shifts...) |
 
 ### Technical Decisions
 
@@ -844,37 +751,9 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
 
 - [ ] **Task 5.2.1** : Créer les constantes shifts MVP
   - File: `src/constants/shifts.js`
-  - Action: Définir les 3 shifts de base
-  - Notes: Utiliser les variables CSS du Design System pour les couleurs
-  - Code:
-    ```javascript
-    export const DEFAULT_SHIFTS = [
-      {
-        id: "matin",
-        name: "Matin",
-        startTime: "06:00",
-        endTime: "13:00",
-        colorClass: "bg-shift-matin border-shift-matin-border", // Tailwind classes
-        hours: 7,
-      },
-      {
-        id: "aprem",
-        name: "Après-midi",
-        startTime: "13:00",
-        endTime: "20:00",
-        colorClass: "bg-shift-aprem border-shift-aprem-border",
-        hours: 7,
-      },
-      {
-        id: "journee",
-        name: "Journée",
-        startTime: "09:00",
-        endTime: "17:00",
-        colorClass: "bg-shift-journee border-shift-journee-border",
-        hours: 8,
-      },
-    ];
-    ```
+  - Action: Définir les 3 shifts de base (Matin, Après-midi, Journée)
+  - Notes: Utiliser les `colorClass` du Design System (`bg-shift-matin`, etc.)
+  - Référence: Voir **Data Model MVP > Shift** pour le schema
 
 - [ ] **Task 5.2.2** : Créer le composant `ShiftSelector`
   - File: `src/features/shifts/components/ShiftSelector.jsx`
