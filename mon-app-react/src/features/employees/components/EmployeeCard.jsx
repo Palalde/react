@@ -6,12 +6,14 @@ function EmployeeCard({ employee = {}, onEdit, onDelete }) {
   //   Render employee information
   return (
     <Card
+      interactive
       title={
         <div className="flex items-center justify-between w-full">
-          <span>{employee.name}</span>
+          <span className="truncate">{employee.name}</span>
           <div
-            className="w-4 h-4 rounded-full border-2 border-border"
+            className="w-4 h-4 rounded-full border-2 border-border flex-shrink-0 ml-2"
             style={{ backgroundColor: employee.color }}
+            aria-label={`Couleur: ${employee.color}`}
           />
         </div>
       }

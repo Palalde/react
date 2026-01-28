@@ -1,4 +1,4 @@
-function Card({ title, children, className = "" }) {
+function Card({ title, children, className = "", interactive = false }) {
   return (
     // Card container
     <div
@@ -6,7 +6,9 @@ function Card({ title, children, className = "" }) {
       bg-bg-primary 
       border border-border 
       rounded-lg 
-      shadow-sm 
+      shadow-sm
+      transition-all duration-200
+      ${interactive ? "hover:shadow-md hover:border-accent/50 cursor-pointer" : ""}
       ${className}
     `}
     >

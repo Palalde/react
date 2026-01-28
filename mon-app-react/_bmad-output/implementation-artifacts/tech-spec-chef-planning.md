@@ -186,7 +186,101 @@ Légende:
 5. **Scroll horizontal** avec `snap-x` sur mobile pour UX native
 6. **Tester sur 3 largeurs** : 375px (iPhone), 768px (iPad), 1280px (Desktop)
 
-### 🎨 Design System : Light/Dark Mode
+### � UI/UX Guidelines
+
+**Directives d'expérience utilisateur pour tous les composants ChefPlanning.**
+
+#### Accessibilité (WCAG 2.1 AA)
+
+| Règle             | Implementation                                                            | Priorité     |
+| ----------------- | ------------------------------------------------------------------------- | ------------ |
+| **Touch targets** | Minimum 44×44px sur tous les éléments cliquables                          | 🔴 Critique  |
+| **Focus visible** | `focus-visible:ring-2 focus-visible:ring-accent` sur tous les interactifs | 🔴 Critique  |
+| **Aria labels**   | Sur éléments visuels sans texte (couleurs, icônes)                        | 🟡 Important |
+| **Contraste**     | Utiliser les tokens `text-primary`, `text-secondary`, `text-muted`        | 🟡 Important |
+
+```jsx
+// ✅ Bouton accessible
+<button className="min-h-[44px] focus-visible:ring-2 focus-visible:ring-accent">
+
+// ✅ Élément visuel avec aria-label
+<div style={{ backgroundColor: color }} aria-label={`Couleur: ${color}`} />
+
+// ❌ Touch target trop petit
+<button className="p-1">  // < 44px
+```
+
+#### Feedback & Affordance
+
+| Pattern          | Classes Tailwind                                  | Usage                   |
+| ---------------- | ------------------------------------------------- | ----------------------- |
+| **Hover card**   | `hover:shadow-md hover:border-accent/50`          | Indiquer interactivité  |
+| **Hover zone**   | `hover:bg-bg-secondary/50`                        | Zones cliquables larges |
+| **Active press** | `active:scale-[0.98]`                             | Feedback tactile        |
+| **Transitions**  | `transition-all duration-200`                     | Fluidité                |
+| **Cursor**       | `cursor-pointer`                                  | Éléments cliquables     |
+| **Disabled**     | `disabled:opacity-50 disabled:cursor-not-allowed` | États désactivés        |
+
+```jsx
+// ✅ Card interactive avec feedback complet
+<Card
+  interactive  // Active hover:shadow-md hover:border-accent/50
+  className="cursor-pointer"
+>
+
+// ✅ Zone cliquable avec hover
+<div className="hover:bg-bg-secondary/50 transition-colors cursor-pointer">
+```
+
+#### Empty States
+
+**Tous les composants pouvant être vides DOIVENT avoir un empty state engageant.**
+
+```jsx
+// ✅ Empty state moderne
+<div className="flex flex-col items-center justify-center py-8 text-center">
+  <span className="text-4xl mb-2 opacity-30">📭</span>
+  <p className="text-text-muted">Aucun élément</p>
+  <p className="text-text-muted/60 text-sm mt-1">Cliquez pour ajouter</p>
+</div>
+
+// ❌ Empty state minimal (à éviter)
+<p className="text-gray-500">Vide</p>
+```
+
+| Composant    | Emoji | Message principal    | Message secondaire                   |
+| ------------ | ----- | -------------------- | ------------------------------------ |
+| EmployeeList | 👤    | "Aucun employé"      | "Ajoutez votre premier employé"      |
+| DayColumn    | 📭    | "Aucune assignation" | "Cliquez pour ajouter"               |
+| PlanningGrid | 📅    | "Planning vide"      | "Commencez par ajouter des employés" |
+
+#### Micro-interactions
+
+```jsx
+// ✅ Transitions globales recommandées
+transition-all duration-200    // Standard
+transition-colors duration-200 // Couleurs uniquement
+
+// ✅ Scale pour feedback tactile
+active:scale-[0.98]
+
+// ✅ Smooth scroll
+scroll-smooth
+
+// ❌ Pas d'animation = UX froide
+```
+
+#### Composants UI - Props requises
+
+| Composant  | Props de base                   | Props optionnelles                      |
+| ---------- | ------------------------------- | --------------------------------------- |
+| **Button** | `children`, `onClick`           | `variant`, `size`, `disabled`, `type`   |
+| **Card**   | `children`                      | `title`, `interactive`, `className`     |
+| **Badge**  | `label`                         | `color`, `icon`, `size`                 |
+| **Input**  | `value`, `onChange`             | `label`, `type`, `placeholder`, `error` |
+| **Modal**  | `isOpen`, `onClose`, `children` | `title`, `size`                         |
+
+### �🎨 Design System : Light/Dark Mode
 
 **ChefPlanning** utilise un système de couleurs moderne et identitaire avec support complet Light/Dark mode.
 
