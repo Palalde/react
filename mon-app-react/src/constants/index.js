@@ -1,2 +1,1 @@
-// Barrel export for constants
-// Export constants as they are created
+export { DAYS_OF_WEEK } from "./days";
