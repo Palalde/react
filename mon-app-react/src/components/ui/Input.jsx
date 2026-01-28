@@ -15,6 +15,7 @@ export default function Input({
     <div className="flex flex-col gap-1">
       {/*affichage du label seulement s'il existe */}
       {label && <label htmlFor={inputId}>{label}</label>}
+
       {/* Champ input */}
       <input
         id={inputId}
@@ -27,6 +28,7 @@ export default function Input({
           error ? "border-danger" : ""
         }`}
       />
+
       {/* Affichage du message d'erreur seulement s'il existe */}
       {error && <span className="text-sm text-danger">{error}</span>}
     </div>
