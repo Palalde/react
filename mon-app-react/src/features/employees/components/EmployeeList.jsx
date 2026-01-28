@@ -30,7 +30,12 @@ function EmployeeList() {
             </p>
           </div>
         ) : (
-          <div className="flex gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-x-visible lg:pb-0 lg:space-y-3 lg:gap-0 scroll-smooth">
+          <div
+            className={`
+              flex gap-3 overflow-x-auto pb-2 scroll-smooth
+              lg:flex-col lg:overflow-x-visible lg:pb-0 lg:space-y-3 lg:gap-0
+            `}
+          >
             {employees.map((employee) => (
               <div
                 key={employee.id}

@@ -1,18 +1,17 @@
 function Badge({ label, color = "default", icon, size = "sm" }) {
-  // Couleurs utilisant le Design System
+  // Couleurs 100% Design System (pas de couleurs Tailwind hardcodées)
   const colors = {
     default: "bg-bg-tertiary text-text-secondary border-border",
-    accent: "bg-accent-soft text-accent border-accent/30",
-    success: "bg-green-100 text-success border-success/30",
-    warning: "bg-yellow-100 text-warning border-warning/30",
-    danger: "bg-red-100 text-danger border-danger/30",
-    // Legacy support
+    accent: "bg-accent/10 text-accent border-accent/30",
+    success: "bg-success/10 text-success border-success/30",
+    warning: "bg-warning/10 text-warning border-warning/30",
+    danger: "bg-danger/10 text-danger border-danger/30",
+    // Legacy aliases (pour compatibilité)
     gray: "bg-bg-tertiary text-text-secondary border-border",
-    blue: "bg-accent-soft text-accent border-accent/30",
-    green: "bg-green-100 text-success border-success/30",
-    yellow: "bg-yellow-100 text-warning border-warning/30",
-    red: "bg-red-100 text-danger border-danger/30",
-    purple: "bg-purple-100 text-purple-700 border-purple-300",
+    blue: "bg-accent/10 text-accent border-accent/30",
+    green: "bg-success/10 text-success border-success/30",
+    yellow: "bg-warning/10 text-warning border-warning/30",
+    red: "bg-danger/10 text-danger border-danger/30",
   };
 
   const sizes = {
