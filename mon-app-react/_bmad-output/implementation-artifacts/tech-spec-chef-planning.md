@@ -132,6 +132,60 @@ Légende:
 - **Imports** : Absolute imports via alias `@/`
 - **Exports** : Barrel exports (index.js) pour clean imports
 
+### 📱 Responsive Design System (Mobile-First)
+
+**ChefPlanning** utilise une approche **Mobile-First** avec les breakpoints Tailwind standards.
+
+#### Breakpoints
+
+| Breakpoint | Prefix   | Largeur min | Usage                         |
+| ---------- | -------- | ----------- | ----------------------------- |
+| Mobile     | (défaut) | 0px         | Layout vertical empilé        |
+| Small      | `sm:`    | 640px       | Ajustements tablette portrait |
+| Large      | `lg:`    | 1024px      | Layout desktop horizontal     |
+
+#### Stratégie par Composant
+
+| Composant        | Mobile (< 640px)                | Tablet (640-1023px) | Desktop (≥ 1024px)          |
+| ---------------- | ------------------------------- | ------------------- | --------------------------- |
+| **App Layout**   | Vertical (employees → planning) | Vertical            | Horizontal (sidebar + main) |
+| **EmployeeList** | Scroll horizontal, cards 224px  | Cards 256px         | Vertical, full width        |
+| **PlanningGrid** | 7 colonnes × 112px, scroll      | 7 × 128px, scroll   | 7 × flex, scroll si < 840px |
+| **DayColumn**    | shortName (Lun), h-200px        | name, h-300px       | name complet, h-400px       |
+| **Header**       | Titre sm, padding réduit        | Titre md            | Titre lg, espace boutons    |
+
+#### Patterns Tailwind Utilisés
+
+```jsx
+// ✅ Mobile-First : commencer par mobile, ajouter pour desktop
+<div className="flex-col lg:flex-row">       // Vertical → Horizontal
+<div className="w-full lg:w-64">             // Full width → Fixed
+<div className="px-3 sm:px-4 lg:px-6">       // Padding progressif
+<div className="text-sm sm:text-base">       // Taille texte progressive
+<div className="hidden sm:block">            // Caché mobile, visible tablet+
+<div className="sm:hidden">                  // Visible mobile uniquement
+
+// ✅ Scroll horizontal avec snap (UX mobile native)
+<div className="overflow-x-auto snap-x snap-mandatory">
+  <div className="snap-start">...</div>
+</div>
+
+// ✅ Flex-shrink-0 pour items scrollables
+<div className="flex-shrink-0 w-56 sm:w-64 lg:w-full">
+
+// ❌ NE PAS utiliser de breakpoints custom
+// ❌ NE PAS utiliser Desktop-First (lg: par défaut)
+```
+
+#### Règles de Responsive
+
+1. **Toujours commencer par mobile** (pas de prefix = mobile)
+2. **Utiliser `sm:` pour tablet** (640px+)
+3. **Utiliser `lg:` pour desktop** (1024px+)
+4. **Éviter `md:`** sauf cas spécifique (cohérence)
+5. **Scroll horizontal** avec `snap-x` sur mobile pour UX native
+6. **Tester sur 3 largeurs** : 375px (iPhone), 768px (iPad), 1280px (Desktop)
+
 ### 🎨 Design System : Light/Dark Mode
 
 **ChefPlanning** utilise un système de couleurs moderne et identitaire avec support complet Light/Dark mode.

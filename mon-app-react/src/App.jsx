@@ -7,11 +7,11 @@ function App() {
     <div className="min-h-screen bg-bg-secondary text-text-secondary">
       <Header />
       <Container>
-        <main className="py-6">
-          {/* Layout moderne: Sidebar + Main Grid */}
-          <div className="flex gap-6 items-start">
+        <main className="py-4 sm:py-6">
+          {/* Layout responsive: vertical mobile, horizontal desktop */}
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:items-start">
             {/* Sidebar: Liste des employés */}
-            <aside className="w-64 flex-shrink-0">
+            <aside className="w-full lg:w-64 lg:flex-shrink-0">
               <EmployeeList />
             </aside>
 
