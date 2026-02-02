@@ -272,13 +272,27 @@ scroll-smooth
 
 #### Composants UI - Props requises
 
-| Composant  | Props de base                   | Props optionnelles                      |
-| ---------- | ------------------------------- | --------------------------------------- |
-| **Button** | `children`, `onClick`           | `variant`, `size`, `disabled`, `type`   |
-| **Card**   | `children`                      | `title`, `interactive`, `className`     |
-| **Badge**  | `label`                         | `color`, `icon`, `size`                 |
-| **Input**  | `value`, `onChange`             | `label`, `type`, `placeholder`, `error` |
-| **Modal**  | `isOpen`, `onClose`, `children` | `title`, `size`                         |
+| Composant      | Props de base                   | Props optionnelles                      |
+| -------------- | ------------------------------- | --------------------------------------- |
+| **Button**     | `children`, `onClick`           | `variant`, `size`, `disabled`, `type`   |
+| **Card**       | `children`                      | `title`, `interactive`, `className`     |
+| **Badge**      | `label`                         | `color`, `icon`, `size`                 |
+| **Input**      | `value`, `onChange`             | `label`, `type`, `placeholder`, `error` |
+| **ColorInput** | `value`, `onChange`             | `label`                                 |
+| **HoursInput** | `value`, `onChange`             | `label`, `required`                     |
+| **Modal**      | `isOpen`, `onClose`, `children` | `title`, `size`                         |
+
+> **Note** : `size="icon"` disponible sur Button pour les boutons carrés avec émojis.
+
+#### Utils disponibles
+
+| Fonction                   | Module       | Description                                        |
+| -------------------------- | ------------ | -------------------------------------------------- |
+| `generateId()`             | `generateId` | Génère un ID unique (ex: `lxyz123abc`)             |
+| `getAvailableColor()`      | `colorUtils` | Retourne une couleur non utilisée par les employés |
+| `minutesToHoursMinutes()`  | `timeUtils`  | Convertit minutes → `{ hours, minutes }`           |
+| `hoursMinutesToMinutes()`  | `timeUtils`  | Convertit `{ hours, minutes }` → minutes totales   |
+| `formatMinutesToDisplay()` | `timeUtils`  | Formate minutes → string "35h" ou "30h45"          |
 
 ### �🎨 Design System : Light/Dark Mode
 
@@ -1091,10 +1105,13 @@ import { EmployeeCard, useEmployees } from '@/features/employees';
   id: 'emp_1',              // Généré par generateId()
   name: 'Jean Dupont',
   color: '#3B82F6',         // Pour identification visuelle
-  weeklyHours: 35,          // Heures contrat
+  weeklyMinutes: 2100,      // Heures contrat EN MINUTES (35h00 = 2100, 30h45 = 1845)
   skills: ['balance', 'rayonnage']  // Simple array de strings
 }
 ```
+
+> **Note** : `weeklyMinutes` permet une précision aux minutes près (ex: 30h45 = 1845 min).
+> Utiliser `formatMinutesToDisplay()` pour l'affichage ("35h" ou "30h45").
 
 #### Shift (Preset horaire) — MVP
 

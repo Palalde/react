@@ -46,16 +46,16 @@ function Component(/* TODO: Quels paramètres ? */) {
 ```
 src/
 ├── components/
-│   ├── ui/          # Button, Card, Badge, Modal, Input, ThemeToggle
+│   ├── ui/          # Button, Card, Badge, Modal, Input, ColorInput, HoursInput, ThemeToggle
 │   └── layout/      # Header, Container
 ├── features/
 │   ├── employees/   # EmployeeCard, EmployeeList, EmployeeForm
-│   ├── shifts/      # ShiftCard, ShiftSelector
-│   ├── assignments/ # AssignmentCard, AssignmentForm
+│   ├── shifts/      # ShiftCard, ShiftSelector (🔜)
+│   ├── assignments/ # AssignmentCard, AssignmentForm (🔜)
 │   └── planning/    # PlanningGrid, DayColumn
-├── hooks/           # useLocalStorage, useTheme
-├── utils/           # generateId
-└── constants/       # days, shifts
+├── hooks/           # useLocalStorage, useTheme (🔜 Phase 6)
+├── utils/           # generateId, colorUtils, timeUtils
+└── constants/       # days, shifts (🔜)
 ```
 
 ## 🎨 Design System - Light/Dark Mode
@@ -113,8 +113,8 @@ src/
 ### Props Destructuring avec Defaults
 
 ```jsx
-function EmployeeCard({ name, weeklyHours = 35, skills = [], onEdit }) {
-  // ...
+function EmployeeCard({ employee = {}, onEdit, onDelete }) {
+  // employee: { id, name, color, weeklyMinutes, skills }
 }
 ```
 
@@ -159,10 +159,12 @@ function useEmployees() {
   id: 'emp_1',
   name: 'Jean Dupont',
   color: '#3B82F6',
-  weeklyHours: 35,
+  weeklyMinutes: 2100,  // 35h00 (stocké en minutes pour précision)
   skills: ['balance', 'rayonnage']
 }
 ```
+
+> **Note** : `weeklyMinutes` permet de gérer des contrats comme 30h45 (1845 minutes). Utiliser `formatMinutesToDisplay()` pour l'affichage.
 
 ### Shift (MVP)
 
@@ -198,12 +200,13 @@ Pour les détails complets (toutes les phases, stories, acceptance criteria) :
 
 | Phase | Concept                             | Status |
 | ----- | ----------------------------------- | ------ |
-| 0     | Setup (Vite, Structure, CSS)        | 🔜     |
-| 1     | JSX & Composants                    | 🔜     |
-| 2     | Props                               | 🔜     |
-| 3     | useState                            | 🔜     |
-| 4     | Listes & Keys                       | 🔜     |
-| 5     | Events                              | 🔜     |
+| 0     | Setup (Vite, Structure, CSS)        | ✅     |
+| 1     | JSX & Composants                    | ✅     |
+| 2     | Props                               | ✅     |
+| 3     | useState                            | ✅     |
+| 4     | Listes & Keys                       | ✅     |
+| 5     | Events (CRUD Employés)              | ✅     |
+| 5.2   | Presets Shifts                      | 🔜     |
 | 6     | useEffect & LocalStorage            | 🔜     |
 | 7+    | V2 (Lifting State, Custom Hooks...) | ⏸️     |
 
