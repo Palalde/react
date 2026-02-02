@@ -22,6 +22,11 @@ export default function EmployeeForm({
   // State pour l'erreur de validation
   const [error, setError] = useState("");
 
+  // State local pour l'input des skills (string brute pendant la saisie)
+  const [skillsInput, setSkillsInput] = useState(
+    formData.skills.join(", ")
+  );
+
   // handleChange générique pour mettre à jour un champ du formulaire
   const handleChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
@@ -40,10 +45,16 @@ export default function EmployeeForm({
     // Clear error si validation OK
     setError("");
 
+    // Convertir skillsInput (string) en array pour l'employé
+    const skillsArray = skillsInput
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
     // Préparer les données de l'employé à envoyer
     const employeeData = employee
-      ? { ...formData } // édition : garde l'id existant
-      : { ...formData, id: generateId() }; // création : ajoute un id
+      ? { ...formData, skills: skillsArray } // édition : garde l'id existant
+      : { ...formData, id: generateId(), skills: skillsArray }; // création : ajoute un id
 
     onSubmit(employeeData);
   };
@@ -78,15 +89,9 @@ export default function EmployeeForm({
 
       {/* Input pour les compétences (MVP simple: string séparée par virgules) */}
       <Input
-        label="Compétences"
-        value={formData.skills.join(", ")}
-        onChange={(value) => {
-          const skillsArray = value
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean);
-          handleChange("skills", skillsArray);
-        }}
+        label="Compétences (séparées par des virgules)"
+        value={skillsInput}
+        onChange={setSkillsInput}
         placeholder="Ex: Caisse, Mise en rayon, Boulangerie"
       />
 
