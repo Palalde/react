@@ -5,21 +5,21 @@ export const MOCK_EMPLOYEES = [
     id: generateId(),
     name: "Donal Trump",
     color: "#3B82F6",
-    weeklyHours: 36.45,
+    weeklyMinutes: 2160, // 36h00
     skills: ["balance", "rayonnage"],
   },
   {
     id: generateId(),
     name: "Joe Biden",
     color: "#10B981",
-    weeklyHours: 20,
+    weeklyMinutes: 1200, // 20h00
     skills: ["facing", "inventaire"],
   },
   {
     id: generateId(),
     name: "Emanuel Macron",
     color: "#EF4444",
-    weeklyHours: 30,
+    weeklyMinutes: 1845, // 30h45
     skills: ["reception", "balance"],
   },
 ];

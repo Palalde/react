@@ -1,4 +1,5 @@
 import { Card, Badge, Button } from "@/components/ui";
+import { formatMinutesToDisplay } from "@/utils";
 
 function EmployeeCard({ employee = {}, onEdit, onDelete }) {
   return (
@@ -49,7 +50,7 @@ function EmployeeCard({ employee = {}, onEdit, onDelete }) {
 
       {/* Weekly hours */}
       <p className="text-sm text-text-secondary mb-3">
-        0 h / {employee.weeklyHours} h
+        0h00 / {formatMinutesToDisplay(employee.weeklyMinutes)}
       </p>
 
       {/* Employee skills */}

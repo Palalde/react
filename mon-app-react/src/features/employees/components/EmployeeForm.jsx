@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, Button, ColorInput } from "@/components/ui";
+import { Input, Button, ColorInput, HoursInput } from "@/components/ui";
 import { generateId, getAvailableColor } from "@/utils";
 
 // formulaire de création/édition d'un employé
@@ -14,7 +14,7 @@ export default function EmployeeForm({
     employee || {
       name: "",
       color: getAvailableColor(employees), // Couleur intelligente !
-      weeklyHours: 35,
+      weeklyMinutes: 2100, // 35h00 par défaut
       skills: [],
     },
   );
@@ -68,12 +68,11 @@ export default function EmployeeForm({
         onChange={(value) => handleChange("color", value)}
       />
 
-      {/* Input pour les heures */}
-      <Input
-        label="Heures/semaine"
-        type="number"
-        value={formData.weeklyHours}
-        onChange={(value) => handleChange("weeklyHours", parseInt(value, 10))}
+      {/* Input pour les heures avec minutes */}
+      <HoursInput
+        label="Heures / semaine"
+        value={formData.weeklyMinutes}
+        onChange={(value) => handleChange("weeklyMinutes", value)}
         required
       />
 
