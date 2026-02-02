@@ -1,9 +1,6 @@
-import { Card, Badge } from "@/components/ui";
+import { Card, Badge, Button } from "@/components/ui";
 
 function EmployeeCard({ employee = {}, onEdit, onDelete }) {
-  // Use onEdit and onDelete props to avoid linter warnings about unused variables
-  (onEdit, onDelete);
-  //   Render employee information
   return (
     <Card
       interactive
@@ -27,6 +24,25 @@ function EmployeeCard({ employee = {}, onEdit, onDelete }) {
         {employee.skills.map((skill) => (
           <Badge key={skill} label={skill} color="blue" />
         ))}
+      </div>
+      {/* bouton d'action */}
+      <div className="flex gap-2 pt-2 border-t border-border">
+        {/* edit */}
+        {onEdit && (
+          <Button size="sm" variant="ghost" onClick={() => onEdit(employee)}>
+            ✏️
+          </Button>
+        )}
+        {/* delete */}
+        {onDelete && (
+          <Button
+            size="sm"
+            variant="danger"
+            onClick={() => onDelete(employee.id)}
+          >
+            🗑️
+          </Button>
+        )}
       </div>
     </Card>
   );

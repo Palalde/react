@@ -11,10 +11,33 @@ function EmployeeList() {
   // State pour gérer l'ouverture/fermeture du modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Handler pour ajouter un nouvel employé
-  const handleAddEmployee = (newEmployee) => {
-    setEmployees([...employees, newEmployee]);
+  // State pour l'edition d'un employé
+  const [employeeToEdit, setEmployeeToEdit] = useState(null);
+
+  // Handler pour ajouter / enregistrer un employé
+  const handleSaveEmployee = (employeeData) => {
+    if (employeeToEdit) {
+      // Mode édition: remplace l'employé existant
+      setEmployees(
+        employees.map((e) => (e.id === employeeData.id ? employeeData : e)),
+      );
+    } else {
+      // Mode création: ajoute à la fin
+      setEmployees([...employees, employeeData]);
+    }
     setIsModalOpen(false);
+    setEmployeeToEdit(null);
+  };
+
+  // handler pour éditer un employé existant
+  const handleEditClick = (employee) => {
+    setEmployeeToEdit(employee);
+    setIsModalOpen(true);
+  };
+
+  // handler pour supprimer un employé
+  const handleDeleteEmployee = (employeeId) => {
+    setEmployees(employees.filter((emp) => emp.id !== employeeId));
   };
 
   return (
@@ -24,7 +47,13 @@ function EmployeeList() {
         <h2 className="text-lg font-bold text-text-primary">👥 Employés</h2>
         <span className="text-xs text-text-muted">{employees.length}</span>
         {/* bouton pour ouvrir le modal de création */}
-        <Button size="sm" onClick={() => setIsModalOpen(true)}>
+        <Button
+          size="sm"
+          onClick={() => {
+            setEmployeeToEdit(null);
+            setIsModalOpen(true);
+          }}
+        >
           + Ajouter
         </Button>
       </div>
@@ -52,7 +81,11 @@ function EmployeeList() {
                 key={employee.id}
                 className="flex-shrink-0 w-56 sm:w-64 lg:w-full"
               >
-                <EmployeeCard key={employee.id} employee={employee} />
+                <EmployeeCard
+                  employee={employee}
+                  onEdit={() => handleEditClick(employee)}
+                  onDelete={() => handleDeleteEmployee(employee.id)}
+                />
               </div>
             ))}
           </div>
@@ -62,11 +95,16 @@ function EmployeeList() {
         <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title="Ajouter un employé"
+          title={employeeToEdit ? "Éditer Employé" : "Ajouter Employé"}
+          size="md"
         >
           <EmployeeForm
-            onSubmit={handleAddEmployee}
-            onCancel={() => setIsModalOpen(false)}
+            employee={employeeToEdit}
+            onSubmit={handleSaveEmployee}
+            onCancel={() => {
+              setIsModalOpen(false);
+              setEmployeeToEdit(null);
+            }}
           />
         </Modal>
       </div>
