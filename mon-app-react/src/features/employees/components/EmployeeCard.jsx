@@ -29,14 +29,14 @@ function EmployeeCard({ employee = {}, onEdit, onDelete }) {
       <div className="flex gap-2 pt-2 border-t border-border">
         {/* edit */}
         {onEdit && (
-          <Button size="sm" variant="ghost" onClick={() => onEdit(employee)}>
+          <Button size="icon" variant="ghost" onClick={() => onEdit(employee)}>
             ✏️
           </Button>
         )}
         {/* delete */}
         {onDelete && (
           <Button
-            size="sm"
+            size="icon"
             variant="danger"
             onClick={() => onDelete(employee.id)}
           >

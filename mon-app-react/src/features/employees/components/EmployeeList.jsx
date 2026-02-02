@@ -48,13 +48,14 @@ function EmployeeList() {
         <span className="text-xs text-text-muted">{employees.length}</span>
         {/* bouton pour ouvrir le modal de création */}
         <Button
-          size="sm"
+          size="icon"
+          variant="secondary"
           onClick={() => {
             setEmployeeToEdit(null);
             setIsModalOpen(true);
           }}
         >
-          + Ajouter
+          +
         </Button>
       </div>
 
