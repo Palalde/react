@@ -101,6 +101,7 @@ function EmployeeList() {
         >
           <EmployeeForm
             employee={employeeToEdit}
+            employees={employees}
             onSubmit={handleSaveEmployee}
             onCancel={() => {
               setIsModalOpen(false);

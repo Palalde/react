@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { Input, Button } from "@/components/ui";
-import { generateId } from "@/utils";
+import { Input, Button, ColorInput } from "@/components/ui";
+import { generateId, getAvailableColor } from "@/utils";
 
 // formulaire de création/édition d'un employé
-export default function EmployeeForm({ employee, onSubmit, onCancel }) {
+export default function EmployeeForm({
+  employee,
+  employees = [],
+  onSubmit,
+  onCancel,
+}) {
   // State du formulaire : initialise avec employee si édition, sinon valeurs par défaut
   const [formData, setFormData] = useState(
     employee || {
       name: "",
-      color: "#6366F1",
+      color: getAvailableColor(employees), // Couleur intelligente !
       weeklyHours: 35,
       skills: [],
     },
@@ -56,10 +61,9 @@ export default function EmployeeForm({ employee, onSubmit, onCancel }) {
         placeholder="Ex: Jean Dupont"
       />
 
-      {/* Input pour la couleur */}
-      <Input
+      {/* Input pour la couleur avec prévisualisation */}
+      <ColorInput
         label="Couleur"
-        type="color"
         value={formData.color}
         onChange={(value) => handleChange("color", value)}
       />

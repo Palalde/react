@@ -5,7 +5,7 @@ export const MOCK_EMPLOYEES = [
     id: generateId(),
     name: "Donal Trump",
     color: "#3B82F6",
-    weeklyHours: 35,
+    weeklyHours: 36.45,
     skills: ["balance", "rayonnage"],
   },
   {
