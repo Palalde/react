@@ -3,7 +3,13 @@
 ## 🎯 Projet
 
 **ChefPlanning** est une application React de planning hebdomadaire pour employés.
-C'est aussi un **projet d'apprentissage React** — l'utilisateur est débutant et apprend par la pratique.
+C'est aussi un **projet d'apprentissage fullstack** — l'utilisateur apprend par la pratique.
+
+### Vision
+
+- 📚 **Apprentissage** : Maîtriser React, TypeScript, puis Backend
+- 🚀 **Déploiement** : App fonctionnelle en production
+- 💰 **Monétisation** : Potentiel SaaS pour chefs d'équipe
 
 ## 📚 Approche Pédagogique
 
@@ -91,12 +97,13 @@ src/
 │   └── layout/      # Header, Container
 ├── features/
 │   ├── employees/   # EmployeeCard, EmployeeList, EmployeeForm
-│   ├── shifts/      # ShiftCard, ShiftSelector (🔜)
-│   ├── assignments/ # AssignmentCard, AssignmentForm (🔜)
+│   ├── shifts/      # ShiftSelector
+│   ├── assignments/ # AssignmentCard, AssignmentForm (Phase 7)
 │   └── planning/    # PlanningGrid, DayColumn
-├── hooks/           # useLocalStorage, useTheme (🔜 Phase 6)
+├── hooks/           # useLocalStorage, useTheme
 ├── utils/           # generateId, colorUtils, timeUtils
-└── constants/       # days, shifts (🔜)
+├── constants/       # days.js, shifts.js
+└── data/            # mockData.js
 ```
 
 ## 🎨 Design System - Light/Dark Mode
@@ -233,24 +240,35 @@ function useEmployees() {
 
 ## 📖 Référence Complète
 
-Pour les détails complets (toutes les phases, stories, acceptance criteria) :
+Pour les détails complets (phases, stories, acceptance criteria) :
 
 📄 **Tech-Spec** : `_bmad-output/implementation-artifacts/tech-spec-chef-planning.md`
+📄 **Archive V1** : `_bmad-output/implementation-artifacts/tech-spec-chef-planning-v1-archive.md`
 
 ## 🚦 Progression d'Apprentissage
 
-| Phase | Concept                             | Status |
-| ----- | ----------------------------------- | ------ |
-| 0     | Setup (Vite, Structure, CSS)        | ✅     |
-| 1     | JSX & Composants                    | ✅     |
-| 2     | Props                               | ✅     |
-| 3     | useState                            | ✅     |
-| 4     | Listes & Keys                       | ✅     |
-| 5     | Events (CRUD Employés)              | ✅     |
-| 5.2   | Presets Shifts                      | 🔜     |
-| 6     | useEffect & LocalStorage            | 🔜     |
-| 7+    | V2 (Lifting State, Custom Hooks...) | ⏸️     |
+### ✅ MVP Complété (Phases 0-6)
+
+| Phase | Concept                  | Status      |
+| ----- | ------------------------ | ----------- |
+| 0-6   | React basics → useEffect | ✅ Complété |
+
+### 🔜 V2 En Cours (Phases 7-9)
+
+| Phase | Concept              | Status      |
+| ----- | -------------------- | ----------- |
+| 7     | Lifting State Up     | 🔜 En cours |
+| 8     | Custom Hooks avancés | ⏳ À faire  |
+| 9     | Composition avancée  | ⏳ À faire  |
+
+### 📘 Futur (Phases 10+)
+
+| Phase | Concept                     | Status        |
+| ----- | --------------------------- | ------------- |
+| 10    | TypeScript migration        | ⏸️ Après V2   |
+| 11-12 | Backend (Hono + PostgreSQL) | ⏸️ Après TS   |
+| 13+   | Auth, Deploy, Monétisation  | ⏸️ Production |
 
 ---
 
-> **Rappel** : L'utilisateur apprend React. Toujours guider, jamais coder à sa place sauf demande explicite.
+> **Rappel** : L'utilisateur apprend le fullstack. Toujours guider, jamais coder à sa place sauf demande explicite.

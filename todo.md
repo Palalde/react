@@ -1,167 +1,169 @@
-# 📋 ChefPlanning - Plan d'Apprentissage React
+# 📋 ChefPlanning - Plan d'Apprentissage Fullstack
 
-## 🎯 Stratégie : Just-In-Time Learning
+## 🎯 Vision
 
-**Principe** : Lire roadmap.sh juste avant chaque phase → Appliquer immédiatement
+**Objectif Triple** :
 
----
-
-## 📚 Phase 0 : Setup (30 min)
-
-### 📖 Lecture
-
-- **Aucune lecture requise** — C'est de la config technique
-
-### ✅ Actions
-
-1. `npm run dev` → Vérifier que le projet démarre
-2. Faire **Task 0.1** : Config Vite + absolute imports `@/`
-3. Faire **Task 0.2** : Variables CSS Light/Dark Mode
-4. Tester en ajoutant `class="dark"` sur `<html>`
+1. 📚 Devenir développeur fullstack (React → TS → Backend)
+2. 🚀 Déployer ChefPlanning en production
+3. 💰 Potentiel de monétisation (SaaS)
 
 ---
 
-## 📚 Phase 1 : JSX & Composants (1h)
+## ✅ MVP COMPLÉTÉ : Phases 0-6
 
-### 📖 Lecture (15 min)
+> **Status** : Toutes les bases React sont acquises !
 
-- https://roadmap.sh/react → **Components**
-- https://roadmap.sh/react → **JSX**
+| Phase | Concept                   | Status |
+| ----- | ------------------------- | ------ |
+| 0     | Setup Vite, CSS Variables | ✅     |
+| 1     | JSX, Composants           | ✅     |
+| 2     | Props                     | ✅     |
+| 3     | useState                  | ✅     |
+| 4     | Listes & Keys             | ✅     |
+| 5     | Events, CRUD              | ✅     |
+| 6     | useEffect, Custom Hooks   | ✅     |
 
-### ✅ Actions
-
-1. Lire la section roadmap.sh
-2. Faire **Story 1.1** : Header + Container (avec l'IA en mode socratique)
-3. Coder ton implémentation
-4. Relire rapidement la section (consolidation)
-
----
-
-## 📚 Phase 2 : Props (1h)
-
-### 📖 Lecture (10 min)
-
-- https://roadmap.sh/react → **Props**
-
-### ✅ Actions
-
-1. Lire la section roadmap.sh
-2. Faire **Story 2.1** : Button, Card, Badge
-3. Faire **Story 2.2** : EmployeeCard avec props
-4. Tester l'affichage avec données mock
+**Quiz validés** : `quiz-react-phases-0-3.md` + `quiz-react-phases-4-6.md`
 
 ---
 
-## 📚 Phase 3 : State (1h30)
+## 🔜 V2 EN COURS : Phases 7-9 (React Avancé)
 
-### 📖 Lecture (15 min)
+### 📚 Phase 7 : Lifting State Up (1 semaine)
 
-- https://roadmap.sh/react → **State Management** → **useState**
+**📖 Lecture recommandée** :
 
-### ✅ Actions
+- https://react.dev/learn/sharing-state-between-components
+- https://roadmap.sh/react → State Management
 
-1. Lire la section roadmap.sh
-2. Faire **Story 3.1** : EmployeeList avec useState
-3. Tester ajout/suppression en mémoire
+**🎯 Objectif** : Centraliser le state dans App.jsx pour le partager entre EmployeeList et PlanningGrid.
 
----
+**✅ Tasks** :
 
-## 📚 Phase 4 : Listes & Keys (1h)
+- [ ] Task 7.1.1 : Créer `AssignmentCard`
+- [ ] Task 7.1.2 : Créer `AssignmentForm`
+- [ ] Task 7.1.3 : Remonter state dans App.jsx
+- [ ] Task 7.1.4 : Connecter DayColumn aux assignments
+- [ ] Task 7.1.5 : Click-to-assign
+- [ ] Task 7.2.1 : Calculer heures par employé
+- [ ] Task 7.2.2 : Indicateur dépassement
 
-### 📖 Lecture (10 min)
+**🧪 Acceptance Criteria** :
 
-- https://roadmap.sh/react → **Rendering** → **Lists**
-- https://roadmap.sh/react → **Keys**
-
-### ✅ Actions
-
-1. Lire la section roadmap.sh
-2. Faire **Story 4.1** : PlanningGrid avec 7 colonnes
-3. Tester que les keys fonctionnent correctement
+- [ ] AC 7.1-7.5 (voir tech-spec)
 
 ---
 
-## 📚 Phase 5 : Events (2h)
+### 📚 Phase 8 : Custom Hooks Avancés (1 semaine)
 
-### 📖 Lecture (15 min)
+**📖 Lecture recommandée** :
 
-- https://roadmap.sh/react → **Events**
-- https://roadmap.sh/react → **Controlled Components**
+- https://react.dev/learn/reusing-logic-with-custom-hooks
+- https://roadmap.sh/react → Custom Hooks
 
-### ✅ Actions
+**🎯 Objectif** : Extraire la logique métier dans des hooks réutilisables.
 
-1. Lire la section roadmap.sh
-2. Faire **Story 5.1** : CRUD Employés complet (Input, Modal, Form)
-3. Faire **Story 5.2** : Presets horaires (shifts)
-4. Tester add/edit/delete employé
+**✅ Tasks** :
 
----
+- [ ] Task 8.1.1 : Créer `useEmployees` hook
+- [ ] Task 8.1.2 : Créer `useShifts` hook
+- [ ] Task 8.1.3 : Créer `useAssignments` hook
+- [ ] Task 8.1.4 : Refactorer App.jsx
+- [ ] Task 8.2.1 : Créer `useHoursCalculator`
 
-## 📚 Phase 6 : useEffect & Persistence (2h)
+**🧪 Acceptance Criteria** :
 
-### 📖 Lecture (20 min)
-
-- https://roadmap.sh/react → **useEffect**
-- https://roadmap.sh/react → **Side Effects**
-
-### ✅ Actions
-
-1. Lire la section roadmap.sh
-2. Faire **Story 6.1** : Hook useLocalStorage
-3. Faire **Story 6.2** : useTheme + ThemeToggle
-4. Tester que les données persistent au refresh
-5. Tester le switch Light/Dark mode
+- [ ] AC 8.1-8.3 (voir tech-spec)
 
 ---
 
-## 🎉 FIN MVP (Phases 0-6)
+### 📚 Phase 9 : Composition Avancée (1 semaine)
 
-✅ À ce stade, tu as une app fonctionnelle avec :
+**📖 Lecture recommandée** :
 
-- Layout + Header + ThemeToggle
-- CRUD Employés avec persistance
-- Grille Planning 7 jours
-- Light/Dark Mode
+- https://react.dev/learn/thinking-in-react
+- Date manipulation avec `date-fns` ou natif
 
----
+**🎯 Objectif** : Navigation semaines, skills avancés, validation.
 
-## 🚀 Phase 7+ : V2 (Optionnel - Plus tard)
+**✅ Tasks** :
 
-### 📖 Lecture (30 min)
+- [ ] Task 9.1.1-9.1.3 : Navigation semaines
+- [ ] Task 9.2.1-9.2.3 : Système de skills
+- [ ] Task 9.3.1-9.3.2 : Validation & alertes
 
-- https://roadmap.sh/react → **Lifting State**
-- https://roadmap.sh/react → **Custom Hooks**
-- https://roadmap.sh/react → **Composition**
+**🧪 Acceptance Criteria** :
 
-### ✅ Actions
-
-- **Phase 7** : Assignations + Lifting State
-- **Phase 8** : Refactor avec custom hooks (useEmployees, useAssignments...)
-- **Phase 9** : Skills avancés + Validation
+- [ ] AC 9.1-9.3 (voir tech-spec)
 
 ---
 
-## 📌 Checklist Quotidienne
+## 📘 FUTUR : TypeScript (Phase 10)
 
-Avant chaque session :
+**📖 Lecture recommandée** :
 
-- [ ] Identifier la phase en cours
-- [ ] Lire la section roadmap.sh correspondante (10-20 min)
-- [ ] Faire la story avec l'IA (mode socratique)
-- [ ] Coder ton implémentation
-- [ ] Tester dans le browser
-- [ ] Commit Git
+- https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+- https://react.dev/learn/typescript
 
----
+**🎯 Objectif** : Migrer l'app en TypeScript.
 
-## 🔗 Liens Utiles
+**✅ Tasks (à détailler)** :
 
-| Ressource            | URL                                                                |
-| -------------------- | ------------------------------------------------------------------ |
-| Roadmap React        | https://roadmap.sh/react                                           |
-| Tech-Spec            | `_bmad-output/implementation-artifacts/tech-spec-chef-planning.md` |
-| Copilot Instructions | `.github/copilot-instructions.md`                                  |
+- [ ] Setup TypeScript + Vite
+- [ ] Typer les Data Models
+- [ ] Typer les Custom Hooks
+- [ ] Typer les Composants
 
 ---
 
-**🎯 Objectif** : Finir le MVP (Phases 0-6) en 1 semaine à raison de 1-2h/jour
+## 🗄️ FUTUR : Backend (Phases 11-12)
+
+**📖 Lecture recommandée** :
+
+- https://hono.dev/docs/getting-started/nodejs
+- https://orm.drizzle.team/docs/get-started-postgresql
+
+**🎯 Objectif** : API REST + Base de données.
+
+**Architecture cible** :
+
+```
+React (TS) ←→ Hono API (TS) ←→ PostgreSQL
+```
+
+---
+
+## 🚀 FUTUR : Production (Phase 13+)
+
+- Auth (sessions/JWT)
+- Deploy (Vercel + Railway)
+- Monétisation (Freemium)
+
+---
+
+## 📁 Fichiers Importants
+
+| Fichier                                                                       | Description                        |
+| ----------------------------------------------------------------------------- | ---------------------------------- |
+| `_bmad-output/implementation-artifacts/tech-spec-chef-planning.md`            | Tech-spec V2 (détails phases 7-9+) |
+| `_bmad-output/implementation-artifacts/tech-spec-chef-planning-v1-archive.md` | Archive phases 0-6 détaillées      |
+| `.github/copilot-instructions.md`                                             | Instructions pour Copilot          |
+| `quiz-react-phases-0-3.md`                                                    | Quiz validation phases 0-3         |
+| `quiz-react-phases-4-6.md`                                                    | Quiz validation phases 4-6         |
+
+---
+
+## 🎓 Stratégie d'Apprentissage
+
+**Just-In-Time Learning** :
+
+1. Lire la doc juste avant chaque phase
+2. Coder avec guidage socratique (IA)
+3. Quiz de validation après chaque groupe de phases
+
+**Prochaine étape** : Phase 7 - Lifting State Up
+
+---
+
+_Dernière mise à jour : 2026-02-03_
