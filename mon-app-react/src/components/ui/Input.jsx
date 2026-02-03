@@ -14,7 +14,15 @@ export default function Input({
   return (
     <div className="flex flex-col gap-1">
       {/*affichage du label seulement s'il existe */}
-      {label && <label htmlFor={inputId}>{label}</label>}
+      {label && (
+        <label
+          htmlFor={inputId}
+          className="text-sm font-medium text-text-primary"
+        >
+          {label}
+          {required && <span className="text-danger ml-1">*</span>}
+        </label>
+      )}
 
       {/* Champ input */}
       <input
