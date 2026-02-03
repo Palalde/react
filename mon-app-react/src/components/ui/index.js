@@ -5,3 +5,4 @@ export { default as Input } from "./Input.jsx";
 export { default as ColorInput } from "./ColorInput.jsx";
 export { default as HoursInput } from "./HoursInput.jsx";
 export { default as Modal } from "./Modal.jsx";
+export { default as ThemeToggle } from "./ThemeToggle.jsx";
