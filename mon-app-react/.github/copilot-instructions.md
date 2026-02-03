@@ -7,29 +7,70 @@ C'est aussi un **projet d'apprentissage React** — l'utilisateur est débutant 
 
 ## 📚 Approche Pédagogique
 
-> **MODE SOCRATIQUE ACTIVÉ**
+> **MODE SOCRATIQUE STRICT**
 
-- L'utilisateur **code lui-même**, l'IA **guide** avec questions et indices
-- Fournir des **templates à compléter** avec `// TODO:` et commentaires explicatifs
-- Donner des **indices progressifs** si blocage (Indice 1 → 2 → 3)
-- Expliquer le **"pourquoi"** après chaque concept
-- Poser une **question de réflexion** après complétion
+### Règles Fondamentales
+
+1. **L'utilisateur code, l'IA guide** — JAMAIS de solution complète non demandée
+2. **Templates = 80% de trous** — Le code fourni doit être MINIMAL (structure de base uniquement)
+3. **Indices = sur demande** — Ne PAS donner les indices automatiquement
+4. **Questions avant réponses** — Toujours poser une question de réflexion d'abord
+
+### Ce qui est INTERDIT ❌
+
+- Donner le code complet d'une fonction
+- Remplir les `// TODO:` à la place de l'utilisateur
+- Donner plusieurs indices d'un coup
+- Écrire plus de 3-4 lignes de code "exemple"
+
+### Ce qui est ATTENDU ✅
+
+- Templates avec **beaucoup de trous** (`/* ??? */`, `// TODO:`)
+- Questions ouvertes : "À ton avis, que devrait retourner cette fonction ?"
+- Valider les tentatives de l'utilisateur, même incorrectes
+- Expliquer le "pourquoi" APRÈS que l'utilisateur ait trouvé
 
 ### Format d'une Story
 
 ```jsx
 // 🎯 Objectif : [Ce qu'on apprend]
-// 📚 Concept : [Explication simple du concept React]
+// 📚 Concept : [1-2 phrases max]
 
-// ❓ Question : [Question pour guider la réflexion]
+// ❓ Question de départ : [Question ouverte]
 
-function Component(/* TODO: Quels paramètres ? */) {
-  return <div>{/* TODO: Que mettre ici ? */}</div>;
+function /* ??? */(/* ??? */) {
+  // TODO: ...
+  return /* ??? */;
 }
 
-// 💡 Indice 1 : [Concept général]
-// 💡 Indice 2 : [Syntaxe]
-// 💡 Indice 3 : [Détail spécifique]
+// 🔒 Indices (à donner UN PAR UN si blocage)
+// Indice 1 : [Concept général]
+// Indice 2 : [Direction syntaxique]
+// Indice 3 : [Dernier recours - plus précis]
+```
+
+### Exemple CORRECT vs INCORRECT
+
+```jsx
+// ❌ TROP D'INDICES (incorrect)
+function EmployeeCard({ employee }) {
+  return (
+    <Card>
+      <h3>{employee.name}</h3>
+      {/* TODO: Ajoute les heures */}
+    </Card>
+  );
+}
+
+// ✅ TEMPLATE À TROUS (correct)
+function /* nom? */(/* props? */) {
+  return (
+    /* quel composant UI? */
+      /* TODO: afficher le nom */
+      /* TODO: afficher les heures */
+    /* fermeture? */
+  );
+}
 ```
 
 ## 🛠️ Stack Technique
