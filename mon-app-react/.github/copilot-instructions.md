@@ -125,7 +125,7 @@ function /* ??? */(/* ??? */) {
 
 | Task  | Description                         | Status |
 | ----- | ----------------------------------- | ------ |
-| 7.1.1 | Créer `AssignmentCard`              | ⏳     |
+| 7.1.1 | Créer `AssignmentCard`              | ✅     |
 | 7.1.2 | Créer `AssignmentForm`              | ⏳     |
 | 7.1.3 | Remonter state dans App.jsx         | ⏳     |
 | 7.1.4 | Connecter DayColumn aux assignments | ⏳     |
