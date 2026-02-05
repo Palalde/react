@@ -41,7 +41,7 @@
 
 **✅ Tasks** :
 
-- [ ] Task 7.1.1 : Créer `AssignmentCard`
+- [✅] Task 7.1.1 : Créer `AssignmentCard`
 - [ ] Task 7.1.2 : Créer `AssignmentForm`
 - [ ] Task 7.1.3 : Remonter state dans App.jsx
 - [ ] Task 7.1.4 : Connecter DayColumn aux assignments
