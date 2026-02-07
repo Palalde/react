@@ -3,7 +3,7 @@ import { Modal, Button } from "@/components/ui";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
 
-function EmployeeList({ employees, setEmployees }) {
+function EmployeeList({ employees, setEmployees, onDeleteEmployee }) {
   // State pour gérer l'ouverture/fermeture du modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,9 +31,9 @@ function EmployeeList({ employees, setEmployees }) {
     setIsModalOpen(true);
   };
 
-  // handler pour supprimer un employé
+  // handler pour supprimer un employé (+ nettoyage assignations via App)
   const handleDeleteEmployee = (employeeId) => {
-    setEmployees(employees.filter((emp) => emp.id !== employeeId));
+    onDeleteEmployee(employeeId);
   };
 
   return (

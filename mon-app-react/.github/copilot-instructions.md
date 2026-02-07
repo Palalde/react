@@ -1,6 +1,6 @@
 # Copilot Instructions - ChefPlanning
 
-> **Utilisateur** : Paul | **Langue** : Français | **Dernière MAJ** : 2026-02-05
+> **Utilisateur** : Paul | **Langue** : Français | **Dernière MAJ** : 2026-02-07
 
 ---
 
@@ -133,13 +133,23 @@ function /* ??? */(/* ??? */) {
 | 7.2.1 | Calculer heures par employé         | ⏳     |
 | 7.2.2 | Indicateur dépassement              | ⏳     |
 
+#### Bug fixes appliqués (audit Phase 7)
+
+- ✅ Handlers edit/delete dans App.jsx (props down, events up)
+- ✅ stopPropagation dans AssignmentCard (event bubbling)
+- ✅ Mode édition AssignmentForm (editingAssignment state + ternaire onSubmit)
+- ✅ Garde undefined employee/shift dans DayColumn
+- ✅ Nettoyage assignations orphelines (handleDeleteEmployee dans App)
+- ✅ IDs statiques dans mockData.js
+- ✅ text-text-primary sur div racine App.jsx
+
 #### Acceptance Criteria Phase 7
 
-- [ ] AC 7.1 : Clic cellule vide → formulaire s'ouvre
-- [ ] AC 7.2 : Submit formulaire → assignation dans grille
-- [ ] AC 7.3 : Clic assignation → modifier/supprimer
-- [ ] AC 7.4 : Refresh → assignations persistées
-- [ ] AC 7.5 : Heures > contrat → indicateur rouge
+- [x] AC 7.1 : Clic cellule vide → formulaire s'ouvre
+- [x] AC 7.2 : Submit formulaire → assignation dans grille
+- [x] AC 7.3 : Clic assignation → modifier/supprimer
+- [x] AC 7.4 : Refresh → assignations persistées
+- [ ] AC 7.5 : Heures > contrat → indicateur rouge (Task 7.2.x)
 
 ### ⏳ Phases Futures
 

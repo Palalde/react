@@ -26,11 +26,17 @@ function App() {
     );
   };
   // DeleteAssigments Handler
-  const handleDeleteAssignment = (assignmentData) =>
-    setAssignments(assignments.filter((a) => a.id !== assignmentData.id));
+  const handleDeleteAssignment = (assignmentId) =>
+    setAssignments(assignments.filter((a) => a.id !== assignmentId));
+
+  // DeleteEmployee Handler (+ nettoyage assignations orphelines)
+  const handleDeleteEmployee = (employeeId) => {
+    setEmployees(employees.filter((e) => e.id !== employeeId));
+    setAssignments(assignments.filter((a) => a.employeeId !== employeeId));
+  };
 
   return (
-    <div className="min-h-screen bg-bg-secondary text-text-secondary">
+    <div className="min-h-screen bg-bg-secondary text-text-primary">
       <Header />
       <Container>
         <main className="py-4 sm:py-6">
@@ -38,7 +44,11 @@ function App() {
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 lg:items-start">
             {/* Sidebar: Liste des employés */}
             <aside className="w-full lg:w-64 lg:flex-shrink-0">
-              <EmployeeList employees={employees} setEmployees={setEmployees} />
+              <EmployeeList
+                employees={employees}
+                setEmployees={setEmployees}
+                onDeleteEmployee={handleDeleteEmployee}
+              />
             </aside>
 
             {/* Main: Grille de planning */}

@@ -51,6 +51,8 @@ function DayColumn({
             const shift = DEFAULT_SHIFTS.find(
               (sh) => sh.id === assignment.shiftId,
             );
+            // GUARD
+            if (!employee || !shift) return;
             // lier les deux dans l'assignment card
             return (
               <AssignmentCard

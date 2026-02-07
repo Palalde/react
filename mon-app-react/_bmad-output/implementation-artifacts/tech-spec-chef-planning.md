@@ -2,7 +2,7 @@
 title: "ChefPlanning - App de Planning Hebdomadaire"
 slug: "chef-planning"
 created: "2026-01-08"
-updated: "2026-02-03"
+updated: "2026-02-07"
 status: "v2-in-progress"
 currentPhase: 7
 completedPhases: [0, 1, 2, 3, 4, 5, 6]
@@ -158,31 +158,31 @@ src/
 └────────┘          └──────────────┘
 ```
 
-- [ ] **Task 7.1.1** : Créer le composant `AssignmentCard`
+- [x] **Task 7.1.1** : Créer le composant `AssignmentCard`
   - File: `src/features/assignments/components/AssignmentCard.jsx`
   - Props: `{ assignment, employee, shift, onEdit, onDelete }`
   - Action: Afficher nom employé + shift + horaires
   - Notes: Utiliser la couleur de l'employé comme bordure
 
-- [ ] **Task 7.1.2** : Créer le composant `AssignmentForm`
+- [x] **Task 7.1.2** : Créer le composant `AssignmentForm`
   - File: `src/features/assignments/components/AssignmentForm.jsx`
   - Props: `{ employees, shifts, day, onSubmit, onClose, editingAssignment? }`
   - Action: Modal avec sélecteurs employé + shift
   - Notes: Mode création ET édition
 
-- [ ] **Task 7.1.3** : Remonter le state dans App.jsx
+- [x] **Task 7.1.3** : Remonter le state dans App.jsx
   - File: `src/App.jsx`
   - Action:
     - Déplacer `employees` state depuis EmployeeList vers App
     - Ajouter `assignments` state avec useLocalStorage
     - Passer les données et callbacks en props
 
-- [ ] **Task 7.1.4** : Connecter DayColumn aux assignments
+- [x] **Task 7.1.4** : Connecter DayColumn aux assignments
   - File: `src/features/planning/components/DayColumn.jsx`
   - Props ajoutées: `{ assignments, employees, shifts, onAddAssignment, onEditAssignment, onDeleteAssignment }`
   - Action: Filtrer et afficher les AssignmentCards du jour
 
-- [ ] **Task 7.1.5** : Ajouter interaction click-to-assign
+- [x] **Task 7.1.5** : Ajouter interaction click-to-assign
   - File: `src/features/planning/components/DayColumn.jsx`
   - Action: Zone cliquable pour créer une assignation
   - Notes: Ouvrir AssignmentForm au clic sur zone vide
@@ -201,10 +201,10 @@ src/
 
 ### Acceptance Criteria Phase 7
 
-- [ ] **AC 7.1** : Given un employé et un shift, when je clique sur une cellule vide, then un formulaire s'ouvre
-- [ ] **AC 7.2** : Given le formulaire rempli, when je submit, then l'assignation apparaît dans la grille
-- [ ] **AC 7.3** : Given une assignation, when je clique dessus, then je peux la modifier ou supprimer
-- [ ] **AC 7.4** : Given plusieurs assignations, when je refresh, then elles sont persistées (localStorage)
+- [x] **AC 7.1** : Given un employé et un shift, when je clique sur une cellule vide, then un formulaire s'ouvre
+- [x] **AC 7.2** : Given le formulaire rempli, when je submit, then l'assignation apparaît dans la grille
+- [x] **AC 7.3** : Given une assignation, when je clique dessus, then je peux la modifier ou supprimer
+- [x] **AC 7.4** : Given plusieurs assignations, when je refresh, then elles sont persistées (localStorage)
 - [ ] **AC 7.5** : Given un employé avec 35h, when ses assignations = 40h, then un indicateur rouge apparaît
 
 ---
@@ -502,4 +502,4 @@ function /* ??? */(/* ??? */) {
 
 ---
 
-_Dernière mise à jour : 2026-02-03_
+_Dernière mise à jour : 2026-02-07_
