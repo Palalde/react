@@ -2,10 +2,26 @@ import { AssignmentCard, AssignmentForm } from "@/features/assignments";
 import { DEFAULT_SHIFTS } from "@/constants/shifts";
 import { useState } from "react";
 
-function DayColumn({ day, employees, assignments, onAddAssignment }) {
+function DayColumn({
+  day,
+  employees,
+  assignments,
+  onAddAssignment,
+  onEditAssignment,
+  onDeleteAssignment,
+}) {
   // STATES
   // modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
+  // Edition state
+  const [editingAssignment, setEditingAssignment] = useState(null);
+
+  // HANDLERS
+  // edit handler
+  const handleEditClick = (assignment) => {
+    setEditingAssignment(assignment);
+    setIsFormOpen(true);
+  };
   // filtrer les assignations pour ce jour
   const dayAssignments = assignments.filter((a) => a.day === day.id);
 
@@ -42,8 +58,8 @@ function DayColumn({ day, employees, assignments, onAddAssignment }) {
                 employee={employee}
                 shift={shift}
                 assignment={assignment}
-                // onEdit
-                // onDelete
+                onEdit={handleEditClick}
+                onDelete={onDeleteAssignment}
               />
             );
           })
@@ -66,8 +82,12 @@ function DayColumn({ day, employees, assignments, onAddAssignment }) {
           employees={employees}
           shifts={DEFAULT_SHIFTS}
           day={day.id}
-          onSubmit={onAddAssignment}
-          onClose={() => setIsFormOpen(false)}
+          onSubmit={editingAssignment ? onEditAssignment : onAddAssignment}
+          onClose={() => {
+            setIsFormOpen(false);
+            setEditingAssignment(null);
+          }}
+          editingAssignment={editingAssignment}
         />
       )}
     </div>

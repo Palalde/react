@@ -4,7 +4,13 @@
 import { DAYS_OF_WEEK } from "@/constants";
 import DayColumn from "./DayColumn";
 
-function PlanningGrid({ employees, assignments, onAddAssignment }) {
+function PlanningGrid({
+  employees,
+  assignments,
+  onAddAssignment,
+  onEditAssignment,
+  onDeleteAssignment,
+}) {
   return (
     <div className="bg-bg-secondary rounded-lg shadow-md border border-border overflow-hidden">
       {/* Header de la grille */}
@@ -27,6 +33,8 @@ function PlanningGrid({ employees, assignments, onAddAssignment }) {
             employees={employees}
             assignments={assignments}
             onAddAssignment={onAddAssignment}
+            onEditAssignment={onEditAssignment}
+            onDeleteAssignment={onDeleteAssignment}
           />
         ))}
       </div>

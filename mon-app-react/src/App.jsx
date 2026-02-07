@@ -14,12 +14,20 @@ function App() {
   );
   // Assignment state
   const [assignments, setAssignments] = useLocalStorage("assignments", []);
-
   // HANDLERS
-  // Assignments Handler
+  // AddAssignments Handler
   const handleAddAssignment = (assignmentData) => {
     setAssignments([...assignments, { ...assignmentData, id: generateId() }]);
   };
+  // EdditAssigments Handler
+  const handleEditAssignment = (assignmentData) => {
+    setAssignments(
+      assignments.map((a) => (a.id === assignmentData.id ? assignmentData : a)),
+    );
+  };
+  // DeleteAssigments Handler
+  const handleDeleteAssignment = (assignmentData) =>
+    setAssignments(assignments.filter((a) => a.id !== assignmentData.id));
 
   return (
     <div className="min-h-screen bg-bg-secondary text-text-secondary">
@@ -39,6 +47,8 @@ function App() {
                 employees={employees}
                 assignments={assignments}
                 onAddAssignment={handleAddAssignment}
+                onEditAssignment={handleEditAssignment}
+                onDeleteAssignment={handleDeleteAssignment}
               />
             </section>
           </div>

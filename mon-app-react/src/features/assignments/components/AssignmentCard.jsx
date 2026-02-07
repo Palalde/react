@@ -7,6 +7,7 @@ export default function AssignmentCard({
 }) {
   return (
     <div
+      onClick={(e) => e.stopPropagation()}
       className="relative p-2 sm:p-3 rounded-lg bg-bg-primary border-l-4 shadow-sm hover:shadow-md transition-all duration-200 group"
       style={{ borderLeftColor: employee.color }}
     >
@@ -24,7 +25,7 @@ export default function AssignmentCard({
       <div className="absolute top-1 right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
         <button
           className="p-1.5 rounded hover:bg-bg-secondary text-text-secondary hover:text-text-primary transition-colors"
-          onClick={() => onEdit(assignment.id)}
+          onClick={() => onEdit(assignment)}
           aria-label="Modifier l'assignation"
         >
           ✏️
