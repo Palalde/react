@@ -10,7 +10,7 @@ export default function AssignmentForm({
   onClose,
   editingAssignment,
 }) {
-  // state
+  // state du formulaire
   const [formData, setFormData] = useState({
     employeeId: editingAssignment ? editingAssignment.employeeId : "",
     shiftId: editingAssignment ? editingAssignment.shiftId : "",

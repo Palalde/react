@@ -1,17 +1,9 @@
 import { useState } from "react";
-import { useLocalStorage } from "@/hooks";
-import { MOCK_EMPLOYEES } from "@/data";
 import { Modal, Button } from "@/components/ui";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
 
-function EmployeeList() {
-  // useLocalStorage pour stocker la liste des employés
-  const [employees, setEmployees] = useLocalStorage(
-    "employees",
-    MOCK_EMPLOYEES,
-  );
-
+function EmployeeList({ employees, setEmployees }) {
   // State pour gérer l'ouverture/fermeture du modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
