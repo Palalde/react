@@ -55,7 +55,7 @@ function EmployeeCard({ employee = {}, onEdit, onDelete }) {
 
       {/* Employee skills */}
       <div className="flex flex-wrap gap-1">
-        {employee.skills.map((skill) => (
+        {(employee.skills ?? []).map((skill) => (
           <Badge key={skill} label={skill} color="blue" />
         ))}
       </div>
