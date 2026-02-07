@@ -15,6 +15,8 @@ export default function AssignmentForm({
     employeeId: editingAssignment ? editingAssignment.employeeId : "",
     shiftId: editingAssignment ? editingAssignment.shiftId : "",
   });
+  // state d'erreur
+  const [error, setError] = useState("");
 
   // handlers
   const handleSubmit = (e) => {
@@ -23,11 +25,13 @@ export default function AssignmentForm({
 
     // verifier que tous les champs sont remplis
     if (!formData.employeeId || !formData.shiftId) {
-      console.error("Veuillez remplir tous les champs");
+      setError("Veuillez remplir tous les champs");
       return;
     }
     // soumettre les données
     try {
+      // clear l'error
+      setError("");
       // {employeeId, shiftId, day, id}
       onSubmit({
         // employeeID et shiftId du formulaire
@@ -49,9 +53,15 @@ export default function AssignmentForm({
     <Modal
       isOpen={true}
       onClose={onClose}
-      title={editingAssignment ? "✏️ Modifier" : " + Ajouter"}
+      title={editingAssignment ? "✏️ Modifier" : " Ajouter"}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Message d'erreur global */}
+        {error && (
+          <div className="px-3 py-2 rounded-lg bg-danger/10 border border-danger/30 text-danger text-sm font-medium">
+            {error}
+          </div>
+        )}
         {/* Sélection d'employé */}
         <div>
           <label className="block text-sm font-medium text-text-primary mb-2">
@@ -105,7 +115,7 @@ export default function AssignmentForm({
           </Button>
           <Button type="submit">
             {/* "Créer" ou "Modifier" selon le mode */}
-            {editingAssignment ? "✏️ Modifier" : " + Ajouter"}
+            {editingAssignment ? "✏️ Modifier" : "Ajouter"}
           </Button>
         </div>
       </form>

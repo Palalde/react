@@ -133,15 +133,7 @@ function /* ??? */(/* ??? */) {
 | 7.2.1 | Calculer heures par employé         | ⏳     |
 | 7.2.2 | Indicateur dépassement              | ⏳     |
 
-#### Bug fixes appliqués (audit Phase 7)
-
-- ✅ Handlers edit/delete dans App.jsx (props down, events up)
-- ✅ stopPropagation dans AssignmentCard (event bubbling)
-- ✅ Mode édition AssignmentForm (editingAssignment state + ternaire onSubmit)
-- ✅ Garde undefined employee/shift dans DayColumn
-- ✅ Nettoyage assignations orphelines (handleDeleteEmployee dans App)
-- ✅ IDs statiques dans mockData.js
-- ✅ text-text-primary sur div racine App.jsx
+> Audit complet réalisé après Story 7.1 — tous les bug fixes critiques appliqués dans le code. Prochain audit prévu après Phase 9.
 
 #### Acceptance Criteria Phase 7
 
