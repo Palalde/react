@@ -129,7 +129,7 @@ function /* ??? */(/* ??? */) {
 | 7.1.2 | Créer `AssignmentForm`              | ✅     |
 | 7.1.3 | Remonter state dans App.jsx         | ✅     |
 | 7.1.4 | Connecter DayColumn aux assignments | ✅     |
-| 7.1.5 | Click-to-assign                     | ⏳     |
+| 7.1.5 | Click-to-assign                     | ✅     |
 | 7.2.1 | Calculer heures par employé         | ⏳     |
 | 7.2.2 | Indicateur dépassement              | ⏳     |
 

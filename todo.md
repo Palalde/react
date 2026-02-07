@@ -166,4 +166,49 @@ React (TS) ←→ Hono API (TS) ←→ PostgreSQL
 
 ---
 
+## ⌨️ Raccourcis VS Code à Apprendre
+
+> **Méthode** : Apprendre 2-3 raccourcis par semaine, pas tous d'un coup !
+
+### 🔥 Priorité 1 — Les Essentiels
+
+| Raccourci           | Action                                                | Appris ? |
+| ------------------- | ----------------------------------------------------- | -------- |
+| `Ctrl + D`          | Sélectionner le mot suivant identique (multi-curseur) | ⬜       |
+| `Ctrl + Shift + K`  | Supprimer la ligne entière                            | ⬜       |
+| `Alt + ↑/↓`         | Déplacer la ligne vers le haut/bas                    | ⬜       |
+| `Shift + Alt + ↑/↓` | Dupliquer la ligne                                    | ⬜       |
+| `Ctrl + /`          | Commenter/décommenter                                 | ⬜       |
+| `Ctrl + P`          | Ouvrir un fichier rapidement par nom                  | ⬜       |
+| `Ctrl + Shift + P`  | Palette de commandes                                  | ⬜       |
+| `Ctrl + Space`      | Autocomplétion / suggestions                          | ⬜       |
+| `F2`                | Renommer un symbole partout                           | ⬜       |
+| `Ctrl + .`          | Quick Fix (corrections automatiques)                  | ⬜       |
+
+### 🎯 Priorité 2 — Navigation & Édition
+
+| Raccourci                | Action                                        | Appris ? |
+| ------------------------ | --------------------------------------------- | -------- |
+| `Ctrl + clic`            | Aller à la définition d'un composant/fonction | ⬜       |
+| `Alt + clic`             | Multi-curseur (éditer plusieurs endroits)     | ⬜       |
+| `Ctrl + Shift + F`       | Rechercher dans tout le projet                | ⬜       |
+| `Ctrl + B`               | Toggle sidebar                                | ⬜       |
+| `Ctrl + Tab`             | Naviguer entre fichiers ouverts               | ⬜       |
+| `Ctrl + G`               | Aller à une ligne précise                     | ⬜       |
+| `Ctrl + Z` / `Ctrl + Y`  | Undo / Redo                                   | ⬜       |
+| `Ctrl + Shift + [` / `]` | Plier/déplier un bloc de code                 | ⬜       |
+
+### 💡 Priorité 3 — Emmet (intégré, pour JSX)
+
+> Dans un fichier JSX, tape puis **Tab** :
+
+| Tape            | Résultat                            |
+| --------------- | ----------------------------------- |
+| `div.container` | `<div className="container"></div>` |
+| `ul>li*3`       | 3 `<li>` dans un `<ul>`             |
+| `button.btn`    | `<button className="btn"></button>` |
+| `div>p+span`    | `<div><p></p><span></span></div>`   |
+
+---
+
 _Dernière mise à jour : 2026-02-03_

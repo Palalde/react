@@ -1,7 +1,11 @@
-import { AssignmentCard } from "@/features/assignments";
+import { AssignmentCard, AssignmentForm } from "@/features/assignments";
 import { DEFAULT_SHIFTS } from "@/constants/shifts";
+import { useState } from "react";
 
-function DayColumn({ day, employees, assignments }) {
+function DayColumn({ day, employees, assignments, onAddAssignment }) {
+  // STATES
+  // modal state
+  const [isFormOpen, setIsFormOpen] = useState(false);
   // filtrer les assignations pour ce jour
   const dayAssignments = assignments.filter((a) => a.day === day.id);
 
@@ -16,8 +20,11 @@ function DayColumn({ day, employees, assignments }) {
         </h3>
       </div>
 
-      {/* Zone des assignations - hover state pour indiquer interactivité */}
-      <div className="p-2 sm:p-3 min-h-[200px] sm:min-h-[300px] lg:min-h-[400px] bg-bg-primary space-y-2 hover:bg-bg-secondary/50 transition-colors cursor-pointer">
+      {/* Zone des assignations  */}
+      <div
+        onClick={() => setIsFormOpen(true)}
+        className="p-2 sm:p-3 min-h-[200px] sm:min-h-[300px] lg:min-h-[400px] bg-bg-primary space-y-2 hover:bg-bg-secondary/50 transition-colors cursor-pointer"
+      >
         {dayAssignments.length > 0 ? (
           dayAssignments.map((assignment) => {
             // trouver assignment de l'employé
@@ -53,6 +60,16 @@ function DayColumn({ day, employees, assignments }) {
           </div>
         )}
       </div>
+      {/* AssignmentForm */}
+      {isFormOpen && (
+        <AssignmentForm
+          employees={employees}
+          shifts={DEFAULT_SHIFTS}
+          day={day.id}
+          onSubmit={onAddAssignment}
+          onClose={() => setIsFormOpen(false)}
+        />
+      )}
     </div>
   );
 }

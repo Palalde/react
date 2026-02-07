@@ -1,9 +1,9 @@
 import { Header, Container } from "@/components/layout";
 import { EmployeeList } from "@/features/employees";
 import { PlanningGrid } from "@/features/planning";
-import { ShiftSelector } from "@/features/shifts";
 import { useLocalStorage } from "@/hooks";
 import { MOCK_EMPLOYEES } from "@/data";
+import { generateId } from "@/utils";
 
 function App() {
   // STATES
@@ -14,6 +14,12 @@ function App() {
   );
   // Assignment state
   const [assignments, setAssignments] = useLocalStorage("assignments", []);
+
+  // HANDLERS
+  // Assignments Handler
+  const handleAddAssignment = (assignmentData) => {
+    setAssignments([...assignments, { ...assignmentData, id: generateId() }]);
+  };
 
   return (
     <div className="min-h-screen bg-bg-secondary text-text-secondary">
@@ -32,7 +38,7 @@ function App() {
               <PlanningGrid
                 employees={employees}
                 assignments={assignments}
-                setAssignments={setAssignments}
+                onAddAssignment={handleAddAssignment}
               />
             </section>
           </div>
