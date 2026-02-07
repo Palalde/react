@@ -4,7 +4,7 @@
 import { DAYS_OF_WEEK } from "@/constants";
 import DayColumn from "./DayColumn";
 
-function PlanningGrid() {
+function PlanningGrid({ employees, assignments, setAssignments }) {
   return (
     <div className="bg-bg-secondary rounded-lg shadow-md border border-border overflow-hidden">
       {/* Header de la grille */}
@@ -21,7 +21,13 @@ function PlanningGrid() {
       {/* Grille des 7 jours - scroll horizontal */}
       <div className="flex overflow-x-auto scrollbar-thin snap-x snap-mandatory">
         {DAYS_OF_WEEK.map((day) => (
-          <DayColumn key={day.id} day={day} />
+          <DayColumn
+            key={day.id}
+            day={day}
+            employees={employees}
+            assignments={assignments}
+            setAssignments={setAssignments}
+          />
         ))}
       </div>
     </div>
