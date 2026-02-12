@@ -130,8 +130,8 @@ src/
 
 | Phase | Concept              | Durée estimée | Status |
 | ----- | -------------------- | ------------- | ------ |
-| 7     | Lifting State Up     | 1 semaine     | 🔜     |
-| 8     | Custom Hooks avancés | 1 semaine     | ⏳     |
+| 7     | Lifting State Up     | 1 semaine     | ✅     |
+| 8     | Custom Hooks avancés | 1 semaine     | 🔜     |
 | 9     | Composition avancée  | 1 semaine     | ⏳     |
 
 ---
@@ -189,15 +189,16 @@ src/
 
 ### Story 7.2 : Calculer les Heures Travaillées
 
-- [ ] **Task 7.2.1** : Calculer le total d'heures par employé
-  - File: `src/App.jsx` ou helper dans utils
-  - Action: Fonction `getEmployeeHours(employeeId, assignments, shifts)`
-  - Notes: Afficher dans EmployeeCard
+- [x] **Task 7.2.1** : Calculer le total d'heures par employé
+  - File: `src/utils/timeUtils.js` + `EmployeeList.jsx` + `EmployeeCard.jsx`
+  - Action: Fonction `getEmployeeHours(employeeId, assignments, shifts)` — filter/reduce/find
+  - Notes: Calcul dans EmployeeList (parent), résultat passé en prop `workedMinutes` à EmployeeCard
+  - Implémentation: App passe `assignments` à EmployeeList, qui importe `DEFAULT_SHIFTS` depuis constants
 
-- [ ] **Task 7.2.2** : Indicateur visuel heures > contrat
+- [x] **Task 7.2.2** : Indicateur visuel heures > contrat
   - File: `src/features/employees/components/EmployeeCard.jsx`
-  - Action: Badge rouge si dépassement
-  - Notes: Utiliser les couleurs du design system (danger)
+  - Action: `isOvertime` booléen + ternaire className + badge conditionnel ⚠️
+  - Notes: `text-danger`, `font-semibold`, `bg-danger/10` du design system
 
 ### Acceptance Criteria Phase 7
 
@@ -205,7 +206,7 @@ src/
 - [x] **AC 7.2** : Given le formulaire rempli, when je submit, then l'assignation apparaît dans la grille
 - [x] **AC 7.3** : Given une assignation, when je clique dessus, then je peux la modifier ou supprimer
 - [x] **AC 7.4** : Given plusieurs assignations, when je refresh, then elles sont persistées (localStorage)
-- [ ] **AC 7.5** : Given un employé avec 35h, when ses assignations = 40h, then un indicateur rouge apparaît
+- [x] **AC 7.5** : Given un employé avec 35h, when ses assignations = 40h, then un indicateur rouge apparaît
 
 ---
 

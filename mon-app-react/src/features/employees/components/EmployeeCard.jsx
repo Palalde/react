@@ -2,6 +2,9 @@ import { Card, Badge, Button } from "@/components/ui";
 import { formatMinutesToDisplay } from "@/utils";
 
 function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
+  // calculer si l'employee a trop d'heure
+  const isOvertime = workedMinutes > employee.weeklyMinutes;
+
   return (
     <Card interactive className="group">
       {/* Header custom (plus flexible + actions discrètes) */}
@@ -48,10 +51,23 @@ function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
         )}
       </div>
 
-      {/* Weekly hours */}
-      <p className="text-sm text-text-secondary mb-3">
-        {formatMinutesToDisplay(workedMinutes)} / {formatMinutesToDisplay(employee.weeklyMinutes)}
-      </p>
+      {/* Weekly hours with overtime indicator */}
+      <div className="flex items-center gap-2 mt-1 mb-3">
+        <p
+          className={`text-sm ${isOvertime ? "text-danger font-semibold" : "text-text-secondary"}`}
+        >
+          {formatMinutesToDisplay(workedMinutes)} /{" "}
+          {formatMinutesToDisplay(employee.weeklyMinutes)}
+        </p>
+        {isOvertime && (
+          <span
+            className="text-xs font-medium text-danger bg-danger/10 rounded-full px-2 py-0.5"
+            title="Dépassement d'heures"
+          >
+            ⚠️
+          </span>
+        )}
+      </div>
 
       {/* Employee skills */}
       <div className="flex flex-wrap gap-1">

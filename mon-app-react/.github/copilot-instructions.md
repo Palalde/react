@@ -105,7 +105,7 @@ function /* ??? */(/* ??? */) {
 | 5     | Events/CRUD  | Input, Modal, EmployeeForm, ShiftSelector |
 | 6     | useEffect    | useLocalStorage, useTheme, ThemeToggle    |
 
-### 🔜 Phase 7 : Lifting State Up (EN COURS)
+### ✅ Phase 7 : Lifting State Up (COMPLÉTÉE)
 
 **Concept** : Remonter le state au plus petit ancêtre commun. Props down, events up.
 
@@ -130,8 +130,8 @@ function /* ??? */(/* ??? */) {
 | 7.1.3 | Remonter state dans App.jsx         | ✅     |
 | 7.1.4 | Connecter DayColumn aux assignments | ✅     |
 | 7.1.5 | Click-to-assign                     | ✅     |
-| 7.2.1 | Calculer heures par employé         | ⏳     |
-| 7.2.2 | Indicateur dépassement              | ⏳     |
+| 7.2.1 | Calculer heures par employé         | ✅     |
+| 7.2.2 | Indicateur dépassement              | ✅     |
 
 > Audit complet réalisé après Story 7.1 — tous les bug fixes critiques appliqués dans le code. Prochain audit prévu après Phase 9.
 
@@ -141,13 +141,13 @@ function /* ??? */(/* ??? */) {
 - [x] AC 7.2 : Submit formulaire → assignation dans grille
 - [x] AC 7.3 : Clic assignation → modifier/supprimer
 - [x] AC 7.4 : Refresh → assignations persistées
-- [ ] AC 7.5 : Heures > contrat → indicateur rouge (Task 7.2.x)
+- [x] AC 7.5 : Heures > contrat → indicateur rouge (Task 7.2.x)
 
 ### ⏳ Phases Futures
 
 | Phase | Concept                     | Status   |
 | ----- | --------------------------- | -------- |
-| 8     | Custom Hooks avancés        | À faire  |
+| 8     | Custom Hooks avancés        | 🔜       |
 | 9     | Composition avancée         | À faire  |
 | 10    | TypeScript                  | Après V2 |
 | 11-12 | Backend (Hono + PostgreSQL) | Après TS |
