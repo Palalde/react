@@ -47,6 +47,7 @@ function App() {
               <EmployeeList
                 employees={employees}
                 setEmployees={setEmployees}
+                assignments={assignments}
                 onDeleteEmployee={handleDeleteEmployee}
               />
             </aside>

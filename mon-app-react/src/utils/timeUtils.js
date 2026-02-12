@@ -31,3 +31,18 @@ export function formatMinutesToDisplay(totalMinutes) {
   }
   return `${hours}h${minutes.toString().padStart(2, "0")}`;
 }
+
+export function getEmployeeHours(employeeId, assignments, shifts) {
+  // regrouper les assignement par id
+  const employeeAssignments = assignments.filter(
+    (a) => a.employeeId === employeeId,
+  );
+
+  // calculer le total des heurs par assignment associé a un employé
+  const total = employeeAssignments.reduce((acc, assignment) => {
+    const shift = shifts.find((h) => assignment.shiftId === h.id);
+    return acc + ((shift?.hours ?? 0) * 60);
+  }, 0);
+
+  return total;
+}
