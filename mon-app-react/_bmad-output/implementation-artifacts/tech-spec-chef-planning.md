@@ -240,7 +240,7 @@ src/
 
 ### Story 8.2 : Hook de Calcul d'Heures
 
-- [ ] **Task 8.2.1** : Créer `useHoursCalculator` hook
+- [x] **Task 8.2.1** : Créer `useHoursCalculator` hook
   - File: `src/hooks/useHoursCalculator.js`
   - Action: Calcule heures travaillées, reste, dépassement
   - Retourne: `{ totalMinutes, remainingMinutes, isOvertime, formatDisplay }`

@@ -143,14 +143,27 @@ function /* ??? */(/* ??? */) {
 - [x] AC 7.4 : Refresh → assignations persistées
 - [x] AC 7.5 : Heures > contrat → indicateur rouge (Task 7.2.x)
 
+### ✅ Phase 8 : Custom Hooks Avancés (COMPLÉTÉE)
+
+**Concept** : Extraire la logique métier dans des hooks réutilisables.
+
+#### Tasks Phase 8
+
+| Task  | Description                   | Status |
+| ----- | ----------------------------- | ------ |
+| 8.1.1 | Créer `useEmployees`          | ✅     |
+| 8.1.2 | Créer `useShifts`             | ✅     |
+| 8.1.3 | Créer `useAssignments`        | ✅     |
+| 8.1.4 | Refactorer App.jsx avec hooks | ✅     |
+| 8.2.1 | Créer `useHoursCalculator`    | ✅     |
+
 ### ⏳ Phases Futures
 
-| Phase | Concept                     | Status              |
-| ----- | --------------------------- | ------------------- |
-| 8     | Custom Hooks avancés        | ⏳ (8.1.1-8.1.4 ✅) |
-| 9     | Composition avancée         | À faire             |
-| 10    | TypeScript                  | Après V2            |
-| 11-12 | Backend (Hono + PostgreSQL) | Après TS            |
+| Phase | Concept                     | Status   |
+| ----- | --------------------------- | -------- |
+| 9     | Composition avancée         | À faire  |
+| 10    | TypeScript                  | Après V2 |
+| 11-12 | Backend (Hono + PostgreSQL) | Après TS |
 
 ---
 
@@ -177,7 +190,7 @@ src/
 │   ├── shifts/      # ShiftSelector, useShifts
 │   ├── assignments/ # AssignmentCard, AssignmentForm, useAssignments (Phase 7-8)
 │   └── planning/    # PlanningGrid, DayColumn
-├── hooks/           # useLocalStorage, useTheme
+├── hooks/           # useLocalStorage, useTheme, useHoursCalculator
 ├── utils/           # generateId, colorUtils, timeUtils
 ├── constants/       # days.js, shifts.js
 └── data/            # mockData.js
