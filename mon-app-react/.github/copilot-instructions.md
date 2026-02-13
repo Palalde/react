@@ -165,13 +165,37 @@ function /* ??? */(/* ??? */) {
 
 > Audit complet réalisé après Phase 8 — 3 bugs critiques corrigés, 7 medium corrigés, BMAD supprimé.
 
-### 🔜 Phase 9 : Composition Avancée (PROCHAINE)
+### 🔜 Phase 9 : Composition Avancée + Refonte UI (PROCHAINE)
 
-**Concept** : Navigation semaines, skills, validation.
+**Concept** : Refonte layout tableau Employé×Jour (AM/PM), shifts CRUD, navigation semaines.
+
+**Répartition** : 🎨 UI/Tailwind = Mentor fait tout | ⚛️ Logique React = Paul en socratique
+
+#### Stories Phase 9
+
+| Story | Description                     | Type          | Status |
+| ----- | ------------------------------- | ------------- | ------ |
+| 9.1   | Refonte layout planning         | 🎨 Mentor     | ⏳     |
+| 9.2   | Click-to-assign adapté          | 🔀 Mix        | ⏳     |
+| 9.3   | Shifts CRUD dynamiques          | ⚛️ Socratique | ⏳     |
+| 9.4   | Navigation semaines             | ⚛️ Socratique | ⏳     |
+| 9.5   | Skills & Validation (optionnel) | ⏸️ Repoussé   | ⏳     |
+
+#### Layout cible
+
+```
+┌── EmployeeCard (sticky) ──────┬── Lun ─┬── Mar ─┬── Mer ─┬ ... ┐
+│ 👤 Jean        ☀ 19h30        │   🟦   │   🟦   │        │     │
+│ ● 12h/35h ⚠️  🌙  6h30        │        │        │   🟧   │     │
+├────────────────────────────────┼────────┼────────┼────────┤     │
+│ 👤 Marie       ☀ 13h00        │        │   🟩   │   🟦   │     │
+│ ● 26h/30h45   🌙 13h00        │   🟧   │   🟩   │        │     │
+└────────────────────────────────┴────────┴────────┴────────┴─────┘
+```
 
 | Phase | Concept                     | Status   |
 | ----- | --------------------------- | -------- |
-| 9     | Composition avancée         | 🔜       |
+| 9     | Composition + Refonte UI    | 🔜       |
 | 10    | TypeScript                  | Après V2 |
 | 11-12 | Backend (Hono + PostgreSQL) | Après TS |
 
@@ -292,21 +316,20 @@ Dire : **"Mets à jour copilot-instructions.md"** et préciser :
 
 ### Fichiers à synchroniser
 
-| Fichier                           | Quand        |
-| --------------------------------- | ------------ |
-| `.github/copilot-instructions.md` | Chaque task  |
-| `tech-spec-chef-planning.md`      | Chaque phase |
-| `todo.md`                         | Chaque phase |
+| Fichier                              | Quand        |
+| ------------------------------------ | ------------ |
+| `.github/copilot-instructions.md`    | Chaque task  |
+| `.github/tech-spec-chef-planning.md` | Chaque phase |
+| `todo.md`                            | Chaque phase |
 
 ---
 
 ## 📄 Fichiers de Référence
 
-| Fichier                                                                       | Contenu                     |
-| ----------------------------------------------------------------------------- | --------------------------- |
-| `_bmad-output/implementation-artifacts/tech-spec-chef-planning.md`            | Détails phases 7-9+         |
-| `_bmad-output/implementation-artifacts/tech-spec-chef-planning-v1-archive.md` | Archive phases 0-6          |
-| `todo.md`                                                                     | Plan d'apprentissage global |
+| Fichier                              | Contenu                     |
+| ------------------------------------ | --------------------------- |
+| `.github/tech-spec-chef-planning.md` | Détails phases 7-9+         |
+| `todo.md`                            | Plan d'apprentissage global |
 
 ---
 

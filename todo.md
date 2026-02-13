@@ -80,24 +80,41 @@
 
 ---
 
-### 📚 Phase 9 : Composition Avancée (1 semaine)
+### 📚 Phase 9 : Composition Avancée + Refonte UI (1-2 semaines)
 
 **📖 Lecture recommandée** :
 
 - https://react.dev/learn/thinking-in-react
 - Date manipulation avec `date-fns` ou natif
+- CSS Grid/Table layouts responsive
 
-**🎯 Objectif** : Navigation semaines, skills avancés, validation.
+**🎯 Objectif** : Refonte layout planning (tableau Employé×Jour AM/PM), shifts CRUD, navigation semaines.
+
+**Répartition** : 🎨 Tailwind = Mentor | ⚛️ React = Paul (socratique)
 
 **✅ Tasks** :
 
-- [ ] Task 9.1.1-9.1.3 : Navigation semaines
-- [ ] Task 9.2.1-9.2.3 : Système de skills
-- [ ] Task 9.3.1-9.3.2 : Validation & alertes
+- [ ] Story 9.1 : Refonte layout planning (🎨 Mentor fait le Tailwind)
+  - [ ] Task 9.1.1 : `PlanningTable` — nouveau composant tableau
+  - [ ] Task 9.1.2 : `EmployeeRow` — ligne employé (AM/PM)
+  - [ ] Task 9.1.3 : `PlanningCell` — cellule individuelle
+  - [ ] Task 9.1.4 : Adapter `App.jsx` au nouveau layout
+- [ ] Story 9.2 : Click-to-assign adapté (🔀 Mix)
+  - [ ] Task 9.2.1 : Clic cellule vide → assigner shift AM/PM
+  - [ ] Task 9.2.2 : Clic cellule remplie → éditer/supprimer
+- [ ] Story 9.3 : Shifts CRUD dynamiques (⚛️ Socratique)
+  - [ ] Task 9.3.1 : Transformer `useShifts` en hook avec state
+  - [ ] Task 9.3.2 : Créer `ShiftForm`
+  - [ ] Task 9.3.3 : Créer `ShiftManager`
+- [ ] Story 9.4 : Navigation semaines (⚛️ Socratique)
+  - [ ] Task 9.4.1 : Créer `useWeekNavigation` hook
+  - [ ] Task 9.4.2 : Créer `WeekNavigator` composant
+  - [ ] Task 9.4.3 : Filtrer assignments par semaine
+- [ ] Story 9.5 (optionnel) : Skills & Validation — repoussé après MVP
 
 **🧪 Acceptance Criteria** :
 
-- [ ] AC 9.1-9.3 (voir tech-spec)
+- [ ] AC 9.1-9.5 (voir tech-spec)
 
 ---
 
@@ -146,13 +163,12 @@ React (TS) ←→ Hono API (TS) ←→ PostgreSQL
 
 ## 📁 Fichiers Importants
 
-| Fichier                                                                       | Description                        |
-| ----------------------------------------------------------------------------- | ---------------------------------- |
-| `_bmad-output/implementation-artifacts/tech-spec-chef-planning.md`            | Tech-spec V2 (détails phases 7-9+) |
-| `_bmad-output/implementation-artifacts/tech-spec-chef-planning-v1-archive.md` | Archive phases 0-6 détaillées      |
-| `.github/copilot-instructions.md`                                             | Instructions pour Copilot          |
-| `quiz-react-phases-0-3.md`                                                    | Quiz validation phases 0-3         |
-| `quiz-react-phases-4-6.md`                                                    | Quiz validation phases 4-6         |
+| Fichier                              | Description                        |
+| ------------------------------------ | ---------------------------------- |
+| `.github/tech-spec-chef-planning.md` | Tech-spec V2 (détails phases 7-9+) |
+| `.github/copilot-instructions.md`    | Instructions pour Copilot          |
+| `quiz-react-phases-0-3.md`           | Quiz validation phases 0-3         |
+| `quiz-react-phases-4-6.md`           | Quiz validation phases 4-6         |
 
 ---
 

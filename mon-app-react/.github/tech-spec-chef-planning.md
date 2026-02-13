@@ -2,7 +2,7 @@
 title: "ChefPlanning - App de Planning Hebdomadaire"
 slug: "chef-planning"
 created: "2026-01-08"
-updated: "2026-02-07"
+updated: "2026-02-13"
 status: "v2-in-progress"
 currentPhase: 9
 completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -29,7 +29,7 @@ data_model_version: 2
 
 # Tech-Spec: ChefPlanning - App de Planning Hebdomadaire
 
-**Created:** 2026-01-08 | **Updated:** 2026-02-07
+**Created:** 2026-01-08 | **Updated:** 2026-02-13
 
 ---
 
@@ -256,56 +256,139 @@ src/
 
 ---
 
-## 🎓 PHASE 9 : Composition Avancée ⭐⭐⭐
+## 🎓 PHASE 9 : Composition Avancée + Refonte UI ⭐⭐⭐
 
-### Story 9.1 : Navigation entre Semaines
+### Vision Layout Phase 9
+
+```
+┌─── EmployeeCard (fixe) ───────┬── Lun ─┬── Mar ─┬── Mer ─┬── Jeu ─┬── Ven ─┬── Sam ┬── Dim ┐
+│                                │        │        │        │        │        │       │       │
+│ 👤 Jean           ☀ 19h30     │   🟦   │   🟦   │        │        │   🟦   │       │       │
+│ ●  12h/35h ⚠️    🌙  6h30     │        │        │   🟧   │        │        │       │       │
+│ [balance] [rayon]              │        │        │        │        │        │       │       │
+├────────────────────────────────┼────────┼────────┼────────┼────────┼────────┤───────┤───────┤
+│                                │        │        │        │        │        │       │       │
+│ 👤 Marie          ☀ 13h00     │        │   🟩   │   🟦   │        │        │       │       │
+│ ●  26h/30h45      🌙 13h00     │   🟧   │   🟩   │        │   🟧   │        │       │       │
+│ [caisse]                       │        │        │        │        │        │       │       │
+└────────────────────────────────┴────────┴────────┴────────┴────────┴────────┴───────┴───────┘
+```
+
+**Principes** :
+
+- Tableau Employé × Jour avec sous-lignes AM/PM par employé
+- EmployeeCard à gauche (sticky) avec infos + totaux heures AM/PM
+- Shift "Journée" = remplit les 2 cellules AM + PM visuellement connectées
+- Cellule vide cliquable → assigner shift correspondant (AM ou PM)
+- Shifts dynamiques (CRUD) au lieu de constantes en dur
+- Colonne employé sticky sur mobile (scroll horizontal sur jours)
+
+### Répartition du travail
+
+| Type                                    | Qui fait ?                | Méthode                          |
+| --------------------------------------- | ------------------------- | -------------------------------- |
+| 🎨 Layout, Tailwind, responsive         | **Mentor** (code complet) | Paul valide visuellement         |
+| ⚛️ Logique React (state, hooks, events) | **Paul**                  | Socratique (questions, hints)    |
+| 🔀 Mix (composants avec les deux)       | **Collaboration**         | Mentor = styling, Paul = logique |
+
+---
+
+### Story 9.1 : Refonte Layout Planning (🎨 UI/UX — Mentor)
+
+**🎯 Objectif** : Transformer la grille colonnes en tableau Employé × Jour avec lignes AM/PM.
+
+> ⚠️ Le mentor fournit le code Tailwind complet. Paul valide le résultat visuellement.
+
+- [ ] **Task 9.1.1** : Créer `PlanningTable` — nouveau composant tableau
+  - File: `src/features/planning/components/PlanningTable.jsx`
+  - Action: Remplacer PlanningGrid (colonnes) par un tableau HTML `<table>` stylé
+  - Layout: Header jours en colonnes, une row par employé avec 2 sous-lignes (AM/PM)
+  - Notes: 🎨 Mentor fournit le Tailwind complet
+
+- [ ] **Task 9.1.2** : Créer `EmployeeRow` — ligne employé dans le tableau
+  - File: `src/features/planning/components/EmployeeRow.jsx`
+  - Props: `{ employee, assignments, shifts, workedMinutes, onCellClick, onEditAssignment, onDeleteAssignment }`
+  - Layout: Colonne gauche = infos employé + totaux AM/PM, puis 7 colonnes × 2 lignes
+  - Notes: 🎨 Mentor fournit le Tailwind, ⚛️ Paul câble la logique
+
+- [ ] **Task 9.1.3** : Créer `PlanningCell` — cellule individuelle AM ou PM
+  - File: `src/features/planning/components/PlanningCell.jsx`
+  - Props: `{ assignment?, employee?, shift?, period, day, onClick }`
+  - Action: Affiche le shift assigné OU une cellule vide cliquable
+  - Notes: Shift "Journée" = les 2 cellules AM+PM sont visuellement liées
+
+- [ ] **Task 9.1.4** : Adapter `App.jsx` au nouveau layout
+  - File: `src/App.jsx`
+  - Action: Remplacer sidebar + PlanningGrid par PlanningTable pleine largeur
+  - Notes: Le CRUD employés se fait via un bouton + modal (plus de sidebar)
+
+### Story 9.2 : Click-to-Assign adapté (🔀 Mix)
+
+**🎯 Objectif** : Assigner un shift en cliquant sur une cellule AM ou PM.
+
+- [ ] **Task 9.2.1** : Click cellule vide → assigner le shift correspondant
+  - Action: Clic sur cellule AM vide → crée assignation shift matin ; PM → shift après-midi
+  - Notes: ⚛️ Paul code la logique, 🎨 Mentor fait le feedback visuel
+
+- [ ] **Task 9.2.2** : Click cellule remplie → modal éditer/supprimer
+  - Action: Réutiliser AssignmentForm en mode édition
+  - Notes: ⚛️ Paul code la logique du modal
+
+### Story 9.3 : Shifts CRUD dynamiques (⚛️ React — Socratique)
+
+**🎯 Objectif** : Rendre les shifts éditables et permettre des shifts custom.
+
+**📚 Concept React** : Transformer un hook statique en hook avec state + CRUD + persistance.
+
+- [ ] **Task 9.3.1** : Transformer `useShifts` en hook avec state + localStorage
+  - File: `src/features/shifts/hooks/useShifts.js`
+  - Retourne: `{ shifts, addShift, updateShift, deleteShift, getShiftById, resetToDefaults }`
+  - Notes: ⚛️ Paul — même pattern que useEmployees
+
+- [ ] **Task 9.3.2** : Créer `ShiftForm` — formulaire création/édition shift
+  - File: `src/features/shifts/components/ShiftForm.jsx`
+  - Props: `{ onSubmit, onClose, editingShift? }`
+  - Champs: nom, startTime, endTime, type (matin/aprem/journée), couleur
+  - Notes: 🔀 Mix — 🎨 Mentor fait le form styling, ⚛️ Paul fait la logique
+
+- [ ] **Task 9.3.3** : Créer `ShiftManager` — UI de gestion des shifts
+  - File: `src/features/shifts/components/ShiftManager.jsx`
+  - Action: Liste des shifts avec boutons éditer/supprimer + bouton ajouter
+  - Notes: 🔀 Mix — accessible via bouton dans le header ou settings
+
+### Story 9.4 : Navigation entre Semaines (⚛️ React — Socratique)
 
 **🎯 Objectif** : Gérer des données temporelles avec React.
 
-- [ ] **Task 9.1.1** : Créer `useWeekNavigation` hook
+- [ ] **Task 9.4.1** : Créer `useWeekNavigation` hook
   - File: `src/features/planning/hooks/useWeekNavigation.js`
   - Retourne: `{ currentWeek, goToNextWeek, goToPrevWeek, goToToday, formatWeekDisplay }`
-  - Notes: `currentWeek` = date du lundi de la semaine
+  - Notes: ⚛️ Paul — `currentWeek` = date du lundi de la semaine
 
-- [ ] **Task 9.1.2** : Créer `WeekNavigator` composant
+- [ ] **Task 9.4.2** : Créer `WeekNavigator` composant
   - File: `src/features/planning/components/WeekNavigator.jsx`
   - Action: Boutons ◀ ▶ + affichage "Semaine du 3 février 2026"
+  - Notes: 🔀 Mix — 🎨 Mentor styling, ⚛️ Paul logique
 
-- [ ] **Task 9.1.3** : Filtrer assignments par semaine
+- [ ] **Task 9.4.3** : Filtrer assignments par semaine
   - File: `src/features/assignments/hooks/useAssignments.js`
-  - Action: Ajouter `getAssignmentsByWeek(weekOf)`
-  - Notes: weekOf = "2026-02-03" (format ISO)
+  - Action: Ajouter `getAssignmentsByWeek(weekOf)` + champ `weekOf` dans Assignment
+  - Notes: ⚛️ Paul — weekOf = "2026-02-03" (format ISO du lundi)
 
-### Story 9.2 : Système de Compétences (Skills)
+### Story 9.5 (OPTIONNELLE) : Skills & Validation
 
-- [ ] **Task 9.2.1** : Créer `SkillBadge` composant
-  - File: `src/features/skills/components/SkillBadge.jsx`
-  - Props: `{ skill, level?, removable?, onRemove? }`
+> Repoussée après le MVP frontend. Pourra être intégrée avant ou après TypeScript.
 
-- [ ] **Task 9.2.2** : Créer `SkillSelector` composant
-  - File: `src/features/skills/components/SkillSelector.jsx`
-  - Action: Multi-select avec skills prédéfinis + possibilité d'ajouter
-
-- [ ] **Task 9.2.3** : Intégrer SkillSelector dans EmployeeForm
-  - File: `src/features/employees/components/EmployeeForm.jsx`
-  - Action: Remplacer input texte skills par SkillSelector
-
-### Story 9.3 : Validation & Alertes
-
-- [ ] **Task 9.3.1** : Créer `useValidation` hook
-  - File: `src/hooks/useValidation.js`
-  - Retourne: `{ warnings, errors }`
-  - Règles: heures > contrat (warning), 6+ jours consécutifs (warning)
-
-- [ ] **Task 9.3.2** : Créer `ValidationBanner` composant
-  - File: `src/components/ui/ValidationBanner.jsx`
-  - Action: Afficher les warnings/errors en haut du planning
+- [ ] Skills : `SkillBadge`, `SkillSelector`, intégration EmployeeForm
+- [ ] Validation : `useValidation`, `ValidationBanner`
 
 ### Acceptance Criteria Phase 9
 
-- [ ] **AC 9.1** : Given la semaine courante, when je clique "▶", then la grille affiche semaine +1
-- [ ] **AC 9.2** : Given un employé, when je modifie ses skills via SkillSelector, then ils sont sauvegardés
-- [ ] **AC 9.3** : Given un employé avec 35h et 40h assignées, when je vois le planning, then un warning apparaît
+- [ ] **AC 9.1** : Given le planning, when je vois un employé, then ses assignations AM/PM sont sur 2 lignes alignées avec les jours
+- [ ] **AC 9.2** : Given une cellule AM vide, when je clique, then le shift matin est assigné
+- [ ] **AC 9.3** : Given les shifts, when j'ouvre le gestionnaire, then je peux créer/éditer/supprimer des shifts
+- [ ] **AC 9.4** : Given la semaine courante, when je clique "▶", then la grille affiche semaine +1
+- [ ] **AC 9.5** : Given un shift "Journée", when il est assigné, then les cellules AM+PM sont visuellement connectées
 
 ---
 
@@ -506,4 +589,4 @@ function /* ??? */(/* ??? */) {
 
 ---
 
-_Dernière mise à jour : 2026-02-07 (post-audit Phase 8)_
+_Dernière mise à jour : 2026-02-13 (restructuration Phase 9)_
