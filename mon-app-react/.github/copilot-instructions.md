@@ -147,7 +147,7 @@ function /* ??? */(/* ??? */) {
 
 | Phase | Concept                     | Status              |
 | ----- | --------------------------- | ------------------- |
-| 8     | Custom Hooks avancés        | ⏳ (8.1.1-8.1.3 ✅) |
+| 8     | Custom Hooks avancés        | ⏳ (8.1.1-8.1.4 ✅) |
 | 9     | Composition avancée         | À faire             |
 | 10    | TypeScript                  | Après V2            |
 | 11-12 | Backend (Hono + PostgreSQL) | Après TS            |

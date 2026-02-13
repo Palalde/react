@@ -69,7 +69,7 @@
 - [✅] Task 8.1.1 : Créer `useEmployees` hook
 - [✅] Task 8.1.2 : Créer `useShifts` hook
 - [✅] Task 8.1.3 : Créer `useAssignments` hook
-- [ ] Task 8.1.4 : Refactorer App.jsx
+- [✅] Task 8.1.4 : Refactorer App.jsx
 - [ ] Task 8.2.1 : Créer `useHoursCalculator`
 
 **🧪 Acceptance Criteria** :

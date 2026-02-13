@@ -233,7 +233,7 @@ src/
   - Retourne: `{ assignments, addAssignment, updateAssignment, deleteAssignment, getAssignmentsByDay, getAssignmentsByEmployee, calculateHours }`
   - Notes: Logique métier centralisée
 
-- [ ] **Task 8.1.4** : Refactorer App.jsx avec les hooks
+- [x] **Task 8.1.4** : Refactorer App.jsx avec les hooks
   - File: `src/App.jsx`
   - Action: Remplacer les useState par les custom hooks
   - Résultat: Code ~50% plus court et plus lisible
