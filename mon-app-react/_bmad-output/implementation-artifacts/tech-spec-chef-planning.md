@@ -228,7 +228,7 @@ src/
   - Retourne: `{ shifts, getShiftById }`
   - Notes: Pour l'instant, retourne juste DEFAULT_SHIFTS
 
-- [ ] **Task 8.1.3** : Créer `useAssignments` hook
+- [x] **Task 8.1.3** : Créer `useAssignments` hook
   - File: `src/features/assignments/hooks/useAssignments.js`
   - Retourne: `{ assignments, addAssignment, updateAssignment, deleteAssignment, getAssignmentsByDay, getAssignmentsByEmployee, calculateHours }`
   - Notes: Logique métier centralisée

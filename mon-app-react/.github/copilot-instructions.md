@@ -147,7 +147,7 @@ function /* ??? */(/* ??? */) {
 
 | Phase | Concept                     | Status              |
 | ----- | --------------------------- | ------------------- |
-| 8     | Custom Hooks avancés        | ⏳ (8.1.1-8.1.2 ✅) |
+| 8     | Custom Hooks avancés        | ⏳ (8.1.1-8.1.3 ✅) |
 | 9     | Composition avancée         | À faire             |
 | 10    | TypeScript                  | Après V2            |
 | 11-12 | Backend (Hono + PostgreSQL) | Après TS            |
@@ -175,7 +175,7 @@ src/
 ├── features/
 │   ├── employees/   # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
 │   ├── shifts/      # ShiftSelector, useShifts
-│   ├── assignments/ # AssignmentCard, AssignmentForm (Phase 7)
+│   ├── assignments/ # AssignmentCard, AssignmentForm, useAssignments (Phase 7-8)
 │   └── planning/    # PlanningGrid, DayColumn
 ├── hooks/           # useLocalStorage, useTheme
 ├── utils/           # generateId, colorUtils, timeUtils
