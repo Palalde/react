@@ -51,7 +51,7 @@
 
 **🧪 Acceptance Criteria** :
 
-- [ ] AC 7.1-7.5 (voir tech-spec)
+- [✅] AC 7.1-7.5 (voir tech-spec)
 
 ---
 
@@ -74,7 +74,9 @@
 
 **🧪 Acceptance Criteria** :
 
-- [ ] AC 8.1-8.3 (voir tech-spec)
+- [✅] AC 8.1-8.3 (voir tech-spec)
+
+> ✅ Audit complet réalisé après Phase 8 — bugs corrigés, BMAD supprimé.
 
 ---
 
@@ -162,7 +164,7 @@ React (TS) ←→ Hono API (TS) ←→ PostgreSQL
 2. Coder avec guidage socratique (IA)
 3. Quiz de validation après chaque groupe de phases
 
-**Prochaine étape** : Phase 7 - Lifting State Up
+**Prochaine étape** : Phase 9 - Composition Avancée
 
 ---
 

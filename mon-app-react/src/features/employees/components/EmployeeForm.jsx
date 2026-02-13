@@ -50,11 +50,7 @@ export default function EmployeeForm({
       .filter(Boolean);
 
     // Préparer les données de l'employé à envoyer
-    const employeeData = employee
-      ? { ...formData, skills: skillsArray } // édition : garde l'id existant
-      : { ...formData, skills: skillsArray }; // création : ajoute un id
-
-    onSubmit(employeeData);
+    onSubmit({ ...formData, skills: skillsArray });
   };
 
   //Rendu du formulaire

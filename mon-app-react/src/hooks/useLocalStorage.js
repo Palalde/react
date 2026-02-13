@@ -11,14 +11,21 @@ export default function useLocalStorage(key, initialValue) {
       return storedValue ? JSON.parse(storedValue) : initialValue;
     } catch (error) {
       // Si les données sont corrompues, on repart avec la valeur initiale
-      console.warn(`localStorage key "${key}" corrompu, reset à la valeur initiale`, error);
+      console.warn(
+        `localStorage key "${key}" corrompu, reset à la valeur initiale`,
+        error,
+      );
       return initialValue;
     }
   });
 
-  // useffect pour synchroniser le state avec le localStorage
+  // useEffect pour synchroniser le state avec le localStorage
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.warn(`localStorage key "${key}" : écriture impossible`, error);
+    }
   }, [key, value]);
 
   return [value, setValue];

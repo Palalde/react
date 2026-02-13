@@ -157,11 +157,21 @@ function /* ??? */(/* ??? */) {
 | 8.1.4 | Refactorer App.jsx avec hooks | ✅     |
 | 8.2.1 | Créer `useHoursCalculator`    | ✅     |
 
-### ⏳ Phases Futures
+#### Acceptance Criteria Phase 8
+
+- [x] AC 8.1 : `useEmployees()` → `addEmployee(emp)` ajoute et persiste
+- [x] AC 8.2 : `useAssignments()` → `calculateHours` fonctionnel
+- [x] AC 8.3 : App.jsx refactoré — code plus court et lisible
+
+> Audit complet réalisé après Phase 8 — 3 bugs critiques corrigés, 7 medium corrigés, BMAD supprimé.
+
+### 🔜 Phase 9 : Composition Avancée (PROCHAINE)
+
+**Concept** : Navigation semaines, skills, validation.
 
 | Phase | Concept                     | Status   |
 | ----- | --------------------------- | -------- |
-| 9     | Composition avancée         | À faire  |
+| 9     | Composition avancée         | 🔜       |
 | 10    | TypeScript                  | Après V2 |
 | 11-12 | Backend (Hono + PostgreSQL) | Après TS |
 

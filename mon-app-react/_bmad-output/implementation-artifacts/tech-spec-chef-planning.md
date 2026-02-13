@@ -4,8 +4,8 @@ slug: "chef-planning"
 created: "2026-01-08"
 updated: "2026-02-07"
 status: "v2-in-progress"
-currentPhase: 7
-completedPhases: [0, 1, 2, 3, 4, 5, 6]
+currentPhase: 9
+completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 tech_stack:
   - React 19.2
   - Vite 7
@@ -29,7 +29,7 @@ data_model_version: 2
 
 # Tech-Spec: ChefPlanning - App de Planning Hebdomadaire
 
-**Created:** 2026-01-08 | **Updated:** 2026-02-03
+**Created:** 2026-01-08 | **Updated:** 2026-02-07
 
 ---
 
@@ -49,7 +49,7 @@ Application de planning hebdomadaire pour chefs d'équipe. Projet d'apprentissag
 │     React basics, CRUD, localStorage, Theme                        │
 │                                                                     │
 │  🔜 V2 React (Phases 7-9) ─────────────────── EN COURS             │
-│     Lifting State, Custom Hooks, Composition avancée               │
+│     ✅ Lifting State, ✅ Custom Hooks, 🔜 Composition avancée      │
 │                                                                     │
 │  📘 TypeScript (Phase 10) ────────────────── À VENIR               │
 │     Migration complète de l'app en TS                              │
@@ -90,10 +90,11 @@ src/
 │   │                 # HoursInput, ThemeToggle
 │   └── layout/       # Header, Container
 ├── features/
-│   ├── employees/    # EmployeeCard, EmployeeList, EmployeeForm
-│   ├── shifts/       # ShiftSelector
+│   ├── employees/    # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
+│   ├── shifts/       # ShiftSelector, useShifts
+│   ├── assignments/  # AssignmentCard, AssignmentForm, useAssignments
 │   └── planning/     # PlanningGrid, DayColumn
-├── hooks/            # useLocalStorage, useTheme
+├── hooks/            # useLocalStorage, useTheme, useHoursCalculator
 ├── utils/            # generateId, colorUtils, timeUtils
 ├── constants/        # days.js, shifts.js
 └── data/             # mockData.js
@@ -131,8 +132,8 @@ src/
 | Phase | Concept              | Durée estimée | Status |
 | ----- | -------------------- | ------------- | ------ |
 | 7     | Lifting State Up     | 1 semaine     | ✅     |
-| 8     | Custom Hooks avancés | 1 semaine     | 🔜     |
-| 9     | Composition avancée  | 1 semaine     | ⏳     |
+| 8     | Custom Hooks avancés | 1 semaine     | ✅     |
+| 9     | Composition avancée  | 1 semaine     | 🔜     |
 
 ---
 
@@ -247,9 +248,11 @@ src/
 
 ### Acceptance Criteria Phase 8
 
-- [ ] **AC 8.1** : Given `useEmployees()`, when j'appelle `addEmployee(emp)`, then l'employé est ajouté et persisté
-- [ ] **AC 8.2** : Given `useAssignments()`, when j'ajoute une assignation, then `calculateHours` est mis à jour
-- [ ] **AC 8.3** : Given App.jsx refactoré, when je compare avec avant, then le code est plus court et plus lisible
+- [x] **AC 8.1** : Given `useEmployees()`, when j'appelle `addEmployee(emp)`, then l'employé est ajouté et persisté
+- [x] **AC 8.2** : Given `useAssignments()`, when j'ajoute une assignation, then `calculateHours` est mis à jour
+- [x] **AC 8.3** : Given App.jsx refactoré, when je compare avec avant, then le code est plus court et plus lisible
+
+> Audit complet réalisé après Phase 8 — bugs critiques corrigés (barrel export, return null, try/catch localStorage). BMAD supprimé (inutile).
 
 ---
 
@@ -503,4 +506,4 @@ function /* ??? */(/* ??? */) {
 
 ---
 
-_Dernière mise à jour : 2026-02-07_
+_Dernière mise à jour : 2026-02-07 (post-audit Phase 8)_

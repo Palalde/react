@@ -33,15 +33,15 @@ export function formatMinutesToDisplay(totalMinutes) {
 }
 
 export function getEmployeeHours(employeeId, assignments, shifts) {
-  // regrouper les assignement par id
+  // Filtrer les assignations de cet employé
   const employeeAssignments = assignments.filter(
     (a) => a.employeeId === employeeId,
   );
 
-  // calculer le total des heurs par assignment associé a un employé
+  // Calculer le total des minutes travaillées
   const total = employeeAssignments.reduce((acc, assignment) => {
-    const shift = shifts.find((h) => assignment.shiftId === h.id);
-    return acc + ((shift?.hours ?? 0) * 60);
+    const shift = shifts.find((s) => assignment.shiftId === s.id);
+    return acc + (shift?.hours ?? 0) * 60;
   }, 0);
 
   return total;

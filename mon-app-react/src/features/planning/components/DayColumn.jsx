@@ -1,5 +1,5 @@
 import { AssignmentCard, AssignmentForm } from "@/features/assignments";
-import { DEFAULT_SHIFTS } from "@/constants/shifts";
+import { DEFAULT_SHIFTS } from "@/constants";
 import { useState } from "react";
 
 function DayColumn({
@@ -51,8 +51,8 @@ function DayColumn({
             const shift = DEFAULT_SHIFTS.find(
               (sh) => sh.id === assignment.shiftId,
             );
-            // GUARD
-            if (!employee || !shift) return;
+            // GUARD : si données manquantes, ne rien afficher
+            if (!employee || !shift) return null;
             // lier les deux dans l'assignment card
             return (
               <AssignmentCard
