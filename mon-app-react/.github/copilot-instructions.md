@@ -145,12 +145,12 @@ function /* ??? */(/* ??? */) {
 
 ### ⏳ Phases Futures
 
-| Phase | Concept                     | Status   |
-| ----- | --------------------------- | -------- |
-| 8     | Custom Hooks avancés        | 🔜       |
-| 9     | Composition avancée         | À faire  |
-| 10    | TypeScript                  | Après V2 |
-| 11-12 | Backend (Hono + PostgreSQL) | Après TS |
+| Phase | Concept                     | Status              |
+| ----- | --------------------------- | ------------------- |
+| 8     | Custom Hooks avancés        | ⏳ (8.1.1-8.1.2 ✅) |
+| 9     | Composition avancée         | À faire             |
+| 10    | TypeScript                  | Après V2            |
+| 11-12 | Backend (Hono + PostgreSQL) | Après TS            |
 
 ---
 
@@ -173,8 +173,8 @@ src/
 │   ├── ui/          # Button, Card, Badge, Modal, Input, HoursInput, ColorInput, ThemeToggle
 │   └── layout/      # Header, Container
 ├── features/
-│   ├── employees/   # EmployeeCard, EmployeeList, EmployeeForm
-│   ├── shifts/      # ShiftSelector
+│   ├── employees/   # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
+│   ├── shifts/      # ShiftSelector, useShifts
 │   ├── assignments/ # AssignmentCard, AssignmentForm (Phase 7)
 │   └── planning/    # PlanningGrid, DayColumn
 ├── hooks/           # useLocalStorage, useTheme

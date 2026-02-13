@@ -218,12 +218,12 @@ src/
 
 **📚 Concept React** : Custom Hook = fonction commençant par `use` qui utilise d'autres hooks. Sépare logique et UI.
 
-- [ ] **Task 8.1.1** : Créer `useEmployees` hook
+- [x] **Task 8.1.1** : Créer `useEmployees` hook
   - File: `src/features/employees/hooks/useEmployees.js`
   - Retourne: `{ employees, addEmployee, updateEmployee, deleteEmployee, getEmployeeById }`
   - Notes: Encapsule useLocalStorage + CRUD
 
-- [ ] **Task 8.1.2** : Créer `useShifts` hook
+- [x] **Task 8.1.2** : Créer `useShifts` hook
   - File: `src/features/shifts/hooks/useShifts.js`
   - Retourne: `{ shifts, getShiftById }`
   - Notes: Pour l'instant, retourne juste DEFAULT_SHIFTS
