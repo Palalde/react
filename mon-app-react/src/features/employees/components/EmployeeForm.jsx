@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input, Button, ColorInput, HoursInput } from "@/components/ui";
-import { generateId, getAvailableColor } from "@/utils";
+import { getAvailableColor } from "@/utils";
 
 // formulaire de création/édition d'un employé
 export default function EmployeeForm({
@@ -23,9 +23,7 @@ export default function EmployeeForm({
   const [error, setError] = useState("");
 
   // State local pour l'input des skills (string brute pendant la saisie)
-  const [skillsInput, setSkillsInput] = useState(
-    formData.skills.join(", ")
-  );
+  const [skillsInput, setSkillsInput] = useState(formData.skills.join(", "));
 
   // handleChange générique pour mettre à jour un champ du formulaire
   const handleChange = (field, value) => {
@@ -54,7 +52,7 @@ export default function EmployeeForm({
     // Préparer les données de l'employé à envoyer
     const employeeData = employee
       ? { ...formData, skills: skillsArray } // édition : garde l'id existant
-      : { ...formData, id: generateId(), skills: skillsArray }; // création : ajoute un id
+      : { ...formData, skills: skillsArray }; // création : ajoute un id
 
     onSubmit(employeeData);
   };

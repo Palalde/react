@@ -6,34 +6,35 @@ import { generateId, getEmployeeHours } from "@/utils";
 import { DEFAULT_SHIFTS } from "@/constants";
 
 export default function useAssignments() {
-  // TODO: state persisté avec useLocalStorage
+  // state persisté avec useLocalStorage
   const [assignments, setAssignments] = useLocalStorage("assignments", []);
 
-  // TODO: addAssignment — ajouter (générer l'id ici !)
+  // addAssignment — ajouter (générer l'id ici !)
   const addAssignment = (assignmentData) => {
     setAssignments([...assignments, { ...assignmentData, id: generateId() }]);
   };
-  // TODO: updateAssignment — modifier une assignation existante
+  // updateAssignment — modifier une assignation existante
   const updateAssignment = (assignmentData) => {
     setAssignments(
       assignments.map((a) => (a.id === assignmentData.id ? assignmentData : a)),
     );
   };
-  // TODO: deleteAssignment — supprimer une assignation par id
+  // deleteAssignment — supprimer une assignation par id
   const deleteAssignment = (assignmentId) =>
     setAssignments(assignments.filter((a) => a.id !== assignmentId));
 
-  // TODO: getAssignmentsByDay — filtrer les assignations d'un jour
-  //       💡 Pense à .filter() avec day === ???
+  // deleteAssignmentsByEmployee - supprime un assignation lié a un employee
+  const deleteAssignmentsByEmployee = (employeeId) =>
+    setAssignments(assignments.filter((a) => a.employeeId !== employeeId));
+
+  // getAssignmentsByDay — filtrer les assignations d'un jour
   const getAssignmentsByDay = (day) => assignments.filter((a) => a.day === day);
 
-  // TODO: getAssignmentsByEmployee — filtrer par employé
-  //       💡 Utile pour le nettoyage quand on supprime un employé !
+  // getAssignmentsByEmployee — filtrer par employé
   const getAssignmentsByEmployee = (employeeId) =>
     assignments.filter((a) => a.employeeId === employeeId);
 
-  // TODO: calculateHours — total minutes travaillées par un employé
-  //       💡 Regarde getEmployeeHours dans timeUtils.js, c'est la même logique
+  // calculateHours — total minutes travaillées par un employé
   const calculateHours = (employeeId) =>
     getEmployeeHours(employeeId, assignments, DEFAULT_SHIFTS);
 
@@ -42,6 +43,7 @@ export default function useAssignments() {
     addAssignment,
     updateAssignment,
     deleteAssignment,
+    deleteAssignmentsByEmployee,
     getAssignmentsByDay,
     getAssignmentsByEmployee,
     calculateHours,

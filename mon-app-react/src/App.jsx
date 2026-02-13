@@ -1,38 +1,27 @@
 import { Header, Container } from "@/components/layout";
-import { EmployeeList } from "@/features/employees";
+import { EmployeeList, useEmployees } from "@/features/employees";
+import { useAssignments } from "@/features/assignments";
 import { PlanningGrid } from "@/features/planning";
-import { useLocalStorage } from "@/hooks";
-import { MOCK_EMPLOYEES } from "@/data";
-import { generateId } from "@/utils";
 
 function App() {
-  // STATES
-  // la liste des employés
-  const [employees, setEmployees] = useLocalStorage(
-    "employees",
-    MOCK_EMPLOYEES,
-  );
-  // Assignment state
-  const [assignments, setAssignments] = useLocalStorage("assignments", []);
+  // custom Hooks
+  // employees
+  const { employees, addEmployee, updateEmployee, deleteEmployee } =
+    useEmployees();
+  // Assignments
+  const {
+    assignments,
+    addAssignment,
+    updateAssignment,
+    deleteAssignment,
+    deleteAssignmentsByEmployee,
+  } = useAssignments();
   // HANDLERS
-  // AddAssignments Handler
-  const handleAddAssignment = (assignmentData) => {
-    setAssignments([...assignments, { ...assignmentData, id: generateId() }]);
-  };
-  // EdditAssigments Handler
-  const handleEditAssignment = (assignmentData) => {
-    setAssignments(
-      assignments.map((a) => (a.id === assignmentData.id ? assignmentData : a)),
-    );
-  };
-  // DeleteAssigments Handler
-  const handleDeleteAssignment = (assignmentId) =>
-    setAssignments(assignments.filter((a) => a.id !== assignmentId));
 
   // DeleteEmployee Handler (+ nettoyage assignations orphelines)
   const handleDeleteEmployee = (employeeId) => {
-    setEmployees(employees.filter((e) => e.id !== employeeId));
-    setAssignments(assignments.filter((a) => a.employeeId !== employeeId));
+    deleteEmployee(employeeId);
+    deleteAssignmentsByEmployee(employeeId);
   };
 
   return (
@@ -46,8 +35,9 @@ function App() {
             <aside className="w-full lg:w-64 lg:flex-shrink-0">
               <EmployeeList
                 employees={employees}
-                setEmployees={setEmployees}
                 assignments={assignments}
+                addEmployee={addEmployee}
+                updateEmployee={updateEmployee}
                 onDeleteEmployee={handleDeleteEmployee}
               />
             </aside>
@@ -57,9 +47,9 @@ function App() {
               <PlanningGrid
                 employees={employees}
                 assignments={assignments}
-                onAddAssignment={handleAddAssignment}
-                onEditAssignment={handleEditAssignment}
-                onDeleteAssignment={handleDeleteAssignment}
+                onAddAssignment={addAssignment}
+                onEditAssignment={updateAssignment}
+                onDeleteAssignment={deleteAssignment}
               />
             </section>
           </div>

@@ -7,8 +7,9 @@ import EmployeeForm from "./EmployeeForm";
 
 function EmployeeList({
   employees,
-  setEmployees,
   assignments,
+  addEmployee,
+  updateEmployee,
   onDeleteEmployee,
 }) {
   // State pour gérer l'ouverture/fermeture du modal
@@ -21,12 +22,10 @@ function EmployeeList({
   const handleSaveEmployee = (employeeData) => {
     if (employeeToEdit) {
       // Mode édition: remplace l'employé existant
-      setEmployees(
-        employees.map((e) => (e.id === employeeData.id ? employeeData : e)),
-      );
+      updateEmployee(employeeData);
     } else {
-      // Mode création: ajoute à la fin
-      setEmployees([...employees, employeeData]);
+      // mode création
+      addEmployee(employeeData);
     }
     setIsModalOpen(false);
     setEmployeeToEdit(null);

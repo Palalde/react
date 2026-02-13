@@ -40,10 +40,10 @@ export default function useEmployees() {
     employees.find((e) => e.id === employeeId);
 
   return {
+    employees,
     addEmployee,
     updateEmployee,
     deleteEmployee,
     getEmployeeById,
-    employees,
   };
 }
