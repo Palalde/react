@@ -38,11 +38,25 @@ export function getEmployeeHours(employeeId, assignments, shifts) {
     (a) => a.employeeId === employeeId,
   );
 
-  // Calculer le total des minutes travaillées
-  const total = employeeAssignments.reduce((acc, assignment) => {
-    const shift = shifts.find((s) => assignment.shiftId === s.id);
-    return acc + (shift?.hours ?? 0) * 60;
-  }, 0);
+  // total heures + matin et aprem {total, am, pm}
+  return employeeAssignments.reduce(
+    (acc, assignment) => {
+      const shift = shifts.find((s) => assignment.shiftId === s.id);
+      const minutes = (shift?.hours ?? 0) * 60;
 
-  return total;
+      // heures total
+      acc.total += minutes;
+
+      // matin
+      if (shift?.id === "matin") {
+        acc.am += minutes;
+        // aprem
+      } else if (shift?.id === "aprem") {
+        acc.pm += minutes;
+      }
+
+      return acc;
+    },
+    { total: 0, am: 0, pm: 0 },
+  );
 }

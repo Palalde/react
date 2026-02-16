@@ -2,7 +2,7 @@
 // 🎨 Styling Tailwind = Mentor | ⚛️ Logique React = Paul
 
 import { DAYS_OF_WEEK } from "@/constants";
-import { formatMinutesToDisplay } from "@/utils";
+import { formatMinutesToDisplay, getEmployeeHours } from "@/utils";
 
 function EmployeeRow({
   employee,
@@ -12,38 +12,12 @@ function EmployeeRow({
   //   onEditAssignment,
   //   onDeleteAssignment,
 }) {
-  // Filtrer les assignations de cet employé
-  const employeeAssignments = assignments.filter(
-    (a) => a.employeeId === employee.id,
-  );
-
-  // Calculer les heures totales travaillées
-  const totalMinutes = employeeAssignments.reduce((total, assignment) => {
-    const shift = shifts.find((s) => s.id === assignment.shiftId);
-    return total + (shift ? shift.hours * 60 : 0);
-  }, 0);
-
-  // Calculer heures AM et PM séparément
-  const amMinutes = employeeAssignments
-    .filter((a) => {
-      const shift = shifts.find((s) => s.id === a.shiftId);
-      return shift && shift.id === "matin";
-    })
-    .reduce((total, a) => {
-      const shift = shifts.find((s) => s.id === a.shiftId);
-      return total + (shift ? shift.hours * 60 : 0);
-    }, 0);
-
-  const pmMinutes = employeeAssignments
-    .filter((a) => {
-      const shift = shifts.find((s) => s.id === a.shiftId);
-      return shift && shift.id === "aprem";
-    })
-    .reduce((total, a) => {
-      const shift = shifts.find((s) => s.id === a.shiftId);
-      return total + (shift ? shift.hours * 60 : 0);
-    }, 0);
-
+  // Calcul des heures (total, AM, PM) via utilitaire centralisé
+  const {
+    total: totalMinutes,
+    am: amMinutes,
+    pm: pmMinutes,
+  } = getEmployeeHours(employee.id, assignments, shifts);
   const isOvertime = totalMinutes > employee.weeklyMinutes;
 
   return (
