@@ -14,16 +14,6 @@ function PlanningTable({
 }) {
   return (
     <div className="bg-bg-primary rounded-xl shadow-md border border-border overflow-hidden">
-      {/* Titre du planning */}
-      <div className="bg-bg-tertiary border-b border-border px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base sm:text-lg font-bold text-text-primary">
-            📅 Planning de la semaine
-          </h2>
-          <span className="text-xs text-text-muted lg:hidden">← Scroll →</span>
-        </div>
-      </div>
-
       {/* Wrapper scroll horizontal */}
       <div className="overflow-x-auto">
         <table className="w-full border-collapse min-w-[700px]">

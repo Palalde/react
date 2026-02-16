@@ -173,12 +173,12 @@ function /* ??? */(/* ??? */) {
 
 #### Tasks Story 9.1 (Refonte layout)
 
-| Task  | Description                    | Status |
-| ----- | ------------------------------ | ------ |
-| 9.1.1 | Créer `PlanningTable`          | ✅     |
-| 9.1.2 | Créer `EmployeeRow`            | ✅     |
-| 9.1.3 | Créer `PlanningCell`           | ✅     |
-| 9.1.4 | Adapter `App.jsx` nouveau layout | ⏳     |
+| Task  | Description                      | Status |
+| ----- | -------------------------------- | ------ |
+| 9.1.1 | Créer `PlanningTable`            | ✅     |
+| 9.1.2 | Créer `EmployeeRow`              | ✅     |
+| 9.1.3 | Créer `PlanningCell`             | ✅     |
+| 9.1.4 | Adapter `App.jsx` nouveau layout | ✅     |
 
 > Refactor : `getEmployeeHours()` centralisé dans `timeUtils.js` (retourne `{ total, am, pm }` en un seul `.reduce()`). `renderDayCells()` factorisé dans `EmployeeRow`.
 
