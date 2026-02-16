@@ -2,6 +2,7 @@
 // 🎨 UI/Tailwind — Mentor fournit le code complet
 
 import { DAYS_OF_WEEK } from "@/constants";
+import { EmployeeRow } from "@/features/planning";
 
 function PlanningTable({
   employees,
@@ -53,22 +54,20 @@ function PlanningTable({
               ))}
             </tr>
           </thead>
-
           {/* Corps du tableau — les EmployeeRow viendront ici (Task 9.1.2) */}
           <tbody>
             {employees.length > 0 ? (
-              // TODO: ⚛️ Task 9.1.2 — Paul câblera les EmployeeRow ici
-              <tr>
-                <td
-                  colSpan={1 + DAYS_OF_WEEK.length}
-                  className="px-4 py-12 text-center text-text-muted"
-                >
-                  <span className="text-3xl opacity-30 block mb-2">🚧</span>
-                  <p className="text-sm">
-                    EmployeeRow arrive dans la Task 9.1.2
-                  </p>
-                </td>
-              </tr>
+              employees.map((employee) => (
+                <EmployeeRow
+                  key={employee.id}
+                  employee={employee}
+                  assignments={assignments}
+                  shifts={shifts}
+                  onAddAssignment={onAddAssignment}
+                  onEditAssignment={onEditAssignment}
+                  onDeleteAssignment={onDeleteAssignment}
+                />
+              ))
             ) : (
               /* Empty state — aucun employé */
               <tr>
