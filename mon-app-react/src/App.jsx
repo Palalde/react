@@ -1,13 +1,16 @@
 import { Header, Container } from "@/components/layout";
 import { EmployeeList, useEmployees } from "@/features/employees";
 import { useAssignments } from "@/features/assignments";
-import { PlanningGrid } from "@/features/planning";
+import { PlanningTable } from "@/features/planning";
+import { useShifts } from "@/features/shifts";
 
 function App() {
   // custom Hooks
   // employees
   const { employees, addEmployee, updateEmployee, deleteEmployee } =
     useEmployees();
+  // shifts
+  const { shifts } = useShifts();
   // Assignments
   const {
     assignments,
@@ -42,11 +45,12 @@ function App() {
               />
             </aside>
 
-            {/* Main: Grille de planning */}
+            {/* Main: Tableau de planning */}
             <section className="flex-1 min-w-0">
-              <PlanningGrid
+              <PlanningTable
                 employees={employees}
                 assignments={assignments}
+                shifts={shifts}
                 onAddAssignment={addAssignment}
                 onEditAssignment={updateAssignment}
                 onDeleteAssignment={deleteAssignment}
