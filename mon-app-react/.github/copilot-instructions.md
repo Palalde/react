@@ -1,6 +1,6 @@
 # Copilot Instructions - ChefPlanning
 
-> **Utilisateur** : Paul | **Langue** : Français | **Dernière MAJ** : 2026-02-07
+> **Utilisateur** : Paul | **Langue** : Français | **Dernière MAJ** : 2026-02-17
 
 ---
 
@@ -165,17 +165,28 @@ function /* ??? */(/* ??? */) {
 
 > Audit complet réalisé après Phase 8 — 3 bugs critiques corrigés, 7 medium corrigés, BMAD supprimé.
 
-### 🔜 Phase 9 : Composition Avancée + Refonte UI (PROCHAINE)
+### 🔜 Phase 9 : Composition Avancée + Refonte UI (EN COURS)
 
 **Concept** : Refonte layout tableau Employé×Jour (AM/PM), shifts CRUD, navigation semaines.
 
 **Répartition** : 🎨 UI/Tailwind = Mentor fait tout | ⚛️ Logique React = Paul en socratique
 
-#### Stories Phase 9
+#### Tasks Story 9.1 (Refonte layout)
+
+| Task  | Description                    | Status |
+| ----- | ------------------------------ | ------ |
+| 9.1.1 | Créer `PlanningTable`          | ✅     |
+| 9.1.2 | Créer `EmployeeRow`            | ✅     |
+| 9.1.3 | Créer `PlanningCell`           | ✅     |
+| 9.1.4 | Adapter `App.jsx` nouveau layout | ⏳     |
+
+> Refactor : `getEmployeeHours()` centralisé dans `timeUtils.js` (retourne `{ total, am, pm }` en un seul `.reduce()`). `renderDayCells()` factorisé dans `EmployeeRow`.
+
+#### Stories Phase 9 restantes
 
 | Story | Description                     | Type          | Status |
 | ----- | ------------------------------- | ------------- | ------ |
-| 9.1   | Refonte layout planning         | 🎨 Mentor     | ⏳     |
+| 9.1   | Refonte layout planning         | 🎨 Mentor     | 🔜     |
 | 9.2   | Click-to-assign adapté          | 🔀 Mix        | ⏳     |
 | 9.3   | Shifts CRUD dynamiques          | ⚛️ Socratique | ⏳     |
 | 9.4   | Navigation semaines             | ⚛️ Socratique | ⏳     |
@@ -223,9 +234,9 @@ src/
 │   ├── employees/   # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
 │   ├── shifts/      # ShiftSelector, useShifts
 │   ├── assignments/ # AssignmentCard, AssignmentForm, useAssignments (Phase 7-8)
-│   └── planning/    # PlanningGrid, DayColumn
+│   └── planning/    # PlanningTable, EmployeeRow, PlanningCell, PlanningGrid (legacy), DayColumn (legacy)
 ├── hooks/           # useLocalStorage, useTheme, useHoursCalculator
-├── utils/           # generateId, colorUtils, timeUtils
+├── utils/           # generateId, colorUtils, timeUtils (+ getEmployeeHours)
 ├── constants/       # days.js, shifts.js
 └── data/            # mockData.js
 ```

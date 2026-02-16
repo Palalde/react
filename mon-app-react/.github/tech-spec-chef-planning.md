@@ -93,9 +93,10 @@ src/
 │   ├── employees/    # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
 │   ├── shifts/       # ShiftSelector, useShifts
 │   ├── assignments/  # AssignmentCard, AssignmentForm, useAssignments
-│   └── planning/     # PlanningGrid, DayColumn
+│   ├── assignments/  # AssignmentCard, AssignmentForm, useAssignments
+│   └── planning/     # PlanningTable, EmployeeRow, PlanningCell, PlanningGrid (legacy), DayColumn (legacy)
 ├── hooks/            # useLocalStorage, useTheme, useHoursCalculator
-├── utils/            # generateId, colorUtils, timeUtils
+├── utils/            # generateId, colorUtils, timeUtils (+ getEmployeeHours)
 ├── constants/        # days.js, shifts.js
 └── data/             # mockData.js
 ```
@@ -299,21 +300,22 @@ src/
 
 > ⚠️ Le mentor fournit le code Tailwind complet. Paul valide le résultat visuellement.
 
-- [ ] **Task 9.1.1** : Créer `PlanningTable` — nouveau composant tableau
+- [x] **Task 9.1.1** : Créer `PlanningTable` — nouveau composant tableau
   - File: `src/features/planning/components/PlanningTable.jsx`
   - Action: Remplacer PlanningGrid (colonnes) par un tableau HTML `<table>` stylé
   - Layout: Header jours en colonnes, une row par employé avec 2 sous-lignes (AM/PM)
   - Notes: 🎨 Mentor fournit le Tailwind complet
 
-- [ ] **Task 9.1.2** : Créer `EmployeeRow` — ligne employé dans le tableau
+- [x] **Task 9.1.2** : Créer `EmployeeRow` — ligne employé dans le tableau
   - File: `src/features/planning/components/EmployeeRow.jsx`
-  - Props: `{ employee, assignments, shifts, workedMinutes, onCellClick, onEditAssignment, onDeleteAssignment }`
+  - Props: `{ employee, assignments, shifts, onAddAssignment, onEditAssignment, onDeleteAssignment }`
   - Layout: Colonne gauche = infos employé + totaux AM/PM, puis 7 colonnes × 2 lignes
   - Notes: 🎨 Mentor fournit le Tailwind, ⚛️ Paul câble la logique
+  - Refactor: `renderDayCells(shiftId, period)` factorisé pour éviter duplication AM/PM
 
-- [ ] **Task 9.1.3** : Créer `PlanningCell` — cellule individuelle AM ou PM
+- [x] **Task 9.1.3** : Créer `PlanningCell` — cellule individuelle AM ou PM
   - File: `src/features/planning/components/PlanningCell.jsx`
-  - Props: `{ assignment?, employee?, shift?, period, day, onClick }`
+  - Props: `{ assignment?, shift?, period, onClick }`
   - Action: Affiche le shift assigné OU une cellule vide cliquable
   - Notes: Shift "Journée" = les 2 cellules AM+PM sont visuellement liées
 

@@ -95,9 +95,9 @@
 **✅ Tasks** :
 
 - [ ] Story 9.1 : Refonte layout planning (🎨 Mentor fait le Tailwind)
-  - [ ] Task 9.1.1 : `PlanningTable` — nouveau composant tableau
-  - [ ] Task 9.1.2 : `EmployeeRow` — ligne employé (AM/PM)
-  - [ ] Task 9.1.3 : `PlanningCell` — cellule individuelle
+  - [x] Task 9.1.1 : `PlanningTable` — nouveau composant tableau
+  - [x] Task 9.1.2 : `EmployeeRow` — ligne employé (AM/PM)
+  - [x] Task 9.1.3 : `PlanningCell` — cellule individuelle
   - [ ] Task 9.1.4 : Adapter `App.jsx` au nouveau layout
 - [ ] Story 9.2 : Click-to-assign adapté (🔀 Mix)
   - [ ] Task 9.2.1 : Clic cellule vide → assigner shift AM/PM
