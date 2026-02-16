@@ -3,6 +3,7 @@
 
 import { DAYS_OF_WEEK } from "@/constants";
 import { formatMinutesToDisplay, getEmployeeHours } from "@/utils";
+import PlanningCell from "./PlanningCell";
 
 function EmployeeRow({
   employee,
@@ -19,10 +20,40 @@ function EmployeeRow({
     pm: pmMinutes,
   } = getEmployeeHours(employee.id, assignments, shifts);
   const isOvertime = totalMinutes > employee.weeklyMinutes;
+  //fonction pour les cellules aprem ou matin
+  const renderDayCells = (shiftId, period) => {
+    // parcourir les jours de la semaine pour cette ligne (AM ou PM)
+    return DAYS_OF_WEEK.map((day) => {
+      // assignation pour ce jour + shift (matin ou aprem)
+      const dailyAssignment = assignments.find(
+        (a) =>
+          a.employeeId === employee.id &&
+          a.day === day.id &&
+          (a.shiftId === shiftId || a.shiftId === "journee"),
+      );
 
+      // trouver le shift correspondant pour accéder à ses infos (ex: couleur)
+      const Shift = shifts.find((s) => s.id === dailyAssignment?.shiftId);
+
+      // retourner la cellule du planning pour ce jour + shift
+      return (
+        <td
+          key={`${employee.id}-${day.id}-${period}`}
+          className="border-r border-border/50 last:border-r-0 p-1 h-[44px] align-middle"
+        >
+          <PlanningCell
+            assignment={dailyAssignment}
+            shift={Shift}
+            period={period}
+            onClick={undefined}
+          />
+        </td>
+      );
+    });
+  };
   return (
     <>
-      {/* ── Ligne AM (☀️ Matin) ── */}
+      {/* ── Ligne AM (Matin) ── */}
       <tr className="border-b border-border/50 group/row">
         {/* Cellule employé — rowSpan 2 (AM + PM), sticky à gauche */}
         <td
@@ -30,7 +61,7 @@ function EmployeeRow({
           className="sticky left-0 z-10 bg-bg-primary border-r border-border p-0 align-stretch group-hover/row:bg-bg-secondary/30 transition-colors"
         >
           <div className="flex flex-col h-full">
-            {/* ── Ligne AM : Nom + pastille | ☀️ total AM ── */}
+            {/* ── Ligne AM : Nom + pastille |  total AM ── */}
             <div className="flex items-center justify-between gap-2 px-3 sm:px-4 h-[44px] border-b border-border/30">
               <div className="flex items-center gap-2 min-w-0">
                 <div
@@ -48,7 +79,7 @@ function EmployeeRow({
               </div>
             </div>
 
-            {/* ── Ligne PM : Heures total/contrat | 🌙 total PM ── */}
+            {/* ── Ligne PM : Heures total/contrat | total PM ── */}
             <div className="flex items-center justify-between gap-2 px-3 sm:px-4 h-[44px]">
               <div className="flex items-center gap-1.5">
                 <span className="text-xs text-text-muted">●</span>
@@ -76,29 +107,12 @@ function EmployeeRow({
         </td>
 
         {/* 7 cellules AM — une par jour */}
-        {DAYS_OF_WEEK.map((day) => (
-          <td
-            key={`${employee.id}-${day.id}-am`}
-            className="border-r border-border/50 last:border-r-0 p-1 h-[44px] align-middle"
-          >
-            {/* TODO: Task 9.1.3 — PlanningCell AM ici */}
-          </td>
-        ))}
+        {renderDayCells("matin", "am")}
       </tr>
 
-      {/* ── Ligne PM (🌙 Après-midi) ── */}
+      {/* ── Ligne PM ( Après-midi) ── */}
       <tr className="border-b border-border group/row">
-        {/* Pas de <td> employé ici : rowSpan=2 couvre cette ligne */}
-
-        {/* 7 cellules PM — une par jour */}
-        {DAYS_OF_WEEK.map((day) => (
-          <td
-            key={`${employee.id}-${day.id}-pm`}
-            className="border-r border-border/50 last:border-r-0 p-1 h-[44px] align-middle"
-          >
-            {/* TODO: Task 9.1.3 — PlanningCell PM ici */}
-          </td>
-        ))}
+        {renderDayCells("aprem", "pm")}
       </tr>
     </>
   );
