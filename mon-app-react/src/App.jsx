@@ -8,8 +8,10 @@ import { useState } from "react";
 
 function App() {
   // states
-  // modal states
-  const [isOpen, setIsOpen] = useState(false);
+  // employee modal state
+  const [isEmpModOpen, setIsEmpModOpen] = useState(false);
+  // assignment selected for edit delete and modal
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
 
   // custom Hooks
   // employees
@@ -33,12 +35,20 @@ function App() {
     deleteAssignmentsByEmployee(employeeId);
   };
 
+  // assignation handler
+  const handleCellClick = (assignment) => {
+    setSelectedAssignment(assignment);
+  };
+
   return (
     <div className="min-h-screen bg-bg-secondary text-text-primary">
+      {/* Header */}
       <Header />
+
+      {/* structure  */}
       <Container>
         <main className="py-4 sm:py-6 space-y-4">
-          {/* Barre d'actions au-dessus du tableau */}
+          {/* titre / boutton CRUD employé */}
           <div className="flex items-center justify-between">
             <h2 className="text-lg sm:text-xl font-semibold text-text-primary">
               📋 Planning de la semaine
@@ -46,7 +56,7 @@ function App() {
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsEmpModOpen(true)}
             >
               👥 Gérer les employés
             </Button>
@@ -60,12 +70,13 @@ function App() {
             onAddAssignment={addAssignment}
             onEditAssignment={updateAssignment}
             onDeleteAssignment={deleteAssignment}
+            onCellClick={handleCellClick}
           />
 
           {/* Modal CRUD employés */}
           <Modal
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
+            isOpen={isEmpModOpen}
+            onClose={() => setIsEmpModOpen(false)}
             title="👥 Gestion des employés"
             size="lg"
           >
@@ -76,6 +87,66 @@ function App() {
               updateEmployee={updateEmployee}
               onDeleteEmployee={handleDeleteEmployee}
             />
+          </Modal>
+
+          {/* Modal assignment cellule */}
+          <Modal
+            isOpen={selectedAssignment}
+            onClose={() => setSelectedAssignment(null)}
+            title="📝 Modifier l'assignation"
+            size="sm"
+          >
+            <div className="space-y-4">
+              {/* Sélecteur de shift */}
+              <div className="space-y-2">
+                <p className="text-sm text-text-secondary font-medium">
+                  Changer le shift :
+                </p>
+                <div className="flex flex-col gap-2">
+                  {shifts.map((shift) => (
+                    <button
+                      key={shift.id}
+                      onClick={() => {
+                        updateAssignment({
+                          ...selectedAssignment,
+                          shiftId: shift.id,
+                        });
+                        setSelectedAssignment(null);
+                      }}
+                      className={`w-full text-left px-3 py-2 rounded-lg border transition-all
+              ${shift.colorClass} hover:shadow-md hover:brightness-95
+              ${
+                selectedAssignment?.shiftId === shift.id
+                  ? "ring-2 ring-accent"
+                  : ""
+              }`}
+                    >
+                      <span className="text-sm font-medium text-text-primary">
+                        {shift.name}
+                      </span>
+                      <span className="text-xs text-text-secondary ml-2">
+                        {shift.startTime} - {shift.endTime}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bouton supprimer */}
+              <div className="pt-2 border-t border-border">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => {
+                    deleteAssignment(selectedAssignment.id);
+                    setSelectedAssignment(null);
+                  }}
+                >
+                  🗑️ Supprimer l'assignation
+                </Button>
+              </div>
+            </div>
           </Modal>
         </main>
       </Container>
