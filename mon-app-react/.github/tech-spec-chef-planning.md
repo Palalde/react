@@ -1,107 +1,87 @@
----
-title: "ChefPlanning - App de Planning Hebdomadaire"
-slug: "chef-planning"
-created: "2026-01-08"
-updated: "2026-02-13"
-status: "v2-in-progress"
+﻿---
+title: ChefPlanning - Tech Spec
+updated: 2026-02-17
 currentPhase: 9
-completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
-tech_stack:
-  - React 19.2
-  - Vite 7
-  - TailwindCSS 4
-  - LocalStorage
-future_stack:
-  - TypeScript (Phase 10)
-  - Node.js + Hono (Phase 11)
-  - SQLite → PostgreSQL (Phase 12)
-code_patterns:
-  - Functional components only
-  - Hooks (useState, useEffect, custom hooks)
-  - Props destructuring with defaults
-  - Feature-based folder structure
-  - Barrel exports (index.js)
-  - Absolute imports (@/)
-pedagogical_approach: socratic
-user_skill_level: intermediate-react
-data_model_version: 2
+completedPhases: [0,1,2,3,4,5,6,7,8]
+stack: [React 19.2, Vite 7, TailwindCSS 4, localStorage]
+future: [TypeScript, Hono, PostgreSQL]
 ---
 
-# Tech-Spec: ChefPlanning - App de Planning Hebdomadaire
+# Tech-Spec: ChefPlanning
 
-**Created:** 2026-01-08 | **Updated:** 2026-02-13
+## Phases 0-8 : COMPLETEES
+
+Phases 0-6 (MVP) : Setup, JSX, Props, useState, Listes, CRUD, useEffect, localStorage, ThemeToggle.
+Phase 7 : Lifting State Up  assignments centralisees dans App.jsx, click-to-assign, calcul heures.
+Phase 8 : Custom Hooks  useEmployees, useShifts, useAssignments, useHoursCalculator (deprecated since 9.1).
 
 ---
 
-## 🎯 Vision Projet
+## PHASE 9 : Composition Avancee + Refonte UI (EN COURS)
 
-### Objectif
+### Repartition
 
-Application de planning hebdomadaire pour chefs d'équipe. Projet d'apprentissage fullstack avec ambition de déploiement et monétisation.
+| Type | Qui | Methode |
+|------|-----|---------|
+| Tailwind/responsive | Mentor (complet) | Paul valide visuellement |
+| Logique React | Paul | Socratique (questions, hints) |
+| Mix | Collaboration | Mentor = styling, Paul = logique |
 
-### Roadmap Complète
+### Story 9.1 : Refonte Layout (DONE)
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    ROADMAP CHEFPLANNING                             │
-├─────────────────────────────────────────────────────────────────────┤
-│  ✅ MVP (Phases 0-6) ────────────────────── COMPLÉTÉ               │
-│     React basics, CRUD, localStorage, Theme                        │
-│                                                                     │
-│  🔜 V2 React (Phases 7-9) ─────────────────── EN COURS             │
-│     ✅ Lifting State, ✅ Custom Hooks, 🔜 Composition avancée      │
-│                                                                     │
-│  📘 TypeScript (Phase 10) ────────────────── À VENIR               │
-│     Migration complète de l'app en TS                              │
-│                                                                     │
-│  🗄️ Backend (Phases 11-12) ───────────────── À VENIR              │
-│     Node.js + Hono, API REST, SQLite → PostgreSQL                  │
-│                                                                     │
-│  🚀 Production (Phase 13+) ───────────────── À VENIR               │
-│     Auth, Deploy, Optimisations, Monétisation                      │
-└─────────────────────────────────────────────────────────────────────┘
-```
+- PlanningTable : tableau HTML Employee x Jour (AM/PM), scroll horizontal, colonne employee sticky
+- EmployeeRow : 2 sous-lignes AM/PM avec renderDayCells() factorise
+- PlanningCell : cellule vide cliquable ou shift assigne
+- App.jsx : pleine largeur, plus de sidebar, CRUD employes via bouton + Modal
+- Nettoyage : supprime PlanningGrid, DayColumn, AssignmentCard, AssignmentForm, Card, useHoursCalculator
+
+### Story 9.2 : Click-to-Assign (TODO)
+
+- Task 9.2.1 : Clic cellule AM vide -> assigne shift matin ; PM -> shift aprem
+- Task 9.2.2 : Clic cellule remplie -> modal editer/supprimer
+
+### Story 9.3 : Shifts CRUD (TODO)
+
+- Task 9.3.1 : Transformer useShifts en hook avec state + localStorage (meme pattern que useEmployees)
+- Task 9.3.2 : ShiftForm  formulaire creation/edition (nom, horaires, type, couleur)
+- Task 9.3.3 : ShiftManager  UI gestion des shifts (liste + CRUD)
+
+### Story 9.4 : Navigation Semaines (TODO)
+
+- Task 9.4.1 : useWeekNavigation hook (currentWeek, goNext, goPrev, goToday)
+- Task 9.4.2 : WeekNavigator composant (boutons + affichage semaine)
+- Task 9.4.3 : Filtrer assignments par weekOf (format ISO du lundi)
+
+### Acceptance Criteria Phase 9
+
+- AC 9.1 : Assignations AM/PM sur 2 lignes alignees avec les jours (DONE)
+- AC 9.2 : Clic cellule AM vide -> shift matin assigne
+- AC 9.3 : Gestionnaire shifts : creer/editer/supprimer
+- AC 9.4 : Bouton ">" -> affiche semaine +1
+- AC 9.5 : Shift "Journee" -> cellules AM+PM visuellement connectees
 
 ---
 
-## ✅ MVP COMPLÉTÉ : Phases 0-6 (Résumé)
+## PHASE 10 : TypeScript (A VENIR)
 
-> **Status** : Toutes les phases MVP sont complétées. Cette section est un résumé des acquis.
-> 📁 Archive détaillée : `tech-spec-chef-planning-v1-archive.md`
+- Setup TS + Vite
+- Typer Data Models (Employee, Shift, Assignment)
+- Typer Custom Hooks
+- Typer Composants UI + Features
 
-### Concepts React Maîtrisés
+## PHASES 11-12 : Backend (A VENIR)
 
-| Phase | Concept                   | Composants Créés                                                              | Status |
-| ----- | ------------------------- | ----------------------------------------------------------------------------- | ------ |
-| 0     | Setup Vite, CSS Variables | `index.css`, `vite.config.js`                                                 | ✅     |
-| 1     | JSX, Composants           | `Header`, `Container`                                                         | ✅     |
-| 2     | Props                     | `Button`, `Card`, `Badge`, `EmployeeCard`                                     | ✅     |
-| 3     | useState                  | `EmployeeList`                                                                | ✅     |
-| 4     | Listes & Keys             | `DayColumn`, `PlanningGrid`, `days.js`                                        | ✅     |
-| 5     | Events, CRUD              | `Input`, `Modal`, `EmployeeForm`, `HoursInput`, `ColorInput`, `ShiftSelector` | ✅     |
-| 6     | useEffect, Custom Hooks   | `useLocalStorage`, `useTheme`, `ThemeToggle`                                  | ✅     |
+Architecture : React (TS) <-> Hono API (TS) <-> SQLite/PostgreSQL
+- Phase 11 : API REST (Hono + Node.js), migration localStorage -> API
+- Phase 12 : Database (SQLite dev, PostgreSQL prod, Drizzle ORM)
 
-### Structure Actuelle du Projet
+## PHASE 13+ : Production
 
-```
-src/
-├── components/
-│   ├── ui/           # Button, Card, Badge, Modal, Input, ColorInput,
-│   │                 # HoursInput, ThemeToggle
-│   └── layout/       # Header, Container
-├── features/
-│   ├── employees/    # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
-│   ├── shifts/       # ShiftSelector, useShifts
-│   ├── assignments/  # AssignmentCard, AssignmentForm, useAssignments
-│   ├── assignments/  # AssignmentCard, AssignmentForm, useAssignments
-│   └── planning/     # PlanningTable, EmployeeRow, PlanningCell, PlanningGrid (legacy), DayColumn (legacy)
-├── hooks/            # useLocalStorage, useTheme, useHoursCalculator
-├── utils/            # generateId, colorUtils, timeUtils (+ getEmployeeHours)
-├── constants/        # days.js, shifts.js
-└── data/             # mockData.js
-```
+Auth, Deploy (Vercel + Railway), Monetisation (Freemium SaaS)
 
-### Data Model MVP (Implémenté)
+---
+
+## Reference : Data Models
 
 ```javascript
 // Employee
@@ -110,485 +90,25 @@ src/
 // Shift (DEFAULT_SHIFTS)
 { id, name, startTime, endTime, hours, colorClass }
 
-// Assignment (structure prévue pour Phase 7)
-{ id, employeeId, day, shiftId }
-```
-
-### Acceptance Criteria Validés (Phases 0-6)
-
-- ✅ Setup Vite, alias @/, generateId(), CSS variables
-- ✅ Header "ChefPlanning" visible
-- ✅ EmployeeCard affiche données, Button variants
-- ✅ State réactif avec useState
-- ✅ Grille 7 jours avec keys
-- ✅ CRUD employés complet
-- ✅ Persistance localStorage + ThemeToggle
-
----
-
-## 🔜 V2 EN COURS : Phases 7-9
-
-### Vue d'Ensemble
-
-| Phase | Concept              | Durée estimée | Status |
-| ----- | -------------------- | ------------- | ------ |
-| 7     | Lifting State Up     | 1 semaine     | ✅     |
-| 8     | Custom Hooks avancés | 1 semaine     | ✅     |
-| 9     | Composition avancée  | 1 semaine     | 🔜     |
-
----
-
-## 🎓 PHASE 7 : Lifting State Up ⭐⭐⭐
-
-### Story 7.1 : Créer le Système d'Assignations
-
-**🎯 Objectif** : Comprendre comment partager le state entre composants.
-
-**📚 Concept React** : Lifting State = remonter le state au plus petit ancêtre commun. Props down, events up.
-
-```
-         ┌─────────────┐
-         │   App.jsx   │  ← State centralisé (employees, assignments)
-         │             │
-         └─────┬───────┘
-               │ props ↓
-    ┌──────────┴──────────┐
-    │                     │
-┌───▼───┐          ┌──────▼──────┐
-│Employee│          │ PlanningGrid │
-│ List   │          │              │
-└────────┘          └──────────────┘
-```
-
-- [x] **Task 7.1.1** : Créer le composant `AssignmentCard`
-  - File: `src/features/assignments/components/AssignmentCard.jsx`
-  - Props: `{ assignment, employee, shift, onEdit, onDelete }`
-  - Action: Afficher nom employé + shift + horaires
-  - Notes: Utiliser la couleur de l'employé comme bordure
-
-- [x] **Task 7.1.2** : Créer le composant `AssignmentForm`
-  - File: `src/features/assignments/components/AssignmentForm.jsx`
-  - Props: `{ employees, shifts, day, onSubmit, onClose, editingAssignment? }`
-  - Action: Modal avec sélecteurs employé + shift
-  - Notes: Mode création ET édition
-
-- [x] **Task 7.1.3** : Remonter le state dans App.jsx
-  - File: `src/App.jsx`
-  - Action:
-    - Déplacer `employees` state depuis EmployeeList vers App
-    - Ajouter `assignments` state avec useLocalStorage
-    - Passer les données et callbacks en props
-
-- [x] **Task 7.1.4** : Connecter DayColumn aux assignments
-  - File: `src/features/planning/components/DayColumn.jsx`
-  - Props ajoutées: `{ assignments, employees, shifts, onAddAssignment, onEditAssignment, onDeleteAssignment }`
-  - Action: Filtrer et afficher les AssignmentCards du jour
-
-- [x] **Task 7.1.5** : Ajouter interaction click-to-assign
-  - File: `src/features/planning/components/DayColumn.jsx`
-  - Action: Zone cliquable pour créer une assignation
-  - Notes: Ouvrir AssignmentForm au clic sur zone vide
-
-### Story 7.2 : Calculer les Heures Travaillées
-
-- [x] **Task 7.2.1** : Calculer le total d'heures par employé
-  - File: `src/utils/timeUtils.js` + `EmployeeList.jsx` + `EmployeeCard.jsx`
-  - Action: Fonction `getEmployeeHours(employeeId, assignments, shifts)` — filter/reduce/find
-  - Notes: Calcul dans EmployeeList (parent), résultat passé en prop `workedMinutes` à EmployeeCard
-  - Implémentation: App passe `assignments` à EmployeeList, qui importe `DEFAULT_SHIFTS` depuis constants
-
-- [x] **Task 7.2.2** : Indicateur visuel heures > contrat
-  - File: `src/features/employees/components/EmployeeCard.jsx`
-  - Action: `isOvertime` booléen + ternaire className + badge conditionnel ⚠️
-  - Notes: `text-danger`, `font-semibold`, `bg-danger/10` du design system
-
-### Acceptance Criteria Phase 7
-
-- [x] **AC 7.1** : Given un employé et un shift, when je clique sur une cellule vide, then un formulaire s'ouvre
-- [x] **AC 7.2** : Given le formulaire rempli, when je submit, then l'assignation apparaît dans la grille
-- [x] **AC 7.3** : Given une assignation, when je clique dessus, then je peux la modifier ou supprimer
-- [x] **AC 7.4** : Given plusieurs assignations, when je refresh, then elles sont persistées (localStorage)
-- [x] **AC 7.5** : Given un employé avec 35h, when ses assignations = 40h, then un indicateur rouge apparaît
-
----
-
-## 🎓 PHASE 8 : Custom Hooks Avancés ⭐⭐⭐
-
-### Story 8.1 : Extraire la Logique Métier
-
-**🎯 Objectif** : Créer des hooks custom pour encapsuler la logique réutilisable.
-
-**📚 Concept React** : Custom Hook = fonction commençant par `use` qui utilise d'autres hooks. Sépare logique et UI.
-
-- [x] **Task 8.1.1** : Créer `useEmployees` hook
-  - File: `src/features/employees/hooks/useEmployees.js`
-  - Retourne: `{ employees, addEmployee, updateEmployee, deleteEmployee, getEmployeeById }`
-  - Notes: Encapsule useLocalStorage + CRUD
-
-- [x] **Task 8.1.2** : Créer `useShifts` hook
-  - File: `src/features/shifts/hooks/useShifts.js`
-  - Retourne: `{ shifts, getShiftById }`
-  - Notes: Pour l'instant, retourne juste DEFAULT_SHIFTS
-
-- [x] **Task 8.1.3** : Créer `useAssignments` hook
-  - File: `src/features/assignments/hooks/useAssignments.js`
-  - Retourne: `{ assignments, addAssignment, updateAssignment, deleteAssignment, getAssignmentsByDay, getAssignmentsByEmployee, calculateHours }`
-  - Notes: Logique métier centralisée
-
-- [x] **Task 8.1.4** : Refactorer App.jsx avec les hooks
-  - File: `src/App.jsx`
-  - Action: Remplacer les useState par les custom hooks
-  - Résultat: Code ~50% plus court et plus lisible
-
-### Story 8.2 : Hook de Calcul d'Heures
-
-- [x] **Task 8.2.1** : Créer `useHoursCalculator` hook
-  - File: `src/hooks/useHoursCalculator.js`
-  - Action: Calcule heures travaillées, reste, dépassement
-  - Retourne: `{ totalMinutes, remainingMinutes, isOvertime, formatDisplay }`
-
-### Acceptance Criteria Phase 8
-
-- [x] **AC 8.1** : Given `useEmployees()`, when j'appelle `addEmployee(emp)`, then l'employé est ajouté et persisté
-- [x] **AC 8.2** : Given `useAssignments()`, when j'ajoute une assignation, then `calculateHours` est mis à jour
-- [x] **AC 8.3** : Given App.jsx refactoré, when je compare avec avant, then le code est plus court et plus lisible
-
-> Audit complet réalisé après Phase 8 — bugs critiques corrigés (barrel export, return null, try/catch localStorage). BMAD supprimé (inutile).
-
----
-
-## 🎓 PHASE 9 : Composition Avancée + Refonte UI ⭐⭐⭐
-
-### Vision Layout Phase 9
-
-```
-┌─── EmployeeCard (fixe) ───────┬── Lun ─┬── Mar ─┬── Mer ─┬── Jeu ─┬── Ven ─┬── Sam ┬── Dim ┐
-│                                │        │        │        │        │        │       │       │
-│ 👤 Jean           ☀ 19h30     │   🟦   │   🟦   │        │        │   🟦   │       │       │
-│ ●  12h/35h ⚠️    🌙  6h30     │        │        │   🟧   │        │        │       │       │
-│ [balance] [rayon]              │        │        │        │        │        │       │       │
-├────────────────────────────────┼────────┼────────┼────────┼────────┼────────┤───────┤───────┤
-│                                │        │        │        │        │        │       │       │
-│ 👤 Marie          ☀ 13h00     │        │   🟩   │   🟦   │        │        │       │       │
-│ ●  26h/30h45      🌙 13h00     │   🟧   │   🟩   │        │   🟧   │        │       │       │
-│ [caisse]                       │        │        │        │        │        │       │       │
-└────────────────────────────────┴────────┴────────┴────────┴────────┴────────┴───────┴───────┘
-```
-
-**Principes** :
-
-- Tableau Employé × Jour avec sous-lignes AM/PM par employé
-- EmployeeCard à gauche (sticky) avec infos + totaux heures AM/PM
-- Shift "Journée" = remplit les 2 cellules AM + PM visuellement connectées
-- Cellule vide cliquable → assigner shift correspondant (AM ou PM)
-- Shifts dynamiques (CRUD) au lieu de constantes en dur
-- Colonne employé sticky sur mobile (scroll horizontal sur jours)
-
-### Répartition du travail
-
-| Type                                    | Qui fait ?                | Méthode                          |
-| --------------------------------------- | ------------------------- | -------------------------------- |
-| 🎨 Layout, Tailwind, responsive         | **Mentor** (code complet) | Paul valide visuellement         |
-| ⚛️ Logique React (state, hooks, events) | **Paul**                  | Socratique (questions, hints)    |
-| 🔀 Mix (composants avec les deux)       | **Collaboration**         | Mentor = styling, Paul = logique |
-
----
-
-### Story 9.1 : Refonte Layout Planning (🎨 UI/UX — Mentor)
-
-**🎯 Objectif** : Transformer la grille colonnes en tableau Employé × Jour avec lignes AM/PM.
-
-> ⚠️ Le mentor fournit le code Tailwind complet. Paul valide le résultat visuellement.
-
-- [x] **Task 9.1.1** : Créer `PlanningTable` — nouveau composant tableau
-  - File: `src/features/planning/components/PlanningTable.jsx`
-  - Action: Remplacer PlanningGrid (colonnes) par un tableau HTML `<table>` stylé
-  - Layout: Header jours en colonnes, une row par employé avec 2 sous-lignes (AM/PM)
-  - Notes: 🎨 Mentor fournit le Tailwind complet
-
-- [x] **Task 9.1.2** : Créer `EmployeeRow` — ligne employé dans le tableau
-  - File: `src/features/planning/components/EmployeeRow.jsx`
-  - Props: `{ employee, assignments, shifts, onAddAssignment, onEditAssignment, onDeleteAssignment }`
-  - Layout: Colonne gauche = infos employé + totaux AM/PM, puis 7 colonnes × 2 lignes
-  - Notes: 🎨 Mentor fournit le Tailwind, ⚛️ Paul câble la logique
-  - Refactor: `renderDayCells(shiftId, period)` factorisé pour éviter duplication AM/PM
-
-- [x] **Task 9.1.3** : Créer `PlanningCell` — cellule individuelle AM ou PM
-  - File: `src/features/planning/components/PlanningCell.jsx`
-  - Props: `{ assignment?, shift?, period, onClick }`
-  - Action: Affiche le shift assigné OU une cellule vide cliquable
-  - Notes: Shift "Journée" = les 2 cellules AM+PM sont visuellement liées
-
-- [ ] **Task 9.1.4** : Adapter `App.jsx` au nouveau layout
-  - File: `src/App.jsx`
-  - Action: Remplacer sidebar + PlanningGrid par PlanningTable pleine largeur
-  - Notes: Le CRUD employés se fait via un bouton + modal (plus de sidebar)
-
-### Story 9.2 : Click-to-Assign adapté (🔀 Mix)
-
-**🎯 Objectif** : Assigner un shift en cliquant sur une cellule AM ou PM.
-
-- [ ] **Task 9.2.1** : Click cellule vide → assigner le shift correspondant
-  - Action: Clic sur cellule AM vide → crée assignation shift matin ; PM → shift après-midi
-  - Notes: ⚛️ Paul code la logique, 🎨 Mentor fait le feedback visuel
-
-- [ ] **Task 9.2.2** : Click cellule remplie → modal éditer/supprimer
-  - Action: Réutiliser AssignmentForm en mode édition
-  - Notes: ⚛️ Paul code la logique du modal
-
-### Story 9.3 : Shifts CRUD dynamiques (⚛️ React — Socratique)
-
-**🎯 Objectif** : Rendre les shifts éditables et permettre des shifts custom.
-
-**📚 Concept React** : Transformer un hook statique en hook avec state + CRUD + persistance.
-
-- [ ] **Task 9.3.1** : Transformer `useShifts` en hook avec state + localStorage
-  - File: `src/features/shifts/hooks/useShifts.js`
-  - Retourne: `{ shifts, addShift, updateShift, deleteShift, getShiftById, resetToDefaults }`
-  - Notes: ⚛️ Paul — même pattern que useEmployees
-
-- [ ] **Task 9.3.2** : Créer `ShiftForm` — formulaire création/édition shift
-  - File: `src/features/shifts/components/ShiftForm.jsx`
-  - Props: `{ onSubmit, onClose, editingShift? }`
-  - Champs: nom, startTime, endTime, type (matin/aprem/journée), couleur
-  - Notes: 🔀 Mix — 🎨 Mentor fait le form styling, ⚛️ Paul fait la logique
-
-- [ ] **Task 9.3.3** : Créer `ShiftManager` — UI de gestion des shifts
-  - File: `src/features/shifts/components/ShiftManager.jsx`
-  - Action: Liste des shifts avec boutons éditer/supprimer + bouton ajouter
-  - Notes: 🔀 Mix — accessible via bouton dans le header ou settings
-
-### Story 9.4 : Navigation entre Semaines (⚛️ React — Socratique)
-
-**🎯 Objectif** : Gérer des données temporelles avec React.
-
-- [ ] **Task 9.4.1** : Créer `useWeekNavigation` hook
-  - File: `src/features/planning/hooks/useWeekNavigation.js`
-  - Retourne: `{ currentWeek, goToNextWeek, goToPrevWeek, goToToday, formatWeekDisplay }`
-  - Notes: ⚛️ Paul — `currentWeek` = date du lundi de la semaine
-
-- [ ] **Task 9.4.2** : Créer `WeekNavigator` composant
-  - File: `src/features/planning/components/WeekNavigator.jsx`
-  - Action: Boutons ◀ ▶ + affichage "Semaine du 3 février 2026"
-  - Notes: 🔀 Mix — 🎨 Mentor styling, ⚛️ Paul logique
-
-- [ ] **Task 9.4.3** : Filtrer assignments par semaine
-  - File: `src/features/assignments/hooks/useAssignments.js`
-  - Action: Ajouter `getAssignmentsByWeek(weekOf)` + champ `weekOf` dans Assignment
-  - Notes: ⚛️ Paul — weekOf = "2026-02-03" (format ISO du lundi)
-
-### Story 9.5 (OPTIONNELLE) : Skills & Validation
-
-> Repoussée après le MVP frontend. Pourra être intégrée avant ou après TypeScript.
-
-- [ ] Skills : `SkillBadge`, `SkillSelector`, intégration EmployeeForm
-- [ ] Validation : `useValidation`, `ValidationBanner`
-
-### Acceptance Criteria Phase 9
-
-- [ ] **AC 9.1** : Given le planning, when je vois un employé, then ses assignations AM/PM sont sur 2 lignes alignées avec les jours
-- [ ] **AC 9.2** : Given une cellule AM vide, when je clique, then le shift matin est assigné
-- [ ] **AC 9.3** : Given les shifts, when j'ouvre le gestionnaire, then je peux créer/éditer/supprimer des shifts
-- [ ] **AC 9.4** : Given la semaine courante, when je clique "▶", then la grille affiche semaine +1
-- [ ] **AC 9.5** : Given un shift "Journée", when il est assigné, then les cellules AM+PM sont visuellement connectées
-
----
-
-## 📘 PHASE 10 : TypeScript (À VENIR)
-
-> **Prérequis** : Phases 7-9 complétées
-
-### Objectif
-
-Migrer l'application complète de JavaScript vers TypeScript pour :
-
-- Meilleure DX (autocomplétion, refactoring)
-- Détection d'erreurs à la compilation
-- Documentation via types
-- Préparation pour le backend (types partagés)
-
-### Stories Prévues
-
-- [ ] **Story 10.1** : Setup TypeScript + Vite
-- [ ] **Story 10.2** : Typer les Data Models (Employee, Shift, Assignment)
-- [ ] **Story 10.3** : Typer les Custom Hooks
-- [ ] **Story 10.4** : Typer les Composants UI
-- [ ] **Story 10.5** : Typer les Features
-
----
-
-## 🗄️ PHASES 11-12 : Backend (À VENIR)
-
-> **Prérequis** : Phase 10 (TypeScript) complétée
-
-### Vision Backend
-
-```
-┌──────────────────┐      ┌──────────────────┐      ┌──────────────────┐
-│   React Client   │ ←──→ │  Hono API (TS)   │ ←──→ │ SQLite/PostgreSQL│
-│   (TypeScript)   │ REST │   Node.js        │      │                  │
-└──────────────────┘      └──────────────────┘      └──────────────────┘
-```
-
-### Phase 11 : API REST Basique
-
-- Setup Hono + Node.js
-- CRUD Employees via API
-- Migration localStorage → API
-
-### Phase 12 : Base de Données
-
-- SQLite pour développement
-- PostgreSQL pour production
-- Migrations avec Drizzle ORM
-
----
-
-## 🚀 PHASE 13+ : Production (À VENIR)
-
-> **Prérequis** : Phases 11-12 complétées
-
-### Features Production
-
-- Authentification (sessions ou JWT)
-- Multi-tenancy (plusieurs magasins)
-- Export PDF des plannings
-- Notifications (email/push)
-- Analytics d'utilisation
-
-### Déploiement
-
-- Frontend : Vercel ou Netlify
-- Backend : Railway ou Fly.io
-- Database : Neon (PostgreSQL serverless)
-
-### Monétisation (Idées)
-
-- Freemium : 1 magasin gratuit, multi-magasins payant
-- Abonnement mensuel pour features avancées
-- Export PDF payant
-
----
-
-## 📚 Références Techniques
-
-### Design System
-
-> Couleurs définies dans `src/index.css`. Utiliser les classes Tailwind mappées.
-
-| Usage      | Light     | Dark      | Classe Tailwind     |
-| ---------- | --------- | --------- | ------------------- |
-| Background | `#FFFFFF` | `#0F172A` | `bg-bg-primary`     |
-| Text       | `#0F172A` | `#F8FAFC` | `text-text-primary` |
-| Border     | `#E2E8F0` | `#475569` | `border-border`     |
-| Accent     | `#6366F1` | `#818CF8` | `bg-accent`         |
-
-### Shifts Colors
-
-| Shift      | Classe BG          | Classe Border                 |
-| ---------- | ------------------ | ----------------------------- |
-| Matin      | `bg-shift-matin`   | `border-shift-matin-border`   |
-| Après-midi | `bg-shift-aprem`   | `border-shift-aprem-border`   |
-| Journée    | `bg-shift-journee` | `border-shift-journee-border` |
-
-### Data Model V2 (Pour Phases 7-9)
-
-```javascript
-// Employee
-{
-  id: 'emp_1',
-  name: 'Jean Dupont',
-  color: '#3B82F6',
-  weeklyMinutes: 2100,  // 35h
-  skills: ['balance', 'rayonnage']
-}
-
-// Shift (DEFAULT_SHIFTS)
-{
-  id: 'matin',
-  name: 'Matin',
-  startTime: '06:00',
-  endTime: '13:00',
-  hours: 7,
-  colorClass: 'bg-shift-matin border-shift-matin-border'
-}
-
 // Assignment
-{
-  id: 'assign_1',
-  employeeId: 'emp_1',
-  day: 'monday',        // 'monday' | ... | 'sunday'
-  shiftId: 'matin',
-  weekOf: '2026-02-03'  // Ajouté en Phase 9
-}
+{ id, employeeId, day, shiftId, weekOf? }
 ```
 
-### Utils Disponibles
+## Reference : Design System
 
-| Fonction                   | Module              | Description                  |
-| -------------------------- | ------------------- | ---------------------------- |
-| `generateId()`             | `@/utils`           | ID unique                    |
-| `minutesToHoursMinutes()`  | `@/utils/timeUtils` | Minutes → { hours, minutes } |
-| `formatMinutesToDisplay()` | `@/utils/timeUtils` | Minutes → "35h" ou "30h45"   |
+Couleurs dans index.css via CSS vars. Classes : bg-bg-primary, text-text-primary, border-border, bg-accent, bg-shift-matin/aprem/journee, text-danger. Pas de dark: variants.
 
-### Imports Standards
+## Reference : Structure
 
-```jsx
-// Composants UI
-import { Button, Card, Modal } from "@/components/ui";
-
-// Features
-import { EmployeeCard, EmployeeList } from "@/features/employees";
-
-// Hooks
-import { useLocalStorage, useTheme } from "@/hooks";
-
-// Constants
-import { DAYS_OF_WEEK } from "@/constants/days";
-import { DEFAULT_SHIFTS } from "@/constants/shifts";
 ```
-
----
-
-## 📝 Approche Pédagogique (Rappel)
-
-> **Mode Socratique** : L'utilisateur code, l'IA guide.
-
-### Format des Stories
-
-```jsx
-// 🎯 Objectif : [Ce qu'on apprend]
-// 📚 Concept : [1-2 phrases]
-
-// ❓ Question de départ
-
-function /* ??? */(/* ??? */) {
-  // TODO: ...
-}
-
-// 🔒 Indices (UN PAR UN si blocage)
+src/
+  components/ui/     Button, Badge, Modal, Input, HoursInput, ColorInput, ThemeToggle
+  components/layout/ Header, Container
+  features/employees/  EmployeeCard, EmployeeList, EmployeeForm, useEmployees
+  features/shifts/     ShiftSelector, useShifts
+  features/assignments/ useAssignments
+  features/planning/   PlanningTable, EmployeeRow, PlanningCell
+  hooks/             useLocalStorage, useTheme
+  utils/             generateId, colorUtils, timeUtils (getEmployeeHours)
+  constants/         days.js, shifts.js
 ```
-
-### Règles
-
-1. ❌ Pas de solution complète non demandée
-2. ❌ Pas plus de 3-4 lignes de code exemple
-3. ✅ Questions ouvertes d'abord
-4. ✅ Valider les tentatives même incorrectes
-5. ✅ Expliquer le "pourquoi" après
-
----
-
-## 📊 Métriques de Progression
-
-| Métrique      | Phase 6 (MVP) | Phase 9 (V2) | Phase 12 (Fullstack) |
-| ------------- | ------------- | ------------ | -------------------- |
-| Composants    | ~15           | ~25          | ~30                  |
-| Custom Hooks  | 2             | 8+           | 12+                  |
-| Lines of Code | ~1500         | ~3000        | ~5000+               |
-| Persistance   | localStorage  | localStorage | PostgreSQL           |
-| TypeScript    | ❌            | ❌           | ✅                   |
-
----
-
-_Dernière mise à jour : 2026-02-13 (restructuration Phase 9)_

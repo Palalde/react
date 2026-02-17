@@ -43,81 +43,67 @@ function EmployeeList({
   };
 
   return (
-    <div className="bg-bg-secondary rounded-lg shadow-md border border-border overflow-hidden lg:bg-transparent lg:shadow-none lg:border-0">
-      {/* Header */}
-      <div className="bg-bg-tertiary border-b border-border px-4 py-3 lg:bg-transparent lg:border-0 lg:px-0 lg:pb-3 flex items-center justify-between">
-        <h2 className="text-lg font-bold text-text-primary">👥 Employés</h2>
-        <span className="text-xs text-text-muted">{employees.length}</span>
-        {/* bouton pour ouvrir le modal de création */}
+    <div className="space-y-3">
+      {/* Barre d'actions : compteur + bouton ajouter */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-text-secondary">
+          {employees.length} employé{employees.length > 1 ? "s" : ""}
+        </p>
         <Button
-          size="icon"
-          variant="secondary"
+          size="sm"
+          variant="primary"
           onClick={() => {
             setEmployeeToEdit(null);
             setIsModalOpen(true);
           }}
         >
-          +
+          + Ajouter
         </Button>
       </div>
 
-      {/* Liste: horizontal scrollable sur mobile, vertical sur desktop */}
-      <div className="p-3 lg:p-0">
-        {employees.length === 0 ? (
-          /* Empty state */
-          <div className="flex flex-col items-center justify-center py-8 text-center">
-            <span className="text-4xl mb-2">👤</span>
-            <p className="text-text-muted">Aucun employé</p>
-            <p className="text-text-muted/60 text-sm mt-1">
-              Ajoutez votre premier employé
-            </p>
-          </div>
-        ) : (
-          <div
-            className={`
-              flex gap-3 overflow-x-auto pb-2 scroll-smooth
-              lg:flex-col lg:overflow-x-visible lg:pb-0 lg:space-y-3 lg:gap-0
-            `}
-          >
-            {employees.map((employee) => (
-              <div
-                key={employee.id}
-                className="flex-shrink-0 w-56 sm:w-64 lg:w-full"
-              >
-                <EmployeeCard
-                  employee={employee}
-                  // recuperer le nombre de minutes travaillé d'un employée
-                  workedMinutes={getEmployeeHours(
-                    employee.id,
-                    assignments,
-                    DEFAULT_SHIFTS,
-                  )}
-                  onEdit={() => handleEditClick(employee)}
-                  onDelete={() => handleDeleteEmployee(employee.id)}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+      {/* Liste d'employés — pleine largeur, empilée */}
+      {employees.length === 0 ? (
+        /* Empty state */
+        <div className="flex flex-col items-center justify-center py-12 text-center">
+          <span className="text-5xl mb-3">👤</span>
+          <p className="text-text-muted font-medium">Aucun employé</p>
+          <p className="text-text-muted/60 text-sm mt-1">
+            Cliquez sur "+ Ajouter" pour commencer
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {employees.map((employee) => (
+            <EmployeeCard
+              key={employee.id}
+              employee={employee}
+              workedMinutes={
+                getEmployeeHours(employee.id, assignments, DEFAULT_SHIFTS).total
+              }
+              onEdit={() => handleEditClick(employee)}
+              onDelete={() => handleDeleteEmployee(employee.id)}
+            />
+          ))}
+        </div>
+      )}
 
-        {/* Modal pour ajouter un employé */}
-        <Modal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          title={employeeToEdit ? "Éditer Employé" : "Ajouter Employé"}
-          size="md"
-        >
-          <EmployeeForm
-            employee={employeeToEdit}
-            employees={employees}
-            onSubmit={handleSaveEmployee}
-            onCancel={() => {
-              setIsModalOpen(false);
-              setEmployeeToEdit(null);
-            }}
-          />
-        </Modal>
-      </div>
+      {/* Modal pour ajouter/éditer un employé */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={employeeToEdit ? "✏️ Éditer Employé" : "➕ Nouvel Employé"}
+        size="md"
+      >
+        <EmployeeForm
+          employee={employeeToEdit}
+          employees={employees}
+          onSubmit={handleSaveEmployee}
+          onCancel={() => {
+            setIsModalOpen(false);
+            setEmployeeToEdit(null);
+          }}
+        />
+      </Modal>
     </div>
   );
 }

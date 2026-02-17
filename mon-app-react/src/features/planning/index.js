@@ -1,8 +1,2 @@
 // Barrel export for planning feature
-export {
-  DayColumn,
-  EmployeeRow,
-  PlanningCell,
-  PlanningGrid,
-  PlanningTable,
-} from "./components";
+export { EmployeeRow, PlanningCell, PlanningTable } from "./components";

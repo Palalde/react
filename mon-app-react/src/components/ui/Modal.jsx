@@ -30,7 +30,7 @@ export default function Modal({
       <div
         // Card du modal
         onClick={(e) => e.stopPropagation()}
-        className={`bg-bg-tertiary rounded-lg shadow-xl w-full ${sizeClasses[size]} transform transition-all`}
+        className={`bg-bg-tertiary rounded-lg shadow-xl w-full ${sizeClasses[size]} max-h-[90vh] flex flex-col transform transition-all`}
       >
         {/* Header du modal */}
         {title && (
@@ -49,7 +49,7 @@ export default function Modal({
         )}
 
         {/* Body du modal */}
-        <div className="p-4">{children}</div>
+        <div className="p-4 overflow-y-auto flex-1">{children}</div>
       </div>
     </div>
   );
