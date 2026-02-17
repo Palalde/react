@@ -48,8 +48,11 @@ function PlanningCell({ assignment, shift, period, onClick }) {
       onKeyDown={(e) => e.key === "Enter" && onClick?.()}
     >
       <span className="text-xs font-medium text-text-primary truncate px-1">
-        {/* Journée : afficher le nom seulement sur la ligne AM */}
-        {isJournee ? (isAM ? shift.name : "") : shift?.name}
+        {isJournee
+          ? isAM
+            ? shift.startTime
+            : shift.endTime
+          : `${shift?.startTime} - ${shift?.endTime}`}
       </span>
     </div>
   );

@@ -32,6 +32,18 @@ export function formatMinutesToDisplay(totalMinutes) {
   return `${hours}h${minutes.toString().padStart(2, "0")}`;
 }
 
+/**
+ * Convertit un horaire "HH:MM" en minutes depuis minuit
+ * @param {string} time - Horaire au format "HH:MM" (ex: "09:00")
+ * @returns {number} - Minutes depuis minuit (ex: 540)
+ */
+export function timeToMinutes(time) {
+  const [h, m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+const NOON = 12 * 60; // midi en minutes = 720
+
 export function getEmployeeHours(employeeId, assignments, shifts) {
   // Filtrer les assignations de cet employé
   const employeeAssignments = assignments.filter(
@@ -42,17 +54,26 @@ export function getEmployeeHours(employeeId, assignments, shifts) {
   return employeeAssignments.reduce(
     (acc, assignment) => {
       const shift = shifts.find((s) => assignment.shiftId === s.id);
-      const minutes = (shift?.hours ?? 0) * 60;
+      if (!shift) return acc;
+
+      const start = timeToMinutes(shift.startTime);
+      const end = timeToMinutes(shift.endTime);
+      const totalMinutes = end - start;
 
       // heures total
-      acc.total += minutes;
+      acc.total += totalMinutes;
 
-      // matin
-      if (shift?.id === "matin") {
-        acc.am += minutes;
-        // aprem
-      } else if (shift?.id === "aprem") {
-        acc.pm += minutes;
+      // Répartition AM / PM basée sur le type du shift
+      if (shift.type === "am") {
+        // Shift matin → tout en AM
+        acc.am += totalMinutes;
+      } else if (shift.type === "pm") {
+        // Shift après-midi → tout en PM
+        acc.pm += totalMinutes;
+      } else if (shift.type === "full") {
+        // Shift journée → splitter sur midi
+        acc.am += NOON - start;
+        acc.pm += end - NOON;
       }
 
       return acc;

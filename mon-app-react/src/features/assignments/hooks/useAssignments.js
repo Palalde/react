@@ -10,10 +10,40 @@ export default function useAssignments() {
     setAssignments([...assignments, { ...assignmentData, id: generateId() }]);
   };
 
-  // Modifier une assignation existante
+  // Modifier une assignation existante (avec gestion des conflits)
   const updateAssignment = (assignmentData) => {
+    // 1. Trouver l'assignation actuelle pour comparer
+    const currentAssignment = assignments.find(
+      (a) => a.id === assignmentData.id,
+    );
+
+    // Si même shift qu'avant → ne rien faire
+    if (assignmentData.shiftId === currentAssignment.shiftId) return;
+
+    // 2. Map des conflits entre shifts (hardcodé pour l'instant)
+    const conflictMap = {
+      matin: ["journee", "matin"],
+      aprem: ["journee", "aprem"],
+      journee: ["matin", "aprem"],
+    };
+
+    // 3. Collecter les ids des assignations conflictuelles
+    //    = même employé, même jour, shift qui chevauche, mais PAS celle qu'on édite
+    const conflictingIds = assignments
+      .filter(
+        (a) =>
+          a.id !== assignmentData.id &&
+          a.employeeId === assignmentData.employeeId &&
+          a.day === assignmentData.day &&
+          conflictMap[assignmentData.shiftId]?.includes(a.shiftId),
+      )
+      .map((a) => a.id);
+
+    // 4. En une seule opération : supprimer les conflits + mettre à jour l'assignation
     setAssignments(
-      assignments.map((a) => (a.id === assignmentData.id ? assignmentData : a)),
+      assignments
+        .filter((a) => !conflictingIds.includes(a.id))
+        .map((a) => (a.id === assignmentData.id ? assignmentData : a)),
     );
   };
 
