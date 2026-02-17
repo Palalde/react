@@ -77,11 +77,15 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 
 ### A venir
 
-| Phase | Concept                     |
-| ----- | --------------------------- |
-| 10    | TypeScript                  |
-| 11-12 | Backend (Hono + PostgreSQL) |
-| 13+   | Production, Auth, Deploy    |
+| Phase | Concept                                          |
+| ----- | ------------------------------------------------ |
+| 9.5   | useReducer + Context (mini-phase)                |
+| 10    | TypeScript + React Router                        |
+| 11    | Backend API (Hono) + loading/error states        |
+| 12    | Database (PostgreSQL, Drizzle) + Tanstack Query  |
+| 13    | Auth + Zustand                                   |
+| 14    | Deploy (Vercel + Railway) + Radix UI             |
+| 15    | Testing (Vitest) + polish                        |
 
 ---
 

@@ -68,23 +68,53 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 
 ---
 
-## PHASE 10 : TypeScript (A VENIR)
+## PHASE 9.5 : useReducer + Context (MINI-PHASE, A VENIR)
+
+- Refactorer un hook complexe (useAssignments) avec useReducer
+- Creer un AppContext pour partager state global (employees, shifts, assignments)
+- Comprendre quand useState vs useReducer vs Context
+- Preparer la transition vers Zustand (phase 13)
+
+## PHASE 10 : TypeScript + React Router (A VENIR)
 
 - Setup TS + Vite
 - Typer Data Models (Employee, Shift, Assignment)
-- Typer Custom Hooks
-- Typer Composants UI + Features
+- Typer Custom Hooks + Composants
+- React Router : pages Planning, Settings, Login (future)
+- Navigation multi-pages, routes protegees (prep auth)
 
-## PHASES 11-12 : Backend (A VENIR)
+## PHASE 11 : Backend API (A VENIR)
 
-Architecture : React (TS) <-> Hono API (TS) <-> SQLite/PostgreSQL
+Architecture : React (TS) <-> Hono API (TS) <-> PostgreSQL
 
-- Phase 11 : API REST (Hono + Node.js), migration localStorage -> API
-- Phase 12 : Database (SQLite dev, PostgreSQL prod, Drizzle ORM)
+- API REST (Hono + Node.js)
+- Migration localStorage -> API (fetch/axios)
+- Loading states, error handling, optimistic updates
 
-## PHASE 13+ : Production
+## PHASE 12 : Database + Tanstack Query (A VENIR)
 
-Auth, Deploy (Vercel + Railway), Monetisation (Freemium SaaS)
+- PostgreSQL + Drizzle ORM
+- Tanstack Query (React Query) : cache, refetch, mutations
+- Remplace useEffect+useState pour les appels API
+
+## PHASE 13 : Auth + Zustand (A VENIR)
+
+- Auth (JWT ou session-based)
+- Zustand pour state global (user, settings, notifications)
+- Remplace Context pour le state complexe cross-app
+
+## PHASE 14 : Deploy + Radix UI (A VENIR)
+
+- Deploy : Vercel (front) + Railway (back)
+- Radix UI : composants headless accessibles (Dialog, Dropdown, Tooltip)
+- Remplace les composants UI maison par des composants accessibles pro
+- Monetisation (Freemium SaaS)
+
+## PHASE 15 : Testing (A VENIR)
+
+- Vitest : tests unitaires (hooks, utils)
+- React Testing Library : tests composants
+- Playwright ou Cypress : tests E2E (optionnel)
 
 ---
 
