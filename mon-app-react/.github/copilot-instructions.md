@@ -28,6 +28,7 @@ Tu es un **mentor experimente** qui guide l'apprentissage par la pratique.
 ### EXCEPTION : Styling (Tailwind CSS)
 
 L'utilisateur se concentre sur React. Pour le **style visuel**, le mentor DOIT :
+
 - Donner les `className` Tailwind **complets**
 - Gerer responsive + modifier `index.css` si besoin
 - Utiliser le Design System (classes `bg-bg-*`, `text-text-*`, etc.)
@@ -64,14 +65,15 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 
 **Repartition** : Tailwind = Mentor | React = Paul (socratique)
 
-| Story | Description              | Status |
-| ----- | ------------------------ | ------ |
-| 9.1   | Refonte layout planning  | done   |
-| 9.2   | Click-to-assign adapte   | todo   |
-| 9.3   | Shifts CRUD dynamiques   | todo   |
-| 9.4   | Navigation semaines      | todo   |
+| Story | Description             | Status |
+| ----- | ----------------------- | ------ |
+| 9.1   | Refonte layout planning | done   |
+| 9.2   | Click-to-assign adapte  | done   |
+| 9.3   | Shifts CRUD dynamiques  | todo   |
+| 9.4   | Navigation semaines     | todo   |
 
 > Story 9.1 terminee : PlanningTable/EmployeeRow/PlanningCell crees, App.jsx refactore (pleine largeur + modal CRUD employes), legacy supprime (PlanningGrid, DayColumn, AssignmentCard, AssignmentForm, Card, useHoursCalculator).
+> Story 9.2 terminee : Clic cellule vide → assignation auto (matin/aprem). Clic cellule remplie → modal editer shift / supprimer. Gestion conflits shifts dans useAssignments (conflictMap). Cellules affichent les horaires. EmployeeRow avec barre couleur employe + fond teinte. Shift model enrichi avec champ `type` (am/pm/full). getEmployeeHours refactore (split AM/PM base sur type + midi).
 
 ### A venir
 
@@ -121,7 +123,8 @@ src/
 { id, name, color, weeklyMinutes, skills: [] }
 
 // Shift (DEFAULT_SHIFTS)
-{ id, name, startTime, endTime, hours, colorClass }
+{ id, name, type, startTime, endTime, hours, colorClass }
+// type: 'am' | 'pm' | 'full' (futur: 'split')
 // colorClass: 'bg-shift-matin border-shift-matin-border'
 
 // Assignment
@@ -134,16 +137,16 @@ src/
 
 ## Design System (auto light/dark via CSS vars)
 
-| Usage      | Classe                                                |
-| ---------- | ----------------------------------------------------- |
-| Background | `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary`  |
-| Texte      | `text-text-primary`, `text-text-secondary`            |
-| Bordure    | `border-border`                                       |
-| Accent     | `bg-accent`, `hover:bg-accent-hover`                  |
-| Shifts     | `bg-shift-matin`, `bg-shift-aprem`, `bg-shift-journee`|
-| Danger     | `text-danger`, `bg-danger/10`                         |
+| Usage      | Classe                                                 |
+| ---------- | ------------------------------------------------------ |
+| Background | `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary`   |
+| Texte      | `text-text-primary`, `text-text-secondary`             |
+| Bordure    | `border-border`                                        |
+| Accent     | `bg-accent`, `hover:bg-accent-hover`                   |
+| Shifts     | `bg-shift-matin`, `bg-shift-aprem`, `bg-shift-journee` |
+| Danger     | `text-danger`, `bg-danger/10`                          |
 
-Ne PAS utiliser `dark:`  les CSS vars gerent tout.
+Ne PAS utiliser `dark:` les CSS vars gerent tout.
 
 ---
 
@@ -157,7 +160,11 @@ import { PlanningTable } from "@/features/planning";
 import { useLocalStorage } from "@/hooks";
 import { DAYS_OF_WEEK } from "@/constants/days";
 import { DEFAULT_SHIFTS } from "@/constants/shifts";
-import { getEmployeeHours, formatMinutesToDisplay } from "@/utils";
+import {
+  getEmployeeHours,
+  formatMinutesToDisplay,
+  timeToMinutes,
+} from "@/utils";
 ```
 
 ---

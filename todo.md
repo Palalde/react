@@ -99,9 +99,14 @@
   - [x] Task 9.1.2 : `EmployeeRow` — ligne employé (AM/PM)
   - [x] Task 9.1.3 : `PlanningCell` — cellule individuelle
   - [x] Task 9.1.4 : Adapter `App.jsx` au nouveau layout + nettoyage legacy
-- [ ] Story 9.2 : Click-to-assign adapté (🔀 Mix)
-  - [ ] Task 9.2.1 : Clic cellule vide → assigner shift AM/PM
-  - [ ] Task 9.2.2 : Clic cellule remplie → éditer/supprimer
+- [x] Story 9.2 : Click-to-assign adapté (🔀 Mix)
+  - [x] Task 9.2.1 : Clic cellule vide → assigner shift AM/PM
+  - [x] Task 9.2.2 : Clic cellule remplie → modal éditer/supprimer
+  - [x] Bonus : Gestion conflits shifts (conflictMap dans useAssignments)
+  - [x] Bonus : Cellules affichent horaires au lieu des noms
+  - [x] Bonus : Barre couleur employé + fond teinté dans EmployeeRow
+  - [x] Bonus : Champ `type` ajouté au modèle Shift (am/pm/full)
+  - [x] Bonus : getEmployeeHours refactoré (split AM/PM basé sur type + midi)
 - [ ] Story 9.3 : Shifts CRUD dynamiques (⚛️ Socratique)
   - [ ] Task 9.3.1 : Transformer `useShifts` en hook avec state
   - [ ] Task 9.3.2 : Créer `ShiftForm`
@@ -229,4 +234,4 @@ React (TS) ←→ Hono API (TS) ←→ PostgreSQL
 
 ---
 
-_Dernière mise à jour : 2026-02-03_
+_Dernière mise à jour : 2026-02-17_

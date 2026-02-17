@@ -2,7 +2,7 @@
 title: ChefPlanning - Tech Spec
 updated: 2026-02-17
 currentPhase: 9
-completedPhases: [0,1,2,3,4,5,6,7,8]
+completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 stack: [React 19.2, Vite 7, TailwindCSS 4, localStorage]
 future: [TypeScript, Hono, PostgreSQL]
 ---
@@ -12,8 +12,8 @@ future: [TypeScript, Hono, PostgreSQL]
 ## Phases 0-8 : COMPLETEES
 
 Phases 0-6 (MVP) : Setup, JSX, Props, useState, Listes, CRUD, useEffect, localStorage, ThemeToggle.
-Phase 7 : Lifting State Up  assignments centralisees dans App.jsx, click-to-assign, calcul heures.
-Phase 8 : Custom Hooks  useEmployees, useShifts, useAssignments, useHoursCalculator (deprecated since 9.1).
+Phase 7 : Lifting State Up assignments centralisees dans App.jsx, click-to-assign, calcul heures.
+Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculator (deprecated since 9.1).
 
 ---
 
@@ -21,11 +21,11 @@ Phase 8 : Custom Hooks  useEmployees, useShifts, useAssignments, useHoursCalcula
 
 ### Repartition
 
-| Type | Qui | Methode |
-|------|-----|---------|
-| Tailwind/responsive | Mentor (complet) | Paul valide visuellement |
-| Logique React | Paul | Socratique (questions, hints) |
-| Mix | Collaboration | Mentor = styling, Paul = logique |
+| Type                | Qui              | Methode                          |
+| ------------------- | ---------------- | -------------------------------- |
+| Tailwind/responsive | Mentor (complet) | Paul valide visuellement         |
+| Logique React       | Paul             | Socratique (questions, hints)    |
+| Mix                 | Collaboration    | Mentor = styling, Paul = logique |
 
 ### Story 9.1 : Refonte Layout (DONE)
 
@@ -35,16 +35,22 @@ Phase 8 : Custom Hooks  useEmployees, useShifts, useAssignments, useHoursCalcula
 - App.jsx : pleine largeur, plus de sidebar, CRUD employes via bouton + Modal
 - Nettoyage : supprime PlanningGrid, DayColumn, AssignmentCard, AssignmentForm, Card, useHoursCalculator
 
-### Story 9.2 : Click-to-Assign (TODO)
+### Story 9.2 : Click-to-Assign (DONE)
 
-- Task 9.2.1 : Clic cellule AM vide -> assigne shift matin ; PM -> shift aprem
-- Task 9.2.2 : Clic cellule remplie -> modal editer/supprimer
+- Task 9.2.1 : Clic cellule AM vide -> assigne shift matin ; PM -> shift aprem (DONE)
+- Task 9.2.2 : Clic cellule remplie -> modal editer/supprimer (DONE)
+- Gestion conflits : conflictMap dans updateAssignment (matin<->journee, aprem<->journee, doublons)
+- Cellules affichent horaires (startTime-endTime) au lieu des noms de shifts
+- EmployeeRow : barre laterale couleur employe (w-1) + fond teinte (~3% opacite), pastille supprimee
+- Shift model : ajout champ `type` (am/pm/full, futur: split)
+- getEmployeeHours refactore : split AM/PM base sur shift.type + midi (timeToMinutes)
+- selectedAssignment state dans App.jsx (null = modal ferme, objet = modal ouvert)
 
 ### Story 9.3 : Shifts CRUD (TODO)
 
 - Task 9.3.1 : Transformer useShifts en hook avec state + localStorage (meme pattern que useEmployees)
-- Task 9.3.2 : ShiftForm  formulaire creation/edition (nom, horaires, type, couleur)
-- Task 9.3.3 : ShiftManager  UI gestion des shifts (liste + CRUD)
+- Task 9.3.2 : ShiftForm formulaire creation/edition (nom, horaires, type, couleur)
+- Task 9.3.3 : ShiftManager UI gestion des shifts (liste + CRUD)
 
 ### Story 9.4 : Navigation Semaines (TODO)
 
@@ -72,6 +78,7 @@ Phase 8 : Custom Hooks  useEmployees, useShifts, useAssignments, useHoursCalcula
 ## PHASES 11-12 : Backend (A VENIR)
 
 Architecture : React (TS) <-> Hono API (TS) <-> SQLite/PostgreSQL
+
 - Phase 11 : API REST (Hono + Node.js), migration localStorage -> API
 - Phase 12 : Database (SQLite dev, PostgreSQL prod, Drizzle ORM)
 
@@ -88,7 +95,8 @@ Auth, Deploy (Vercel + Railway), Monetisation (Freemium SaaS)
 { id, name, color, weeklyMinutes, skills: [] }
 
 // Shift (DEFAULT_SHIFTS)
-{ id, name, startTime, endTime, hours, colorClass }
+{ id, name, type, startTime, endTime, hours, colorClass }
+// type: 'am' | 'pm' | 'full' (futur: 'split')
 
 // Assignment
 { id, employeeId, day, shiftId, weekOf? }
