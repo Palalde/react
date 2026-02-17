@@ -40,7 +40,7 @@ export default function Modal({
             {/* Bouton de fermeture */}
             <button
               onClick={onClose}
-              className="text-text-muted hover:text-text-primary transition-colors p-1 rounded hover:bg-bg-secondary"
+              className="text-text-muted hover:text-text-primary transition-colors p-1 rounded hover:bg-bg-secondary cursor-pointer"
               aria-label="Fermer"
             >
               ✕

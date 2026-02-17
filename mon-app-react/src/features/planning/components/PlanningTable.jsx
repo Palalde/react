@@ -11,6 +11,7 @@ function PlanningTable({
   onAddAssignment,
   onEditAssignment,
   onDeleteAssignment,
+  onCellClick,
 }) {
   return (
     <div className="bg-bg-primary rounded-xl shadow-md border border-border overflow-hidden">
@@ -56,6 +57,7 @@ function PlanningTable({
                   onAddAssignment={onAddAssignment}
                   onEditAssignment={onEditAssignment}
                   onDeleteAssignment={onDeleteAssignment}
+                  onCellClick={onCellClick}
                 />
               ))
             ) : (

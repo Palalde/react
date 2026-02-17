@@ -9,9 +9,10 @@ function EmployeeRow({
   employee,
   assignments,
   shifts,
-  //   onAddAssignment,
-  //   onEditAssignment,
-  //   onDeleteAssignment,
+  onAddAssignment,
+  onEditAssignment,
+  onDeleteAssignment,
+  onCellClick,
 }) {
   // Calcul des heures (total, AM, PM) via utilitaire centralisé
   const {
@@ -45,7 +46,17 @@ function EmployeeRow({
             assignment={dailyAssignment}
             shift={Shift}
             period={period}
-            onClick={undefined}
+            onClick={() =>
+              !dailyAssignment
+                ? onAddAssignment({
+                    employeeId: employee.id,
+                    day: day.id,
+                    shiftId: shiftId,
+                  })
+                : onCellClick(dailyAssignment)
+            }
+            onDeleteAssignment={onDeleteAssignment}
+            onEditAssignment={onEditAssignment}
           />
         </td>
       );

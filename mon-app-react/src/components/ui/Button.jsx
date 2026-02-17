@@ -14,7 +14,7 @@ function Button({
     transition-all duration-300 ease-out
     focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2
     disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
-    active:scale-[0.97]
+    active:scale-[0.97] cursor-pointer
   `;
 
   // Variants avec Liquid Glass
