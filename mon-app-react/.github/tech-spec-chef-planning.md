@@ -1,6 +1,6 @@
 ﻿---
 title: ChefPlanning - Tech Spec
-updated: 2026-02-17
+updated: 2026-02-18
 currentPhase: 9
 completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 stack: [React 19.2, Vite 7, TailwindCSS 4, localStorage]
@@ -115,6 +115,34 @@ Architecture : React (TS) <-> Hono API (TS) <-> PostgreSQL
 - Vitest : tests unitaires (hooks, utils)
 - React Testing Library : tests composants
 - Playwright ou Cypress : tests E2E (optionnel)
+
+---
+
+## Git Workflow
+
+### Branching Strategy
+
+- Branche `main` = version stable, toujours fonctionnelle
+- 1 branche par Story : `feature/X.Y-description`
+- Merge dans `main` uniquement apres validation de la Story
+- Nettoyage des branches mergees
+
+### Conventional Commits
+
+Format : `type(scope): description` (anglais)
+Types : `feat`, `fix`, `refactor`, `style`, `chore`, `docs`
+
+### Versioning (SemVer `0.MINOR.PATCH`)
+
+| Version | Phase | Description                      |
+| ------- | ----- | -------------------------------- |
+| `0.1.0` | 0-8   | MVP + custom hooks               |
+| `0.2.0` | 9     | Composition avancee + refonte UI |
+| `0.3.0` | 9.5   | useReducer + Context             |
+| `0.4.0` | 10    | TypeScript + Router              |
+| `1.0.0` | 14    | Premier deploy public            |
+
+Version actuelle : `0.1.0` (Phases 0-8 completees, Phase 9 en cours)
 
 ---
 

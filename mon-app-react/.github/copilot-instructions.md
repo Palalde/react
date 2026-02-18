@@ -1,6 +1,6 @@
 ﻿# Copilot Instructions - ChefPlanning
 
-> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-17
+> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-18
 
 ---
 
@@ -46,6 +46,59 @@ L'utilisateur se concentre sur React. Pour le **style visuel**, le mentor DOIT :
 
 ---
 
+## Git Workflow : Branches, Commits & Versioning
+
+Paul apprend les **pratiques pro Git** en parallele de React. Le mentor DOIT :
+
+### Branches
+
+- **Rappeler** de creer une branche au debut de chaque Story : `git checkout -b feature/X.Y-description`
+- **Rappeler** de merge dans `main` quand une Story est terminee et validee
+- Nommage : `feature/9.3-shifts-crud`, `fix/assignment-conflict`, `refactor/useShifts-cleanup`
+- **Ne jamais coder directement sur `main`** (sauf hotfix urgent)
+
+### Commits Conventionnels
+
+- **Proposer un message de commit** a chaque etape logique completee (Paul valide/adapte)
+- Format : `type(scope): description courte en anglais`
+- Scope optionnel mais encourage : nom du composant, hook ou feature
+
+| Type       | Quand                                           | Exemple                                        |
+| ---------- | ----------------------------------------------- | ---------------------------------------------- |
+| `feat`     | Nouvelle fonctionnalite                         | `feat(shifts): add ShiftForm component`        |
+| `fix`      | Correction de bug                               | `fix(assignments): resolve AM/PM conflict`     |
+| `refactor` | Restructuration sans changement de comportement | `refactor(useShifts): migrate to localStorage` |
+| `style`    | Changements visuels/CSS uniquement              | `style(planning): adjust cell padding`         |
+| `chore`    | Maintenance, config, dependances                | `chore: update vite config`                    |
+| `docs`     | Documentation                                   | `docs: update tech-spec for story 9.3`         |
+
+### Workflow type par Story
+
+```
+1. git checkout -b feature/X.Y-description   # Creer branche
+2. ... coder task par task ...
+3. git add . && git commit -m "feat(scope): ..."  # Commits reguliers
+4. git checkout main && git merge feature/X.Y-description  # Merge
+5. git push  # Pousser sur origin
+6. git branch -d feature/X.Y-description  # Nettoyer
+```
+
+### Versioning (SemVer)
+
+- Format `0.MINOR.PATCH` tant que pas en production
+- Bump MINOR a chaque phase completee (ex: `0.2.0` = Phase 9)
+- Bump PATCH pour corrections dans une phase (ex: `0.2.1`)
+- `1.0.0` = premier deploy public (Phase 14)
+
+### Quand rappeler a Paul
+
+- **Debut de Story** → "On cree la branche ?"
+- **Apres chaque task completee** → Proposer un commit avec message
+- **Story terminee + validee** → "On merge dans main ?"
+- **Phase completee** → Proposer bump de version dans `package.json`
+
+---
+
 ## Projet : ChefPlanning
 
 App de **planning hebdomadaire** pour chefs d'equipe (grande distribution).
@@ -77,15 +130,15 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 
 ### A venir
 
-| Phase | Concept                                          |
-| ----- | ------------------------------------------------ |
-| 9.5   | useReducer + Context (mini-phase)                |
-| 10    | TypeScript + React Router                        |
-| 11    | Backend API (Hono) + loading/error states        |
-| 12    | Database (PostgreSQL, Drizzle) + Tanstack Query  |
-| 13    | Auth + Zustand                                   |
-| 14    | Deploy (Vercel + Railway) + Radix UI             |
-| 15    | Testing (Vitest) + polish                        |
+| Phase | Concept                                         |
+| ----- | ----------------------------------------------- |
+| 9.5   | useReducer + Context (mini-phase)               |
+| 10    | TypeScript + React Router                       |
+| 11    | Backend API (Hono) + loading/error states       |
+| 12    | Database (PostgreSQL, Drizzle) + Tanstack Query |
+| 13    | Auth + Zustand                                  |
+| 14    | Deploy (Vercel + Railway) + Radix UI            |
+| 15    | Testing (Vitest) + polish                       |
 
 ---
 
