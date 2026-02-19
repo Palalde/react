@@ -166,7 +166,7 @@ src/
 |   +-- assignments/ # useAssignments
 |   +-- planning/    # PlanningTable, EmployeeRow, PlanningCell
 +-- hooks/           # useLocalStorage, useTheme
-+-- utils/           # generateId, colorUtils, timeUtils (getEmployeeHours)
++-- utils/           # generateId, colorUtils, timeUtils (getEmployeeHours), shiftUtils (getShiftColorClass, calcShiftMinutes)
 +-- constants/       # days.js, shifts.js
 +-- data/            # mockData.js
 ```
@@ -180,9 +180,10 @@ src/
 { id, name, color, weeklyMinutes, skills: [] }
 
 // Shift (DEFAULT_SHIFTS)
-{ id, name, type, startTime, endTime, hours, colorClass }
-// type: 'am' | 'pm' | 'full' (futur: 'split')
-// colorClass: 'bg-shift-matin border-shift-matin-border'
+{ id, name, type, startTime, endTime }
+// type: 'am' | 'pm' | 'full' | 'split'
+// Si split : breakStart, breakEnd (optionnels)
+// hours et colorClass sont derives (calcShiftMinutes, getShiftColorClass)
 
 // Assignment
 { id, employeeId, day, shiftId }
@@ -194,14 +195,14 @@ src/
 
 ## Design System (auto light/dark via CSS vars)
 
-| Usage      | Classe                                                 |
-| ---------- | ------------------------------------------------------ |
-| Background | `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary`   |
-| Texte      | `text-text-primary`, `text-text-secondary`             |
-| Bordure    | `border-border`                                        |
-| Accent     | `bg-accent`, `hover:bg-accent-hover`                   |
-| Shifts     | `bg-shift-matin`, `bg-shift-aprem`, `bg-shift-journee` |
-| Danger     | `text-danger`, `bg-danger/10`                          |
+| Usage      | Classe                                                                   |
+| ---------- | ------------------------------------------------------------------------ |
+| Background | `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary`                     |
+| Texte      | `text-text-primary`, `text-text-secondary`                               |
+| Bordure    | `border-border`                                                          |
+| Accent     | `bg-accent`, `hover:bg-accent-hover`                                     |
+| Shifts     | `bg-shift-matin`, `bg-shift-aprem`, `bg-shift-journee`, `bg-shift-coupe` |
+| Danger     | `text-danger`, `bg-danger/10`                                            |
 
 Ne PAS utiliser `dark:` les CSS vars gerent tout.
 
@@ -221,6 +222,8 @@ import {
   getEmployeeHours,
   formatMinutesToDisplay,
   timeToMinutes,
+  getShiftColorClass,
+  calcShiftMinutes,
 } from "@/utils";
 ```
 

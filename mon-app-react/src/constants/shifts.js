@@ -1,5 +1,6 @@
-// type: "am" = matin | "pm" = après-midi | "full" = journée
-// (futur : "split" = coupé)
+// type: "am" = matin | "pm" = après-midi | "full" = journée | "split" = coupé
+// hours et colorClass sont dérivés (calculés à la volée via utils)
+// breakStart/breakEnd uniquement si type === "split"
 export const DEFAULT_SHIFTS = [
   {
     id: "matin",
@@ -7,8 +8,6 @@ export const DEFAULT_SHIFTS = [
     type: "am",
     startTime: "07:00",
     endTime: "13:30",
-    hours: 6.5,
-    colorClass: "bg-shift-matin border-shift-matin-border",
   },
   {
     id: "aprem",
@@ -16,8 +15,6 @@ export const DEFAULT_SHIFTS = [
     type: "pm",
     startTime: "13:30",
     endTime: "20:00",
-    hours: 6.5,
-    colorClass: "bg-shift-aprem border-shift-aprem-border",
   },
   {
     id: "journee",
@@ -25,7 +22,14 @@ export const DEFAULT_SHIFTS = [
     type: "full",
     startTime: "09:00",
     endTime: "18:00",
-    hours: 9,
-    colorClass: "bg-shift-journee border-shift-journee-border",
+  },
+  {
+    id: "coupe",
+    name: "Coupé",
+    type: "split",
+    startTime: "09:00",
+    endTime: "19:00",
+    breakStart: "12:00",
+    breakEnd: "14:00",
   },
 ];

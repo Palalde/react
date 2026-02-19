@@ -20,11 +20,13 @@ export default function useAssignments() {
     // Si même shift qu'avant → ne rien faire
     if (assignmentData.shiftId === currentAssignment.shiftId) return;
 
-    // 2. Map des conflits entre shifts (hardcodé pour l'instant)
+    // 2. Map des conflits entre types de shifts
+    // split conflicte avec tout (comme journée) car il occupe AM + PM
     const conflictMap = {
-      matin: ["journee", "matin"],
-      aprem: ["journee", "aprem"],
-      journee: ["matin", "aprem"],
+      matin: ["journee", "matin", "coupe"],
+      aprem: ["journee", "aprem", "coupe"],
+      journee: ["matin", "aprem", "coupe"],
+      coupe: ["matin", "aprem", "journee", "coupe"],
     };
 
     // 3. Collecter les ids des assignations conflictuelles

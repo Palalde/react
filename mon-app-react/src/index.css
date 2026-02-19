@@ -39,6 +39,8 @@
   --color-shift-aprem-border: #60a5fa;
   --color-shift-journee: #d1fae5;
   --color-shift-journee-border: #34d399;
+  --color-shift-coupe: #f3e8ff;
+  --color-shift-coupe-border: #a78bfa;
 }
 
 /* 🌙 DARK MODE */
@@ -75,6 +77,8 @@
   --color-shift-aprem-border: #3b82f6;
   --color-shift-journee: #064e3b;
   --color-shift-journee-border: #10b981;
+  --color-shift-coupe: #3b0764;
+  --color-shift-coupe-border: #8b5cf6;
 }
 
 /* ============================================
@@ -103,4 +107,6 @@
   --color-shift-aprem-border: var(--color-shift-aprem-border);
   --color-shift-journee: var(--color-shift-journee);
   --color-shift-journee-border: var(--color-shift-journee-border);
+  --color-shift-coupe: var(--color-shift-coupe);
+  --color-shift-coupe-border: var(--color-shift-coupe-border);
 }

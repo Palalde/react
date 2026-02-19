@@ -46,9 +46,16 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - getEmployeeHours refactore : split AM/PM base sur shift.type + midi (timeToMinutes)
 - selectedAssignment state dans App.jsx (null = modal ferme, objet = modal ouvert)
 
-### Story 9.3 : Shifts CRUD (TODO)
+### Story 9.3 : Shifts CRUD (EN COURS)
 
-- Task 9.3.1 : Transformer useShifts en hook avec state + localStorage (meme pattern que useEmployees)
+- Refacto pre-9.3 : shift model simplifie (retire hours/colorClass, derives via utils), type split implemente
+- Nouveaux utils : getShiftColorClass(type), calcShiftMinutes(shift) dans shiftUtils.js
+- DEFAULT_SHIFTS : 4 shifts (matin, aprem, journee, coupe) sans hours/colorClass
+- getEmployeeHours : support type split (AM=start→breakStart, PM=breakEnd→end)
+- conflictMap : split conflicte avec tous les types (comme journee)
+- PlanningCell : affichage split (AM=start-breakStart, PM=breakEnd-end), couleur derivee du type
+- EmployeeRow : split matche AM+PM (comme journee)
+- Task 9.3.1 : Transformer useShifts en hook avec state + localStorage (DONE)
 - Task 9.3.2 : ShiftForm formulaire creation/edition (nom, horaires, type, couleur)
 - Task 9.3.3 : ShiftManager UI gestion des shifts (liste + CRUD)
 
@@ -152,9 +159,12 @@ Version actuelle : `0.1.0` (Phases 0-8 completees, Phase 9 en cours)
 // Employee
 { id, name, color, weeklyMinutes, skills: [] }
 
-// Shift (DEFAULT_SHIFTS)
-{ id, name, type, startTime, endTime, hours, colorClass }
-// type: 'am' | 'pm' | 'full' (futur: 'split')
+// Shift (DEFAULT_SHIFTS) — hours et colorClass sont derives
+{ id, name, type, startTime, endTime }
+// type: 'am' | 'pm' | 'full' | 'split'
+// Si split : { ...shift, breakStart: "12:00", breakEnd: "14:00" }
+// getShiftColorClass(type) → classes Tailwind
+// calcShiftMinutes(shift) → duree en minutes (soustrait pause si split)
 
 // Assignment
 { id, employeeId, day, shiftId, weekOf? }
@@ -162,7 +172,7 @@ Version actuelle : `0.1.0` (Phases 0-8 completees, Phase 9 en cours)
 
 ## Reference : Design System
 
-Couleurs dans index.css via CSS vars. Classes : bg-bg-primary, text-text-primary, border-border, bg-accent, bg-shift-matin/aprem/journee, text-danger. Pas de dark: variants.
+Couleurs dans index.css via CSS vars. Classes : bg-bg-primary, text-text-primary, border-border, bg-accent, bg-shift-matin/aprem/journee/coupe, text-danger. Pas de dark: variants.
 
 ## Reference : Structure
 
@@ -175,6 +185,6 @@ src/
   features/assignments/ useAssignments
   features/planning/   PlanningTable, EmployeeRow, PlanningCell
   hooks/             useLocalStorage, useTheme
-  utils/             generateId, colorUtils, timeUtils (getEmployeeHours)
+  utils/             generateId, colorUtils, timeUtils, shiftUtils (getShiftColorClass, calcShiftMinutes)
   constants/         days.js, shifts.js
 ```

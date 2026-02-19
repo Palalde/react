@@ -1,6 +1,8 @@
 // 🎯 Task 9.1.3 : PlanningCell — Cellule individuelle AM ou PM
 // 🎨 Styling Tailwind = Mentor | ⚛️ Câblage dans EmployeeRow = Paul
 
+import { getShiftColorClass } from "@/utils";
+
 function PlanningCell({ assignment, shift, period, onClick }) {
   // Cellule vide → zone cliquable
   if (!assignment) {
@@ -23,22 +25,45 @@ function PlanningCell({ assignment, shift, period, onClick }) {
   }
 
   // Cellule occupée → afficher le shift
-  // Gestion visuelle du shift "Journée" qui couvre AM + PM
-  const isJournee = shift?.id === "journee";
+  // Gestion visuelle des shifts multi-ligne (journée et coupé) qui couvrent AM + PM
+  const isMultiLine = shift?.type === "full" || shift?.type === "split";
   const isAM = period === "am";
 
-  // Journée : AM = coin haut arrondi, PM = coin bas arrondi, pas de séparation
-  const journeeClasses = isJournee
+  // Journée/Coupé : AM = coin haut arrondi, PM = coin bas arrondi, pas de séparation
+  const multiLineClasses = isMultiLine
     ? isAM
       ? "rounded-t rounded-b-none border-b-0"
       : "rounded-b rounded-t-none border-t-0"
     : "rounded";
 
+  // Couleur dérivée du type (plus de colorClass stockée)
+  const colorClass = getShiftColorClass(shift?.type);
+
+  // Texte affiché dans la cellule selon le type
+  const getCellLabel = () => {
+    if (!shift) return "";
+
+    if (shift.type === "full") {
+      // Journée → AM affiche startTime, PM affiche endTime
+      return isAM ? shift.startTime : shift.endTime;
+    }
+
+    if (shift.type === "split") {
+      // Coupé → AM affiche start-breakStart, PM affiche breakEnd-end
+      return isAM
+        ? `${shift.startTime} - ${shift.breakStart}`
+        : `${shift.breakEnd} - ${shift.endTime}`;
+    }
+
+    // Matin / Après-midi → affiche start - end
+    return `${shift.startTime} - ${shift.endTime}`;
+  };
+
   return (
     <div
       onClick={onClick}
-      className={`w-full h-full min-h-[36px] ${journeeClasses} border cursor-pointer
-        ${shift?.colorClass || "bg-bg-tertiary border-border"}
+      className={`w-full h-full min-h-[36px] ${multiLineClasses} border cursor-pointer
+        ${colorClass}
         hover:shadow-md hover:brightness-95 active:scale-[0.97]
         transition-all duration-200
         flex items-center justify-center`}
@@ -48,11 +73,7 @@ function PlanningCell({ assignment, shift, period, onClick }) {
       onKeyDown={(e) => e.key === "Enter" && onClick?.()}
     >
       <span className="text-xs font-medium text-text-primary truncate px-1">
-        {isJournee
-          ? isAM
-            ? shift.startTime
-            : shift.endTime
-          : `${shift?.startTime} - ${shift?.endTime}`}
+        {getCellLabel()}
       </span>
     </div>
   );

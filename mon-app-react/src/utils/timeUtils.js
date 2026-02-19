@@ -58,22 +58,33 @@ export function getEmployeeHours(employeeId, assignments, shifts) {
 
       const start = timeToMinutes(shift.startTime);
       const end = timeToMinutes(shift.endTime);
-      const totalMinutes = end - start;
-
-      // heures total
-      acc.total += totalMinutes;
 
       // Répartition AM / PM basée sur le type du shift
       if (shift.type === "am") {
         // Shift matin → tout en AM
+        const totalMinutes = end - start;
+        acc.total += totalMinutes;
         acc.am += totalMinutes;
       } else if (shift.type === "pm") {
         // Shift après-midi → tout en PM
+        const totalMinutes = end - start;
+        acc.total += totalMinutes;
         acc.pm += totalMinutes;
       } else if (shift.type === "full") {
         // Shift journée → splitter sur midi
+        const totalMinutes = end - start;
+        acc.total += totalMinutes;
         acc.am += NOON - start;
         acc.pm += end - NOON;
+      } else if (shift.type === "split") {
+        // Shift coupé → AM = start→breakStart, PM = breakEnd→end
+        const breakStart = timeToMinutes(shift.breakStart);
+        const breakEnd = timeToMinutes(shift.breakEnd);
+        const amMinutes = breakStart - start;
+        const pmMinutes = end - breakEnd;
+        acc.total += amMinutes + pmMinutes;
+        acc.am += amMinutes;
+        acc.pm += pmMinutes;
       }
 
       return acc;

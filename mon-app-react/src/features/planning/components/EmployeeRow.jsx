@@ -26,11 +26,14 @@ function EmployeeRow({
     // parcourir les jours de la semaine pour cette ligne (AM ou PM)
     return DAYS_OF_WEEK.map((day) => {
       // assignation pour ce jour + shift (matin ou aprem)
+      // journée et coupé occupent AM + PM donc matchent les deux lignes
       const dailyAssignment = assignments.find(
         (a) =>
           a.employeeId === employee.id &&
           a.day === day.id &&
-          (a.shiftId === shiftId || a.shiftId === "journee"),
+          (a.shiftId === shiftId ||
+            a.shiftId === "journee" ||
+            a.shiftId === "coupe"),
       );
 
       // trouver le shift correspondant pour accéder à ses infos (ex: couleur)

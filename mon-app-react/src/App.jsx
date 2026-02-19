@@ -4,6 +4,7 @@ import { EmployeeList, useEmployees } from "@/features/employees";
 import { useAssignments } from "@/features/assignments";
 import { PlanningTable } from "@/features/planning";
 import { useShifts } from "@/features/shifts";
+import { getShiftColorClass } from "@/utils";
 import { useState } from "react";
 
 function App() {
@@ -114,7 +115,7 @@ function App() {
                         setSelectedAssignment(null);
                       }}
                       className={`w-full text-left px-3 py-2 rounded-lg border transition-all
-              ${shift.colorClass} hover:shadow-md hover:brightness-95
+              ${getShiftColorClass(shift.type)} hover:shadow-md hover:brightness-95
               ${
                 selectedAssignment?.shiftId === shift.id
                   ? "ring-2 ring-accent"
