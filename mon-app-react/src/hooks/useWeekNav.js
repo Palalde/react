@@ -13,7 +13,7 @@ function addWeeks(isoString, weeks) {
   return date.toISOString().split("T")[0];
 }
 
-export function useWeekNav() {
+export default function useWeekNav() {
   // initialiser le state avec la semaine courante (string ISO du lundi)
   const [currentWeek, setCurrentWeek] = useState(getMondayISO(new Date()));
 
