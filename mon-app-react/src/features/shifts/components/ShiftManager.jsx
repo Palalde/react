@@ -4,6 +4,7 @@ import {
   getShiftColorClass,
   calcShiftMinutes,
   formatMinutesToDisplay,
+  groupShiftsByType,
 } from "@/utils";
 import ShiftForm from "./ShiftForm";
 
@@ -60,6 +61,7 @@ export default function ShiftManager({
       </div>
 
       {/* Liste des shifts */}
+      {/* Liste des shifts groupés par type */}
       {shifts.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <span className="text-5xl mb-3">⏰</span>
@@ -69,51 +71,69 @@ export default function ShiftManager({
           </p>
         </div>
       ) : (
-        <div className="space-y-2">
-          {shifts.map((shift) => (
-            <div
-              key={shift.id}
-              className={`flex items-center justify-between p-3 rounded-lg border transition-all
-                ${getShiftColorClass(shift.type)} hover:shadow-sm`}
-            >
-              {/* Infos du shift */}
-              <div className="flex flex-col gap-0.5">
-                <span className="text-sm font-semibold text-text-primary">
-                  {shift.name}
+        <div className="space-y-4">
+          {groupShiftsByType(shifts).map((group) => (
+            <div key={group.type}>
+              {/* En-tête de groupe */}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm">{group.emoji}</span>
+                <span className="text-xs font-semibold text-text-secondary uppercase tracking-wide">
+                  {group.label}
                 </span>
-                <div className="flex items-center gap-2 text-xs text-text-secondary">
-                  <span>
-                    {shift.startTime} - {shift.endTime}
-                  </span>
-                  <span className="text-text-muted">•</span>
-                  <span>{formatMinutesToDisplay(calcShiftMinutes(shift))}</span>
-                  {shift.type === "split" && (
-                    <>
-                      <span className="text-text-muted">•</span>
-                      <span className="text-text-muted">
-                        Pause {shift.breakStart} - {shift.breakEnd}
-                      </span>
-                    </>
-                  )}
-                </div>
+                <div className="flex-1 h-px bg-border/50" />
               </div>
 
-              {/* Boutons actions */}
-              <div className="flex items-center gap-1">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => handleEditClick(shift)}
-                >
-                  ✏️
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => handleDeleteShift(shift.id)}
-                >
-                  🗑️
-                </Button>
+              {/* Shifts du groupe */}
+              <div className="space-y-1.5">
+                {group.shifts.map((shift) => (
+                  <div
+                    key={shift.id}
+                    className={`flex items-center justify-between p-3 rounded-lg border transition-all
+                      ${getShiftColorClass(shift.type)} hover:shadow-sm`}
+                  >
+                    {/* Infos du shift */}
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-sm font-semibold text-text-primary">
+                        {shift.name}
+                      </span>
+                      <div className="flex items-center gap-2 text-xs text-text-secondary">
+                        <span>
+                          {shift.startTime} - {shift.endTime}
+                        </span>
+                        <span className="text-text-muted">•</span>
+                        <span>
+                          {formatMinutesToDisplay(calcShiftMinutes(shift))}
+                        </span>
+                        {shift.type === "split" && (
+                          <>
+                            <span className="text-text-muted">•</span>
+                            <span className="text-text-muted">
+                              Pause {shift.breakStart} - {shift.breakEnd}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Boutons actions */}
+                    <div className="flex items-center gap-1">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleEditClick(shift)}
+                      >
+                        ✏️
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleDeleteShift(shift.id)}
+                      >
+                        🗑️
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ))}

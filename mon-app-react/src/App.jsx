@@ -4,7 +4,7 @@ import { EmployeeList, useEmployees } from "@/features/employees";
 import { useAssignments } from "@/features/assignments";
 import { PlanningTable } from "@/features/planning";
 import { useShifts, ShiftManager } from "@/features/shifts";
-import { getShiftColorClass } from "@/utils";
+import { getShiftColorClass, groupShiftsByType } from "@/utils";
 import { useState } from "react";
 
 function App() {
@@ -130,39 +130,50 @@ function App() {
             size="sm"
           >
             <div className="space-y-4">
-              {/* Sélecteur de shift */}
-              <div className="space-y-2">
-                <p className="text-sm text-text-secondary font-medium">
-                  Changer le shift :
-                </p>
-                <div className="flex flex-col gap-2">
-                  {shifts.map((shift) => (
-                    <button
-                      key={shift.id}
-                      onClick={() => {
-                        updateAssignment({
-                          ...selectedAssignment,
-                          shiftId: shift.id,
-                        });
-                        setSelectedAssignment(null);
-                      }}
-                      className={`w-full text-left px-3 py-2 rounded-lg border transition-all
-              ${getShiftColorClass(shift.type)} hover:shadow-md hover:brightness-95
-              ${
-                selectedAssignment?.shiftId === shift.id
-                  ? "ring-2 ring-accent"
-                  : ""
-              }`}
-                    >
-                      <span className="text-sm font-medium text-text-primary">
-                        {shift.name}
+              {/* Sélecteur de shift — groupé par type, trié par startTime */}
+              <div className="space-y-3">
+                {groupShiftsByType(shifts).map((group) => (
+                  <div key={group.type}>
+                    {/* En-tête de groupe */}
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-xs">{group.emoji}</span>
+                      <span className="text-[11px] font-semibold text-text-secondary uppercase tracking-wide">
+                        {group.label}
                       </span>
-                      <span className="text-xs text-text-secondary ml-2">
-                        {shift.startTime} - {shift.endTime}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                      <div className="flex-1 h-px bg-border/50" />
+                    </div>
+
+                    {/* Shifts du groupe */}
+                    <div className="flex flex-col gap-1.5">
+                      {group.shifts.map((shift) => (
+                        <button
+                          key={shift.id}
+                          onClick={() => {
+                            updateAssignment({
+                              ...selectedAssignment,
+                              shiftId: shift.id,
+                            });
+                            setSelectedAssignment(null);
+                          }}
+                          className={`w-full text-left px-3 py-2 rounded-lg border transition-all
+                            ${getShiftColorClass(shift.type)} hover:shadow-md hover:brightness-95
+                            ${
+                              selectedAssignment?.shiftId === shift.id
+                                ? "ring-2 ring-accent"
+                                : ""
+                            }`}
+                        >
+                          <span className="text-sm font-medium text-text-primary">
+                            {shift.name}
+                          </span>
+                          <span className="text-xs text-text-secondary ml-2">
+                            {shift.startTime} - {shift.endTime}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               {/* Bouton supprimer */}

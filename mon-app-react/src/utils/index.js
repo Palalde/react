@@ -8,4 +8,8 @@ export {
   formatMinutesToDisplay,
   getEmployeeHours,
 } from "./timeUtils";
-export { getShiftColorClass, calcShiftMinutes } from "./shiftUtils";
+export {
+  getShiftColorClass,
+  calcShiftMinutes,
+  groupShiftsByType,
+} from "./shiftUtils";

@@ -21,6 +21,47 @@ export function getShiftColorClass(type) {
 }
 
 /**
+ * Labels et emojis par type de shift (pour affichage groupé)
+ */
+const SHIFT_TYPE_META = {
+  am: { label: "Matin", emoji: "☀️", order: 0 },
+  pm: { label: "Après-midi", emoji: "🌙", order: 1 },
+  full: { label: "Journée", emoji: "📅", order: 2 },
+  split: { label: "Coupé", emoji: "✂️", order: 3 },
+};
+
+/**
+ * Groupe les shifts par type et les trie par startTime à l'intérieur de chaque groupe
+ * @param {Array} shifts - Tableau de shifts
+ * @returns {Array<{ type, label, emoji, shifts }>} Groupes triés
+ */
+export function groupShiftsByType(shifts) {
+  const groups = {};
+
+  shifts.forEach((shift) => {
+    if (!groups[shift.type]) {
+      const meta = SHIFT_TYPE_META[shift.type] || {
+        label: shift.type,
+        emoji: "⏰",
+        order: 99,
+      };
+      groups[shift.type] = { type: shift.type, ...meta, shifts: [] };
+    }
+    groups[shift.type].shifts.push(shift);
+  });
+
+  // Trier les groupes par ordre, puis les shifts par startTime
+  return Object.values(groups)
+    .sort((a, b) => a.order - b.order)
+    .map((group) => ({
+      ...group,
+      shifts: group.shifts.sort((a, b) =>
+        a.startTime.localeCompare(b.startTime),
+      ),
+    }));
+}
+
+/**
  * Calcule la durée totale d'un shift en minutes (soustrait la pause si split)
  * @param {object} shift - Objet shift { startTime, endTime, breakStart?, breakEnd? }
  * @returns {number} Durée en minutes
