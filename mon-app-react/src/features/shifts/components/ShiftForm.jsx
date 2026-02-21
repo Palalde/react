@@ -54,9 +54,11 @@ export default function ShiftForm({ shift, onSubmit, onCancel }) {
     setError("");
 
     // Préparer les données : retirer breakStart/breakEnd si pas split
-    const { name, type, startTime, endTime } = formData;
+    const { id, name, type, startTime, endTime } = formData;
     const submitData =
-      formData.type === "split" ? formData : { name, type, startTime, endTime };
+      formData.type === "split"
+        ? formData
+        : { id, name, type, startTime, endTime };
     onSubmit(submitData);
   };
 
