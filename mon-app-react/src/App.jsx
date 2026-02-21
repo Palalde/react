@@ -2,9 +2,10 @@ import { Header, Container } from "@/components/layout";
 import { Modal, Button } from "@/components/ui";
 import { EmployeeList, useEmployees } from "@/features/employees";
 import { useAssignments } from "@/features/assignments";
-import { PlanningTable } from "@/features/planning";
+import { PlanningTable, WeekNav } from "@/features/planning";
 import { useShifts, ShiftManager } from "@/features/shifts";
 import { getShiftColorClass, groupShiftsByType } from "@/utils";
+import { useWeekNav } from "@/hooks";
 import { useState } from "react";
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
     useEmployees();
   // shifts
   const { shifts, updateShift, addShift, deleteShift } = useShifts();
+  // weekNav
+  const { currentWeek, goNext, goPrev, goToday } = useWeekNav();
   // Assignments (reçoit shifts pour la résolution des conflits par type)
   const {
     assignments,
@@ -30,7 +33,7 @@ function App() {
     deleteAssignment,
     deleteAssignmentsByEmployee,
     deleteAssignmentsByShift,
-  } = useAssignments(shifts);
+  } = useAssignments(shifts, currentWeek);
 
   // HANDLERS
 
@@ -64,6 +67,13 @@ function App() {
             <h2 className="text-lg sm:text-xl font-semibold text-text-primary">
               📋 Planning de la semaine
             </h2>
+            {/* Navigation semaines */}
+            <WeekNav
+              currentWeek={currentWeek}
+              onPrev={goPrev}
+              onNext={goNext}
+              onToday={goToday}
+            />
             <div className="flex items-center gap-2">
               <Button
                 variant="secondary"

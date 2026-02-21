@@ -64,18 +64,26 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Style : groupShiftsByType() pour affichage groupe par type + tri startTime dans modals
 - Style : color-scheme: dark dans index.css pour inputs natifs en dark mode
 
-### Story 9.4 : Navigation Semaines (TODO)
+### Story 9.4 : Navigation Semaines (DONE)
 
-- Task 9.4.1 : useWeekNavigation hook (currentWeek, goNext, goPrev, goToday)
-- Task 9.4.2 : WeekNavigator composant (boutons + affichage semaine)
-- Task 9.4.3 : Filtrer assignments par weekOf (format ISO du lundi)
+- Task 9.4.1 : useWeekNav hook dans src/hooks/ (currentWeek ISO string, goNext, goPrev, goToday) (DONE)
+  - Utilitaires internes : getMondayISO(date), addWeeks(isoString, weeks)
+  - currentWeek = string ISO du lundi (ex: "2026-02-16"), pas un Date object
+- Task 9.4.2 : WeekNav composant dans features/planning/ (boutons ◀/▶ + affichage "Semaine du 16 fevr. 2026") (DONE)
+  - toLocaleDateString('fr-FR') pour formatage, +T12:00:00 pour eviter bug timezone
+- Task 9.4.3 : Filtrer assignments par weekOf (DONE)
+  - useAssignments recoit currentWeek en 2e parametre
+  - addAssignment injecte weekOf: currentWeek automatiquement
+  - weeklyAssignments = assignments.filter(a => a.weekOf === currentWeek)
+  - Retourne weeklyAssignments (filtre), mutations sur liste complete
+  - calculateHours et getAssignmentsByDay utilisent weeklyAssignments
 
 ### Acceptance Criteria Phase 9
 
 - AC 9.1 : Assignations AM/PM sur 2 lignes alignees avec les jours (DONE)
 - AC 9.2 : Clic cellule AM vide -> shift matin assigne (DONE)
 - AC 9.3 : Gestionnaire shifts : creer/editer/supprimer (DONE)
-- AC 9.4 : Bouton ">" -> affiche semaine +1
+- AC 9.4 : Bouton ">" -> affiche semaine +1 (DONE)
 - AC 9.5 : Shift "Journee" -> cellules AM+PM visuellement connectees
 
 ---
@@ -172,7 +180,9 @@ Version actuelle : `0.1.0` (Phases 0-8 completees, Phase 9 en cours)
 // calcShiftMinutes(shift) → duree en minutes (soustrait pause si split)
 
 // Assignment
-{ id, employeeId, day, shiftId, weekOf? }
+{ id, employeeId, day, shiftId, weekOf }
+// weekOf: string ISO du lundi de la semaine (ex: "2026-02-16")
+// Injecte automatiquement par useAssignments via currentWeek
 ```
 
 ## Reference : Design System
@@ -188,8 +198,8 @@ src/
   features/employees/  EmployeeCard, EmployeeList, EmployeeForm, useEmployees
   features/shifts/     ShiftSelector, ShiftForm, ShiftManager, useShifts
   features/assignments/ useAssignments
-  features/planning/   PlanningTable, EmployeeRow, PlanningCell
-  hooks/             useLocalStorage, useTheme
+  features/planning/   PlanningTable, EmployeeRow, PlanningCell, WeekNav
+  hooks/             useLocalStorage, useTheme, useWeekNav
   utils/             generateId, colorUtils, timeUtils, shiftUtils (getShiftColorClass, calcShiftMinutes, groupShiftsByType)
   constants/         days.js, shifts.js
 ```

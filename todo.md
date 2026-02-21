@@ -115,15 +115,15 @@
   - [x] Bugfix : ShiftForm perd id à l'édition (destructuring)
   - [x] Refacto : type-based matching (EmployeeRow + useAssignments)
   - [x] Style : groupShiftsByType() + tri startTime dans les modals
-- [ ] Story 9.4 : Navigation semaines (⚛️ Socratique)
-  - [ ] Task 9.4.1 : Créer `useWeekNavigation` hook
-  - [ ] Task 9.4.2 : Créer `WeekNavigator` composant
-  - [ ] Task 9.4.3 : Filtrer assignments par semaine
+- [x] Story 9.4 : Navigation semaines (⚛️ Socratique)
+  - [x] Task 9.4.1 : Créer `useWeekNav` hook (getMondayISO, addWeeks, currentWeek ISO)
+  - [x] Task 9.4.2 : Créer `WeekNav` composant (◀ / Semaine du... / ▶)
+  - [x] Task 9.4.3 : Filtrer assignments par `weekOf` dans useAssignments
 - [ ] Story 9.5 (optionnel) : Skills & Validation — repoussé après MVP
 
 **🧪 Acceptance Criteria** :
 
-- [ ] AC 9.1-9.5 (voir tech-spec)
+- [x] AC 9.4 : Bouton ">" → affiche semaine +1
 
 ---
 

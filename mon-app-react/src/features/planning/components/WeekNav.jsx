@@ -1,4 +1,9 @@
-export function WeekNavigator({ currentWeek, onPrev, onNext, onToday }) {
+export default function WeekNavigator({
+  currentWeek,
+  onPrev,
+  onNext,
+  onToday,
+}) {
   // Afficher la date de façon lisible "Semaine du 16 févr. 2026"
   const formattedWeek = new Date(currentWeek + "T12:00:00").toLocaleDateString(
     "fr-FR",

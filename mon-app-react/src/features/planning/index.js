@@ -1,7 +1,5 @@
 // Barrel export for planning feature
-export {
-  EmployeeRow,
-  PlanningCell,
-  PlanningTable,
-  WeekNavigator,
-} from "./components";
+export { default as EmployeeRow } from "./components/EmployeeRow";
+export { default as PlanningCell } from "./components/PlanningCell";
+export { default as PlanningTable } from "./components/PlanningTable";
+export { default as WeekNav } from "./components/WeekNav";
