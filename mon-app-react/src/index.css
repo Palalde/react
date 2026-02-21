@@ -45,6 +45,8 @@
 
 /* 🌙 DARK MODE */
 .dark {
+  color-scheme: dark;
+
   /* Backgrounds */
   --color-bg-primary: #0f172a;
   --color-bg-secondary: #1e293b;

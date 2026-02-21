@@ -84,7 +84,7 @@ export default function ShiftForm({ shift, onSubmit, onCancel }) {
               key={t.value}
               type="button"
               onClick={() => handleChange("type", t.value)}
-              className={`px-3 py-2.5 rounded-lg border text-sm font-medium transition-all
+              className={`px-3 py-2.5 rounded-lg border text-sm font-medium transition-all cursor-pointer
                 ${
                   formData.type === t.value
                     ? "border-accent bg-accent-soft text-accent ring-2 ring-accent/30"

@@ -155,7 +155,7 @@ function App() {
                             });
                             setSelectedAssignment(null);
                           }}
-                          className={`w-full text-left px-3 py-2 rounded-lg border transition-all
+                          className={`w-full text-left px-3 py-2 rounded-lg border transition-all cursor-pointer
                             ${getShiftColorClass(shift.type)} hover:shadow-md hover:brightness-95
                             ${
                               selectedAssignment?.shiftId === shift.id
