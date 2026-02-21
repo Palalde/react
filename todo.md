@@ -107,10 +107,14 @@
   - [x] Bonus : Barre couleur employé + fond teinté dans EmployeeRow
   - [x] Bonus : Champ `type` ajouté au modèle Shift (am/pm/full)
   - [x] Bonus : getEmployeeHours refactoré (split AM/PM basé sur type + midi)
-- [ ] Story 9.3 : Shifts CRUD dynamiques (⚛️ Socratique)
-  - [ ] Task 9.3.1 : Transformer `useShifts` en hook avec state
-  - [ ] Task 9.3.2 : Créer `ShiftForm`
-  - [ ] Task 9.3.3 : Créer `ShiftManager`
+- [x] Story 9.3 : Shifts CRUD dynamiques (⚛️ Socratique)
+  - [x] Task 9.3.1 : Transformer `useShifts` en hook avec state + localStorage
+  - [x] Task 9.3.2 : Créer `ShiftForm` (type selector, split conditionnel)
+  - [x] Task 9.3.3 : Créer `ShiftManager` (liste groupée par type + CRUD)
+  - [x] Task 9.3.4 : Intégrer dans App.jsx + deleteAssignmentsByShift
+  - [x] Bugfix : ShiftForm perd id à l'édition (destructuring)
+  - [x] Refacto : type-based matching (EmployeeRow + useAssignments)
+  - [x] Style : groupShiftsByType() + tri startTime dans les modals
 - [ ] Story 9.4 : Navigation semaines (⚛️ Socratique)
   - [ ] Task 9.4.1 : Créer `useWeekNavigation` hook
   - [ ] Task 9.4.2 : Créer `WeekNavigator` composant

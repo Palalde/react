@@ -1,6 +1,6 @@
 ﻿---
 title: ChefPlanning - Tech Spec
-updated: 2026-02-18
+updated: 2026-02-21
 currentPhase: 9
 completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 stack: [React 19.2, Vite 7, TailwindCSS 4, localStorage]
@@ -46,18 +46,23 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - getEmployeeHours refactore : split AM/PM base sur shift.type + midi (timeToMinutes)
 - selectedAssignment state dans App.jsx (null = modal ferme, objet = modal ouvert)
 
-### Story 9.3 : Shifts CRUD (EN COURS)
+### Story 9.3 : Shifts CRUD (DONE)
 
 - Refacto pre-9.3 : shift model simplifie (retire hours/colorClass, derives via utils), type split implemente
-- Nouveaux utils : getShiftColorClass(type), calcShiftMinutes(shift) dans shiftUtils.js
+- Nouveaux utils : getShiftColorClass(type), calcShiftMinutes(shift), groupShiftsByType(shifts) dans shiftUtils.js
 - DEFAULT_SHIFTS : 4 shifts (matin, aprem, journee, coupe) sans hours/colorClass
 - getEmployeeHours : support type split (AM=start→breakStart, PM=breakEnd→end)
-- conflictMap : split conflicte avec tous les types (comme journee)
+- conflictMap : utilise shift.type (am/pm/full/split) au lieu d'IDs hardcodes
+- useAssignments recoit shifts en parametre pour resolution des types
 - PlanningCell : affichage split (AM=start-breakStart, PM=breakEnd-end), couleur derivee du type
-- EmployeeRow : split matche AM+PM (comme journee)
+- EmployeeRow : renderDayCells(period) matche par shift.type au lieu d'IDs hardcodes
 - Task 9.3.1 : Transformer useShifts en hook avec state + localStorage (DONE)
-- Task 9.3.2 : ShiftForm formulaire creation/edition (nom, horaires, type, couleur)
-- Task 9.3.3 : ShiftManager UI gestion des shifts (liste + CRUD)
+- Task 9.3.2 : ShiftForm formulaire creation/edition (nom, horaires, type selector, breakStart/breakEnd conditionnel) (DONE)
+- Task 9.3.3 : ShiftManager UI gestion des shifts (liste groupee par type + CRUD) (DONE)
+- Task 9.3.4 : Integration App.jsx (bouton + modal + handleDeleteShift + deleteAssignmentsByShift) (DONE)
+- Bugfix : ShiftForm preservait id lors de l'edition (destructuring corrige)
+- Style : groupShiftsByType() pour affichage groupe par type + tri startTime dans modals
+- Style : color-scheme: dark dans index.css pour inputs natifs en dark mode
 
 ### Story 9.4 : Navigation Semaines (TODO)
 
@@ -68,8 +73,8 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 ### Acceptance Criteria Phase 9
 
 - AC 9.1 : Assignations AM/PM sur 2 lignes alignees avec les jours (DONE)
-- AC 9.2 : Clic cellule AM vide -> shift matin assigne
-- AC 9.3 : Gestionnaire shifts : creer/editer/supprimer
+- AC 9.2 : Clic cellule AM vide -> shift matin assigne (DONE)
+- AC 9.3 : Gestionnaire shifts : creer/editer/supprimer (DONE)
 - AC 9.4 : Bouton ">" -> affiche semaine +1
 - AC 9.5 : Shift "Journee" -> cellules AM+PM visuellement connectees
 
@@ -181,10 +186,10 @@ src/
   components/ui/     Button, Badge, Modal, Input, HoursInput, ColorInput, ThemeToggle
   components/layout/ Header, Container
   features/employees/  EmployeeCard, EmployeeList, EmployeeForm, useEmployees
-  features/shifts/     ShiftSelector, useShifts
+  features/shifts/     ShiftSelector, ShiftForm, ShiftManager, useShifts
   features/assignments/ useAssignments
   features/planning/   PlanningTable, EmployeeRow, PlanningCell
   hooks/             useLocalStorage, useTheme
-  utils/             generateId, colorUtils, timeUtils, shiftUtils (getShiftColorClass, calcShiftMinutes)
+  utils/             generateId, colorUtils, timeUtils, shiftUtils (getShiftColorClass, calcShiftMinutes, groupShiftsByType)
   constants/         days.js, shifts.js
 ```

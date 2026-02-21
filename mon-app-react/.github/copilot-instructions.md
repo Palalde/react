@@ -1,6 +1,6 @@
 ﻿# Copilot Instructions - ChefPlanning
 
-> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-18
+> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-21
 
 ---
 
@@ -122,11 +122,12 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 | ----- | ----------------------- | ------ |
 | 9.1   | Refonte layout planning | done   |
 | 9.2   | Click-to-assign adapte  | done   |
-| 9.3   | Shifts CRUD dynamiques  | todo   |
+| 9.3   | Shifts CRUD dynamiques  | done   |
 | 9.4   | Navigation semaines     | todo   |
 
 > Story 9.1 terminee : PlanningTable/EmployeeRow/PlanningCell crees, App.jsx refactore (pleine largeur + modal CRUD employes), legacy supprime (PlanningGrid, DayColumn, AssignmentCard, AssignmentForm, Card, useHoursCalculator).
 > Story 9.2 terminee : Clic cellule vide → assignation auto (matin/aprem). Clic cellule remplie → modal editer shift / supprimer. Gestion conflits shifts dans useAssignments (conflictMap). Cellules affichent les horaires. EmployeeRow avec barre couleur employe + fond teinte. Shift model enrichi avec champ `type` (am/pm/full). getEmployeeHours refactore (split AM/PM base sur type + midi).
+> Story 9.3 terminee : useShifts CRUD avec localStorage. ShiftForm (creation/edition, type selector, support split avec breakStart/breakEnd conditionnels). ShiftManager (liste groupee par type, CRUD, modal). Integre dans App.jsx (bouton + modal + handleDeleteShift avec nettoyage assignments). Refacto type-based matching : EmployeeRow et useAssignments matchent par shift.type au lieu d'IDs hardcodes. useAssignments recoit shifts en parametre. groupShiftsByType() util pour affichage groupe + tri startTime. color-scheme: dark dans index.css pour inputs natifs.
 
 ### A venir
 
@@ -162,11 +163,11 @@ src/
 |   +-- layout/      # Header, Container
 +-- features/
 |   +-- employees/   # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
-|   +-- shifts/      # ShiftSelector, useShifts
+|   +-- shifts/      # ShiftSelector, ShiftForm, ShiftManager, useShifts
 |   +-- assignments/ # useAssignments
 |   +-- planning/    # PlanningTable, EmployeeRow, PlanningCell
 +-- hooks/           # useLocalStorage, useTheme
-+-- utils/           # generateId, colorUtils, timeUtils (getEmployeeHours), shiftUtils (getShiftColorClass, calcShiftMinutes)
++-- utils/           # generateId, colorUtils, timeUtils (getEmployeeHours), shiftUtils (getShiftColorClass, calcShiftMinutes, groupShiftsByType)
 +-- constants/       # days.js, shifts.js
 +-- data/            # mockData.js
 ```
@@ -213,6 +214,7 @@ Ne PAS utiliser `dark:` les CSS vars gerent tout.
 ```jsx
 import { Button, Modal } from "@/components/ui";
 import { EmployeeList, useEmployees } from "@/features/employees";
+import { ShiftManager, useShifts } from "@/features/shifts";
 import { useAssignments } from "@/features/assignments";
 import { PlanningTable } from "@/features/planning";
 import { useLocalStorage } from "@/hooks";
@@ -224,6 +226,7 @@ import {
   timeToMinutes,
   getShiftColorClass,
   calcShiftMinutes,
+  groupShiftsByType,
 } from "@/utils";
 ```
 
