@@ -3,7 +3,7 @@ import { Modal, Button } from "@/components/ui";
 import { EmployeeList, useEmployees } from "@/features/employees";
 import { useAssignments } from "@/features/assignments";
 import { PlanningTable } from "@/features/planning";
-import { useShifts } from "@/features/shifts";
+import { useShifts, ShiftManager } from "@/features/shifts";
 import { getShiftColorClass } from "@/utils";
 import { useState } from "react";
 
@@ -13,13 +13,15 @@ function App() {
   const [isEmpModOpen, setIsEmpModOpen] = useState(false);
   // assignment selected for edit delete and modal
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+  // shift modal state
+  const [isShiftModOpen, setIsShiftModOpen] = useState(false);
 
   // custom Hooks
   // employees
   const { employees, addEmployee, updateEmployee, deleteEmployee } =
     useEmployees();
   // shifts
-  const { shifts } = useShifts();
+  const { shifts, updateShift, addShift, deleteShift } = useShifts();
   // Assignments
   const {
     assignments,
@@ -27,13 +29,21 @@ function App() {
     updateAssignment,
     deleteAssignment,
     deleteAssignmentsByEmployee,
+    deleteAssignmentsByShift,
   } = useAssignments();
+
   // HANDLERS
 
   // DeleteEmployee Handler (+ nettoyage assignations orphelines)
   const handleDeleteEmployee = (employeeId) => {
     deleteEmployee(employeeId);
     deleteAssignmentsByEmployee(employeeId);
+  };
+
+  // deleteShift Handler
+  const handleDeleteShift = (shiftId) => {
+    deleteShift(shiftId);
+    deleteAssignmentsByShift(shiftId);
   };
 
   // assignation handler
@@ -49,18 +59,27 @@ function App() {
       {/* structure  */}
       <Container>
         <main className="py-4 sm:py-6 space-y-4">
-          {/* titre / boutton CRUD employé */}
-          <div className="flex items-center justify-between">
+          {/* titre / boutton CRUD employé / bouton CRUD shift */}
+          <div className="flex items-center justify-between gap-3 flex-wrap">
             <h2 className="text-lg sm:text-xl font-semibold text-text-primary">
               📋 Planning de la semaine
             </h2>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => setIsEmpModOpen(true)}
-            >
-              👥 Gérer les employés
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setIsShiftModOpen(true)}
+              >
+                🕒 Gérer les shifts
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setIsEmpModOpen(true)}
+              >
+                👥 Gérer les employés
+              </Button>
+            </div>
           </div>
 
           {/* Tableau pleine largeur */}
@@ -89,7 +108,20 @@ function App() {
               onDeleteEmployee={handleDeleteEmployee}
             />
           </Modal>
-
+          {/* Modal CRUD Shift */}
+          <Modal
+            isOpen={isShiftModOpen}
+            onClose={() => setIsShiftModOpen(false)}
+            title="🕒 Gestion des shifts"
+            size="lg"
+          >
+            <ShiftManager
+              shifts={shifts}
+              addShift={addShift}
+              updateShift={updateShift}
+              onDeleteShift={handleDeleteShift}
+            />
+          </Modal>
           {/* Modal assignment cellule */}
           <Modal
             isOpen={selectedAssignment}

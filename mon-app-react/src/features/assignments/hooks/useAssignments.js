@@ -57,6 +57,10 @@ export default function useAssignments() {
   const deleteAssignmentsByEmployee = (employeeId) =>
     setAssignments(assignments.filter((a) => a.employeeId !== employeeId));
 
+  // Supprimer toutes les assignations d'un shift
+  const deleteAssignmentsByShift = (shiftId) =>
+    setAssignments(assignments.filter((a) => a.shiftId !== shiftId));
+
   // Filtrer les assignations d'un jour
   const getAssignmentsByDay = (day) => assignments.filter((a) => a.day === day);
 
@@ -74,6 +78,7 @@ export default function useAssignments() {
     updateAssignment,
     deleteAssignment,
     deleteAssignmentsByEmployee,
+    deleteAssignmentsByShift,
     getAssignmentsByDay,
     getAssignmentsByEmployee,
     calculateHours,
