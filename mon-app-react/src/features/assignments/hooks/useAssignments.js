@@ -1,12 +1,18 @@
 import { useLocalStorage } from "@/hooks";
 import { generateId, getEmployeeHours } from "@/utils";
 
-export default function useAssignments(shifts = []) {
+export default function useAssignments(shifts = [], currentWeek = "") {
   const [assignments, setAssignments] = useLocalStorage("assignments", []);
 
-  // Ajouter une assignation (id généré automatiquement)
+  // filtrer les assignments par semaine
+  const weeklyAssignments = assignments.filter((a) => a.weekOf === currentWeek);
+
+  // Ajouter une assignation (id généré), ajout de la semaine dans le composant de création
   const addAssignment = (assignmentData) => {
-    setAssignments([...assignments, { ...assignmentData, id: generateId() }]);
+    setAssignments([
+      ...assignments,
+      { ...assignmentData, id: generateId(), weekOf: currentWeek },
+    ]);
   };
 
   // Modifier une assignation existante (avec gestion des conflits)
@@ -65,7 +71,8 @@ export default function useAssignments(shifts = []) {
     setAssignments(assignments.filter((a) => a.shiftId !== shiftId));
 
   // Filtrer les assignations d'un jour
-  const getAssignmentsByDay = (day) => assignments.filter((a) => a.day === day);
+  const getAssignmentsByDay = (day) =>
+    weeklyAssignments.filter((a) => a.day === day);
 
   // Filtrer les assignations par employé
   const getAssignmentsByEmployee = (employeeId) =>
@@ -73,10 +80,10 @@ export default function useAssignments(shifts = []) {
 
   // Total minutes travaillées par un employé
   const calculateHours = (employeeId) =>
-    getEmployeeHours(employeeId, assignments, shifts);
+    getEmployeeHours(employeeId, weeklyAssignments, shifts);
 
   return {
-    assignments,
+    assignments: weeklyAssignments,
     addAssignment,
     updateAssignment,
     deleteAssignment,
