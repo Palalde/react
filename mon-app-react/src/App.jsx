@@ -22,7 +22,7 @@ function App() {
     useEmployees();
   // shifts
   const { shifts, updateShift, addShift, deleteShift } = useShifts();
-  // Assignments
+  // Assignments (reçoit shifts pour la résolution des conflits par type)
   const {
     assignments,
     addAssignment,
@@ -30,7 +30,7 @@ function App() {
     deleteAssignment,
     deleteAssignmentsByEmployee,
     deleteAssignmentsByShift,
-  } = useAssignments();
+  } = useAssignments(shifts);
 
   // HANDLERS
 

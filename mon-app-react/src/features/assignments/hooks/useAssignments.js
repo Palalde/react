@@ -1,8 +1,7 @@
 import { useLocalStorage } from "@/hooks";
 import { generateId, getEmployeeHours } from "@/utils";
-import { DEFAULT_SHIFTS } from "@/constants";
 
-export default function useAssignments() {
+export default function useAssignments(shifts = []) {
   const [assignments, setAssignments] = useLocalStorage("assignments", []);
 
   // Ajouter une assignation (id généré automatiquement)
@@ -20,28 +19,32 @@ export default function useAssignments() {
     // Si même shift qu'avant → ne rien faire
     if (assignmentData.shiftId === currentAssignment.shiftId) return;
 
-    // 2. Map des conflits entre types de shifts
+    // 2. Résoudre le TYPE du nouveau shift (pour comparer par type, pas par id)
+    const newShift = shifts.find((s) => s.id === assignmentData.shiftId);
+    const newType = newShift?.type;
+
+    // 3. Map des conflits entre types de shifts
     // split conflicte avec tout (comme journée) car il occupe AM + PM
     const conflictMap = {
-      matin: ["journee", "matin", "coupe"],
-      aprem: ["journee", "aprem", "coupe"],
-      journee: ["matin", "aprem", "coupe"],
-      coupe: ["matin", "aprem", "journee", "coupe"],
+      am: ["full", "am", "split"],
+      pm: ["full", "pm", "split"],
+      full: ["am", "pm", "split"],
+      split: ["am", "pm", "full", "split"],
     };
 
-    // 3. Collecter les ids des assignations conflictuelles
-    //    = même employé, même jour, shift qui chevauche, mais PAS celle qu'on édite
+    // 4. Collecter les ids des assignations conflictuelles
+    //    = même employé, même jour, shift dont le TYPE chevauche, mais PAS celle qu'on édite
     const conflictingIds = assignments
-      .filter(
-        (a) =>
-          a.id !== assignmentData.id &&
-          a.employeeId === assignmentData.employeeId &&
-          a.day === assignmentData.day &&
-          conflictMap[assignmentData.shiftId]?.includes(a.shiftId),
-      )
+      .filter((a) => {
+        if (a.id === assignmentData.id) return false;
+        if (a.employeeId !== assignmentData.employeeId) return false;
+        if (a.day !== assignmentData.day) return false;
+        const existingShift = shifts.find((s) => s.id === a.shiftId);
+        return conflictMap[newType]?.includes(existingShift?.type);
+      })
       .map((a) => a.id);
 
-    // 4. En une seule opération : supprimer les conflits + mettre à jour l'assignation
+    // 5. En une seule opération : supprimer les conflits + mettre à jour l'assignation
     setAssignments(
       assignments
         .filter((a) => !conflictingIds.includes(a.id))
@@ -70,7 +73,7 @@ export default function useAssignments() {
 
   // Total minutes travaillées par un employé
   const calculateHours = (employeeId) =>
-    getEmployeeHours(employeeId, assignments, DEFAULT_SHIFTS);
+    getEmployeeHours(employeeId, assignments, shifts);
 
   return {
     assignments,

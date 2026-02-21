@@ -21,20 +21,25 @@ function EmployeeRow({
     pm: pmMinutes,
   } = getEmployeeHours(employee.id, assignments, shifts);
   const isOvertime = totalMinutes > employee.weeklyMinutes;
+  // Types de shifts qui occupent AM + PM (apparaissent sur les deux lignes)
+  const multiLineTypes = ["full", "split"];
+
   //fonction pour les cellules aprem ou matin
-  const renderDayCells = (shiftId, period) => {
+  const renderDayCells = (period) => {
     // parcourir les jours de la semaine pour cette ligne (AM ou PM)
     return DAYS_OF_WEEK.map((day) => {
-      // assignation pour ce jour + shift (matin ou aprem)
-      // journée et coupé occupent AM + PM donc matchent les deux lignes
-      const dailyAssignment = assignments.find(
-        (a) =>
-          a.employeeId === employee.id &&
-          a.day === day.id &&
-          (a.shiftId === shiftId ||
-            a.shiftId === "journee" ||
-            a.shiftId === "coupe"),
-      );
+      // assignation pour ce jour + period
+      // On matche les shifts du même type que la period (am/pm)
+      // + les shifts multi-ligne (full/split) qui occupent AM et PM
+      const dailyAssignment = assignments.find((a) => {
+        if (a.employeeId !== employee.id || a.day !== day.id) return false;
+        const assignedShift = shifts.find((s) => s.id === a.shiftId);
+        if (!assignedShift) return false;
+        return (
+          assignedShift.type === period ||
+          multiLineTypes.includes(assignedShift.type)
+        );
+      });
 
       // trouver le shift correspondant pour accéder à ses infos (ex: couleur)
       const Shift = shifts.find((s) => s.id === dailyAssignment?.shiftId);
@@ -54,7 +59,7 @@ function EmployeeRow({
                 ? onAddAssignment({
                     employeeId: employee.id,
                     day: day.id,
-                    shiftId: shiftId,
+                    shiftId: shifts.find((s) => s.type === period)?.id,
                   })
                 : onCellClick(dailyAssignment)
             }
@@ -124,12 +129,12 @@ function EmployeeRow({
         </td>
 
         {/* 7 cellules AM — une par jour */}
-        {renderDayCells("matin", "am")}
+        {renderDayCells("am")}
       </tr>
 
       {/* ── Ligne PM ( Après-midi) ── */}
       <tr className="border-b border-border group/row">
-        {renderDayCells("aprem", "pm")}
+        {renderDayCells("pm")}
       </tr>
     </>
   );
