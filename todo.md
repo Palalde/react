@@ -119,11 +119,17 @@
   - [x] Task 9.4.1 : Créer `useWeekNav` hook (getMondayISO, addWeeks, currentWeek ISO)
   - [x] Task 9.4.2 : Créer `WeekNav` composant (◀ / Semaine du... / ▶)
   - [x] Task 9.4.3 : Filtrer assignments par `weekOf` dans useAssignments
-- [ ] Story 9.5 (optionnel) : Skills & Validation — repoussé après MVP
+- [ ] Story 9.5 : useReducer + Context (⚛️ Socratique)
+  - [ ] Task 9.5.1 : Refactorer `useAssignments` avec `useReducer`
+  - [ ] Task 9.5.2 : Créer `AppContext` + `AppProvider`
+  - [ ] Task 9.5.3 : Consommer le Context dans les composants (supprimer prop drilling)
+- [ ] Story 9.6 (repoussé) : Skills & Validation — après MVP
 
 **🧪 Acceptance Criteria** :
 
 - [x] AC 9.4 : Bouton ">" → affiche semaine +1
+- [ ] AC 9.5 : useAssignments utilise useReducer (ADD, DELETE, DELETE_BY_EMPLOYEE, DELETE_BY_SHIFT)
+- [ ] AC 9.5 : employees, shifts, assignments accessibles via useAppContext() sans prop drilling
 
 ---
 
