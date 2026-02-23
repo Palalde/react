@@ -4,9 +4,9 @@
 
 **Objectif Triple** :
 
-1. 📚 Devenir développeur fullstack (React → TS → Backend)
+1. 📚 Devenir développeur fullstack (React → TS → Backend → IA)
 2. 🚀 Déployer ChefPlanning en production
-3. 💰 Potentiel de monétisation (SaaS)
+3. 💰 Monétisation SaaS intelligent (algo + LLM local)
 
 ---
 
@@ -371,6 +371,77 @@ packages/
 
 ---
 
+## 🤖 Phase 16 : AI Integration (5 semaines)
+
+**📖 Lecture recommandée** :
+
+- https://platform.openai.com/docs/guides/function-calling — Function Calling
+- https://ollama.com/ — Ollama (LLM local)
+- https://github.com/pgvector/pgvector — pgvector
+- https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events — SSE
+- https://simonwillison.net/2025/prompt-injection/ — Prompt injection
+
+**🎯 Objectif** : Rendre le SaaS intelligent — génération de planning par algo, assistance LLM local, historique RAG.
+
+**Principe clé** : Le LLM est une **interface** (comprend le chef), pas le **moteur** (l'algo génère le planning). Le SaaS reste 100% utilisable sans le chat.
+
+**🤖 Outil IA** : **Multi-agent + Ollama** — Cursor + Claude Code, Paul intègre l'IA dans le produit
+
+**Architecture** :
+
+```
+Chef (navigateur)
+  ├── Planning UI (tableau — tout faisable à la main)
+  └── Chat Panel (side panel style Copilot)
+              │
+        Hono API (backend)
+        ├── Planning Engine (algo pur TS)
+        ├── Ollama (LLM local — Mistral 7B)
+        ├── pgvector (historique — dans PostgreSQL)
+        └── Function Calling (NL → actions)
+```
+
+**✅ Tasks** :
+
+- [ ] **Story 16.1 : Système de contraintes (pur TypeScript, 0 IA)**
+  - [ ] Task 16.1.1 : Data Models (EmployeeAvailability, SkillRequirement, AffinityRule, WeeklyException, EmployeePreference)
+  - [ ] Task 16.1.2 : API routes CRUD pour chaque model
+  - [ ] Task 16.1.3 : UI Settings (React + Radix) pour gérer les contraintes
+- [ ] **Story 16.2 : Planning Engine (algorithme pur, 0 IA)**
+  - [ ] Task 16.2.1 : Algo de scoring (hard constraints → élimine, soft constraints → score)
+  - [ ] Task 16.2.2 : Pondération heures contrat + équité historique
+  - [ ] Task 16.2.3 : Bouton "Générer" → planning proposé → validation
+- [ ] **Story 16.3 : LLM API cloud (apprentissage, ~5-10€)**
+  - [ ] Task 16.3.1 : Appel API (OpenAI/Anthropic) depuis Hono
+  - [ ] Task 16.3.2 : Structured output (JSON) + function calling
+  - [ ] Task 16.3.3 : Prompt engineering formel (system prompts, few-shot, temperature)
+- [ ] **Story 16.4 : LLM local Ollama (production)**
+  - [ ] Task 16.4.1 : Ollama dans Docker (docker-compose)
+  - [ ] Task 16.4.2 : Mistral 7B, API compatible OpenAI
+  - [ ] Task 16.4.3 : AI safety & guardrails (prompt injection, output validation)
+  - [ ] Task 16.4.4 : Benchmark latence/qualité cloud vs local
+- [ ] **Story 16.5 : RAG + pgvector (historique intelligent)**
+  - [ ] Task 16.5.1 : Extension pgvector dans PostgreSQL
+  - [ ] Task 16.5.2 : Embeddings des plannings passés
+  - [ ] Task 16.5.3 : Recherche vectorielle (semaines similaires)
+  - [ ] Task 16.5.4 : Intégration dans le scoring engine
+- [ ] **Story 16.6 : Chat Panel + Function Calling**
+  - [ ] Task 16.6.1 : Chat UI side panel (React + Radix)
+  - [ ] Task 16.6.2 : SSE streaming (réponse mot par mot)
+  - [ ] Task 16.6.3 : Function calling (prompt → LLM → API → résultat visuel)
+  - [ ] Task 16.6.4 : Onboarding nouveau user via LLM
+  - [ ] Task 16.6.5 : AI UX patterns (confiance, loading IA, human-in-the-loop)
+
+**🧪 Acceptance Criteria Phase 16** :
+
+- [ ] AC 16.1 : Settings de contraintes configurables via UI
+- [ ] AC 16.2 : Bouton "Générer" → planning optimal respectant les contraintes
+- [ ] AC 16.4 : Fonctionnalité LLM via Ollama local (0 coût)
+- [ ] AC 16.5 : Le RAG récupère des plannings similaires
+- [ ] AC 16.6 : Le chef tape "Marie est en vacances, génère le planning" → le système exécute
+
+---
+
 ## 📁 Fichiers Importants
 
 | Fichier                              | Description                         |
@@ -396,8 +467,9 @@ packages/
 | ----- | -------------------- | ---------------------------------------------------------- |
 | 9-10  | Copilot autocomplete | Je code tout à la main, l'IA aide sur la syntaxe           |
 | 11-12 | Cursor IDE           | L'IA m'aide sur le boilerplate backend, j'écris la logique |
-| 13+   | Claude Code          | J'utilise les agents pour du code que je _comprends_       |
+| 13-14 | Claude Code          | J'utilise les agents pour du code que je _comprends_       |
 | 15    | Multi-agent          | J'orchestre les outils, vibe coding productif              |
+| 16    | Multi-agent + Ollama | J'intègre l'IA dans le produit, algo + LLM + RAG           |
 
 **Règle d'or** : je peux laisser l'IA générer du code quand je suis capable de review chaque ligne.
 

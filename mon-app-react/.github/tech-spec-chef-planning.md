@@ -17,8 +17,16 @@ future:
     Docker,
     Radix UI,
     Playwright,
+    Ollama,
+    pgvector,
   ]
-aiTools: [Copilot (current), Cursor (Phase 11), Claude Code (Phase 13)]
+aiTools:
+  [
+    Copilot (current),
+    Cursor (Phase 11),
+    Claude Code (Phase 13),
+    Ollama (Phase 16),
+  ]
 ---
 
 # Tech-Spec: ChefPlanning
@@ -206,6 +214,7 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - HTTPS en production
 
 - 🤖 Outil IA : **Cursor IDE** — navigation multi-fichiers front/back, aide contextuelle, prompt engineering
+- 💡 Sensibilisation IA : concevoir les routes API propres — elles seront appelees par le LLM (function calling) en Phase 16
 
 ## PHASE 12 : Database + Tanstack Query + Docker (A VENIR)
 
@@ -239,6 +248,7 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Mock de la database pour les tests
 
 - 🤖 Outil IA : Cursor agent mode — scaffolding de code que Paul _comprend deja_
+- 💡 Sensibilisation IA : pgvector est une extension PostgreSQL — elle sera utilisee en Phase 16 pour le RAG
 
 ## PHASE 13 : Auth + Zustand + Redis (A VENIR)
 
@@ -267,6 +277,7 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Usage : sessions JWT, cache requetes couteuses
 
 - 🤖 Outil IA : **Claude Code (terminal agent)** — refactoring large, generation de config, scaffolding
+- 💡 Sensibilisation IA : les endpoints IA devront etre proteges, rate-limites — les prompts utilisateurs sont un vecteur d'attaque (prompt injection)
 
 ## PHASE 14 : Deploy + CI/CD + Radix UI + Bun Runtime (A VENIR)
 
@@ -311,6 +322,7 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Landing page
 
 - 🤖 Outil IA : Claude Code agent — generation de CI/CD configs, migration automatisee, **vibe coding maitrise**
+- 💡 Sensibilisation IA : Ollama est un service Docker comme les autres — il sera ajoute au docker-compose en Phase 16
 
 ## PHASE 15 : E2E Testing + Polish (A VENIR)
 
@@ -339,3 +351,91 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Documentation README pour le repo public
 
 - 🤖 Outil IA : **Multi-agent vibe coding** — Cursor + Claude Code en parallele, Paul orchestre les agents
+
+## PHASE 16 : AI Integration (A VENIR)
+
+**Objectif** : Rendre le SaaS intelligent — generation de planning par algo, assistance LLM local, historique RAG.
+**Duree** : ~5 semaines
+**Architecture** :
+
+```
+Chef (navigateur)
+  +-- Planning UI (tableau — tout faisable a la main)
+  +-- Chat Panel (side panel style Copilot)
+              |
+        Hono API (backend)
+        +-- Planning Engine (algo pur TS — le coeur)
+        +-- Ollama (LLM local — Mistral 7B)
+        +-- pgvector (historique — dans PostgreSQL)
+        +-- Function Calling (NL -> actions)
+```
+
+**Principe cle** : le LLM est une **interface** (comprend le chef), pas le **moteur** (l'algo genere le planning). Le SaaS reste 100% utilisable sans le chat.
+
+### 16.1 : Systeme de contraintes (pur TypeScript, 0 IA)
+
+- Nouveaux Data Models :
+  - EmployeeAvailability { employeeId, dayOfWeek, period, available }
+  - SkillRequirement { shiftId, day, requiredSkills[] }
+  - AffinityRule { employeeA, employeeB, score: -2 a +2 }
+  - WeeklyException { employeeId, weekOf, day, reason, type }
+  - EmployeePreference { employeeId, preferredShifts[], avoidDays[] }
+- API routes CRUD pour chaque model
+- UI Settings (React + Radix) pour gerer les contraintes
+- 100% faisable sans IA — le chef configure manuellement
+
+### 16.2 : Planning Engine (algorithme pur, 0 IA)
+
+- Algo de scoring TypeScript pur (la feature la plus importante du SaaS)
+- Inputs : employees[] + shifts[] + constraints[] + exceptions[]
+- Hard constraints (dispo, skills) → elimine
+- Soft constraints (preferences, affinites) → score
+- Heures contrat → pondere
+- Historique (equite semaines precedentes) → ajuste
+- Output : assignments[] (planning optimal de la semaine)
+- Le chef clique "Generer" → planning propose → il valide/modifie
+
+### 16.3 : LLM API cloud (apprentissage, petit budget ~5-10€)
+
+- Appel API (OpenAI ou Anthropic) depuis le backend Hono
+- Structured output : forcer le LLM a repondre en JSON
+- Function calling : le LLM "appelle" des fonctions (setAffinity, addException, generatePlanning)
+- Prompt engineering formel : system prompts, few-shot, temperature
+- Comprendre : tokens, contexte, couts, latence, limites
+
+### 16.4 : LLM local Ollama (solution production)
+
+- Ollama dans Docker (ajout au docker-compose existant)
+- Modele : Mistral 7B ou Llama 3.1 8B (tourne sur CPU, ~4-8 Go RAM)
+- API compatible OpenAI (/v1/chat/completions) → quasi 0 changement de code vs 16.3
+- AI Safety & guardrails : prompt injection prevention, output validation, limiter les actions possibles du LLM
+- Benchmark : comparer latence/qualite vs cloud
+- 0 cout recurrent, donnees privees, pas de dependance externe
+
+### 16.5 : RAG + pgvector (historique intelligent)
+
+- pgvector : extension PostgreSQL (pas de nouvelle DB a gerer)
+- Embeddings : transformer les plannings passes en vecteurs
+- Quand le chef demande un planning → RAG recupere les semaines similaires
+- L'engine de scoring integre l'historique comme facteur de ponderation
+- Exemple : "La derniere fois que Marie etait absente le lundi, tu avais mis Paul en matin"
+
+### 16.6 : Chat Panel + Function Calling (la piece finale)
+
+- Chat UI : side panel (style Copilot), React + Radix
+- SSE (Server-Sent Events) : streaming mot par mot
+- Function calling : prompt chef → LLM → appels API → resultat visuel
+- Onboarding nouveau user : le LLM guide l'initialisation (ajouter employes, shifts, preferences)
+- AI UX patterns : indicateurs de confiance, etats de chargement IA, human-in-the-loop (valider etapes critiques)
+- Tout reste faisable sans le chat — boutons, formulaires, clic manuel
+
+### Acceptance Criteria Phase 16
+
+- AC 16.1 : Settings de contraintes configurables via UI
+- AC 16.2 : Bouton "Generer" → planning optimal respectant les contraintes
+- AC 16.3 : Un appel LLM cloud retourne du JSON structure
+- AC 16.4 : Meme fonctionnalite via Ollama local (0 cout)
+- AC 16.5 : Le RAG recupere des plannings similaires pour influencer la generation
+- AC 16.6 : Le chef tape "Marie est en vacances, genere le planning" → le systeme execute
+
+- 🤖 Outil IA : **Multi-agent + Ollama** — Cursor + Claude Code, Paul integre l'IA dans le produit

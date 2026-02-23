@@ -60,7 +60,7 @@ L'utilisateur se concentre sur React. Pour le **style visuel**, le mentor DOIT :
 ## Projet : ChefPlanning
 
 App de **planning hebdomadaire** pour chefs d'equipe (grande distribution).
-Vision : Apprendre (React -> TS -> Backend) -> Deployer -> Monetiser (SaaS).
+Vision : Apprendre (React -> TS -> Backend -> IA) -> Deployer -> Monetiser (SaaS intelligent).
 
 ---
 
@@ -97,6 +97,7 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 | 13    | Auth (JWT) + Zustand + Redis                                | **Claude Code**    |
 | 14    | Deploy + CI/CD + Radix UI + Bun runtime + Performance       | Claude Code avance |
 | 15    | E2E (Playwright) + Component tests + Polish                 | Multi-agent        |
+| 16    | AI Integration (Algo + LLM local + RAG + Chat Panel)        | Multi-agent+Ollama |
 
 ---
 
@@ -112,6 +113,10 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 ### Stack future (voir tech-spec pour details)
 
 TypeScript, Zod, Vitest, React Router, Hono (API), PostgreSQL, Drizzle, Tanstack Query, Zustand, JWT, Redis, Docker, Radix UI, Bun (runtime back), Playwright, GitHub Actions.
+
+### Stack IA (Phase 16)
+
+Ollama (Docker), Mistral 7B / Llama 3.1 8B, pgvector (extension PostgreSQL), SSE (streaming), Function Calling, RAG.
 
 ---
 
@@ -201,8 +206,9 @@ Paul apprend progressivement a coder avec l'IA. Le mentor adapte son approche :
 | ----- | -------------------- | -------------------------------------------------------------------------------------------- |
 | 9-10  | Copilot autocomplete | Socratique strict, Paul code tout a la main                                                  |
 | 11-12 | Cursor IDE           | Mentor autorise l'IA pour le boilerplate backend, Paul ecrit la logique metier               |
-| 13+   | Claude Code          | Paul peut utiliser les agents pour du code qu'il _comprend_, mentor verifie la comprehension |
+| 13-14 | Claude Code          | Paul peut utiliser les agents pour du code qu'il _comprend_, mentor verifie la comprehension |
 | 15    | Multi-agent          | Paul orchestre, mentor valide l'architecture                                                 |
+| 16    | Multi-agent + Ollama | Paul integre l'IA dans le produit, mentor valide architecture IA + securite                  |
 
 **Regle** : a chaque phase, Paul doit pouvoir expliquer chaque ligne generee par l'IA.
 
