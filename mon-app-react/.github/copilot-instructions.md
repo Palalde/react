@@ -1,6 +1,17 @@
 ﻿# Copilot Instructions - ChefPlanning
 
-> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-21
+> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-23
+> **Modele IA** : Claude Opus 4.6 (taches lourdes) / Sonnet 4.6 (petites demandes)
+
+## Fichiers IA
+
+| Fichier                                | Role                                                                                 | Quand                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------- |
+| `copilot-instructions.md` (ce fichier) | **Memoire vive** — comportement, etat courant, references rapides                    | Charge a CHAQUE requete                       |
+| `.github/tech-spec-chef-planning.md`   | **Memoire etendue** — details d'implementation, historique decisions, phases futures | Consulter SI BESOIN de plus de contexte       |
+| `.github/tech-spec-*-archive.md`       | Archives des phases terminees                                                        | Consulter UNIQUEMENT pour contexte historique |
+
+> **Regle** : si une info n'est pas dans ce fichier, chercher dans tech-spec avant de demander a Paul.
 
 ---
 
@@ -46,59 +57,6 @@ L'utilisateur se concentre sur React. Pour le **style visuel**, le mentor DOIT :
 
 ---
 
-## Git Workflow : Branches, Commits & Versioning
-
-Paul apprend les **pratiques pro Git** en parallele de React. Le mentor DOIT :
-
-### Branches
-
-- **Rappeler** de creer une branche au debut de chaque Story : `git checkout -b feature/X.Y-description`
-- **Rappeler** de merge dans `main` quand une Story est terminee et validee
-- Nommage : `feature/9.3-shifts-crud`, `fix/assignment-conflict`, `refactor/useShifts-cleanup`
-- **Ne jamais coder directement sur `main`** (sauf hotfix urgent)
-
-### Commits Conventionnels
-
-- **Proposer un message de commit** a chaque etape logique completee (Paul valide/adapte)
-- Format : `type(scope): description courte en anglais`
-- Scope optionnel mais encourage : nom du composant, hook ou feature
-
-| Type       | Quand                                           | Exemple                                        |
-| ---------- | ----------------------------------------------- | ---------------------------------------------- |
-| `feat`     | Nouvelle fonctionnalite                         | `feat(shifts): add ShiftForm component`        |
-| `fix`      | Correction de bug                               | `fix(assignments): resolve AM/PM conflict`     |
-| `refactor` | Restructuration sans changement de comportement | `refactor(useShifts): migrate to localStorage` |
-| `style`    | Changements visuels/CSS uniquement              | `style(planning): adjust cell padding`         |
-| `chore`    | Maintenance, config, dependances                | `chore: update vite config`                    |
-| `docs`     | Documentation                                   | `docs: update tech-spec for story 9.3`         |
-
-### Workflow type par Story
-
-```
-1. git checkout -b feature/X.Y-description   # Creer branche
-2. ... coder task par task ...
-3. git add . && git commit -m "feat(scope): ..."  # Commits reguliers
-4. git checkout main && git merge feature/X.Y-description  # Merge
-5. git push  # Pousser sur origin
-6. git branch -d feature/X.Y-description  # Nettoyer
-```
-
-### Versioning (SemVer)
-
-- Format `0.MINOR.PATCH` tant que pas en production
-- Bump MINOR a chaque phase completee (ex: `0.2.0` = Phase 9)
-- Bump PATCH pour corrections dans une phase (ex: `0.2.1`)
-- `1.0.0` = premier deploy public (Phase 14)
-
-### Quand rappeler a Paul
-
-- **Debut de Story** → "On cree la branche ?"
-- **Apres chaque task completee** → Proposer un commit avec message
-- **Story terminee + validee** → "On merge dans main ?"
-- **Phase completee** → Proposer bump de version dans `package.json`
-
----
-
 ## Projet : ChefPlanning
 
 App de **planning hebdomadaire** pour chefs d'equipe (grande distribution).
@@ -125,23 +83,20 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 | 9.3   | Shifts CRUD dynamiques  | done   |
 | 9.4   | Navigation semaines     | done   |
 
-> Story 9.1 terminee : PlanningTable/EmployeeRow/PlanningCell crees, App.jsx refactore (pleine largeur + modal CRUD employes), legacy supprime (PlanningGrid, DayColumn, AssignmentCard, AssignmentForm, Card, useHoursCalculator).
-> Story 9.2 terminee : Clic cellule vide → assignation auto (matin/aprem). Clic cellule remplie → modal editer shift / supprimer. Gestion conflits shifts dans useAssignments (conflictMap). Cellules affichent les horaires. EmployeeRow avec barre couleur employe + fond teinte. Shift model enrichi avec champ `type` (am/pm/full). getEmployeeHours refactore (split AM/PM base sur type + midi).
-> Story 9.3 terminee : useShifts CRUD avec localStorage. ShiftForm (creation/edition, type selector, support split avec breakStart/breakEnd conditionnels). ShiftManager (liste groupee par type, CRUD, modal). Integre dans App.jsx (bouton + modal + handleDeleteShift avec nettoyage assignments). Refacto type-based matching : EmployeeRow et useAssignments matchent par shift.type au lieu d'IDs hardcodes. useAssignments recoit shifts en parametre. groupShiftsByType() util pour affichage groupe + tri startTime. color-scheme: dark dans index.css pour inputs natifs.
-
-> Story 9.4 terminee : useWeekNav hook dans src/hooks/ (currentWeek ISO string du lundi, goNext/goPrev via addWeeks, goToday via getMondayISO). WeekNav composant dans features/planning/ (boutons nav + affichage "Semaine du 16 fevr. 2026"). useAssignments recoit currentWeek en 2e param, injecte weekOf auto dans addAssignment, filtre weeklyAssignments par weekOf === currentWeek. calculateHours et getAssignmentsByDay sur weeklyAssignments. Assignment model: weekOf obligatoire (ISO du lundi).
+> Stories 9.1-9.4 : Tableau Employee x Jour (AM/PM), click-to-assign avec conflictMap, shifts CRUD (useShifts + ShiftForm/ShiftManager), navigation semaines (useWeekNav + WeekNav). Shift model avec `type` (am/pm/full/split). Assignments filtres par `weekOf`. Details dans tech-spec.
 
 ### A venir
 
-| Phase | Concept                                         |
-| ----- | ----------------------------------------------- |
-| 9.5   | useReducer + Context (mini-phase)               |
-| 10    | TypeScript + React Router                       |
-| 11    | Backend API (Hono) + loading/error states       |
-| 12    | Database (PostgreSQL, Drizzle) + Tanstack Query |
-| 13    | Auth + Zustand                                  |
-| 14    | Deploy (Vercel + Railway) + Radix UI            |
-| 15    | Testing (Vitest) + polish                       |
+| Phase | Concept                                                     | Outil IA           |
+| ----- | ----------------------------------------------------------- | ------------------ |
+| 9.5   | useReducer + Context (mini-phase)                           | Copilot            |
+| 10A   | TypeScript + Zod                                            | Copilot            |
+| 10B   | Vitest + React Router + Git avance + SQL theorique          | Copilot            |
+| 11    | Backend API (Hono + Node) + Monorepo + .env + HTTP + bun PM | **Cursor IDE**     |
+| 12    | Database (PostgreSQL, Drizzle, Docker) + Tanstack Query     | Cursor agent       |
+| 13    | Auth (JWT) + Zustand + Redis                                | **Claude Code**    |
+| 14    | Deploy + CI/CD + Radix UI + Bun runtime + Performance       | Claude Code avance |
+| 15    | E2E (Playwright) + Component tests + Polish                 | Multi-agent        |
 
 ---
 
@@ -153,6 +108,10 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 | Vite        | 7            | Alias `@/`               |
 | TailwindCSS | 4            | CSS Variables + `@theme` |
 | Persistance | localStorage | Via `useLocalStorage`    |
+
+### Stack future (voir tech-spec pour details)
+
+TypeScript, Zod, Vitest, React Router, Hono (API), PostgreSQL, Drizzle, Tanstack Query, Zustand, JWT, Redis, Docker, Radix UI, Bun (runtime back), Playwright, GitHub Actions.
 
 ---
 
@@ -168,7 +127,7 @@ src/
 |   +-- shifts/      # ShiftSelector, ShiftForm, ShiftManager, useShifts
 |   +-- assignments/ # useAssignments
 |   +-- planning/    # PlanningTable, EmployeeRow, PlanningCell, WeekNav
-+-- hooks/           # useLocalStorage, useTheme, useWeekNav
++-- hooks/           # useLocalStorage, useLocalReducer, useTheme, useWeekNav
 +-- utils/           # generateId, colorUtils, timeUtils (getEmployeeHours), shiftUtils (getShiftColorClass, calcShiftMinutes, groupShiftsByType)
 +-- constants/       # days.js, shifts.js
 +-- data/            # mockData.js
@@ -219,7 +178,7 @@ import { EmployeeList, useEmployees } from "@/features/employees";
 import { ShiftManager, useShifts } from "@/features/shifts";
 import { useAssignments } from "@/features/assignments";
 import { PlanningTable, WeekNav } from "@/features/planning";
-import { useLocalStorage, useWeekNav } from "@/hooks";
+import { useLocalStorage, useLocalReducer, useWeekNav } from "@/hooks";
 import { DAYS_OF_WEEK } from "@/constants/days";
 import { DEFAULT_SHIFTS } from "@/constants/shifts";
 import {
@@ -234,17 +193,55 @@ import {
 
 ---
 
+## Progression IA (apprentissage dev avec IA)
+
+Paul apprend progressivement a coder avec l'IA. Le mentor adapte son approche :
+
+| Phase | Outil                | Approche mentor                                                                              |
+| ----- | -------------------- | -------------------------------------------------------------------------------------------- |
+| 9-10  | Copilot autocomplete | Socratique strict, Paul code tout a la main                                                  |
+| 11-12 | Cursor IDE           | Mentor autorise l'IA pour le boilerplate backend, Paul ecrit la logique metier               |
+| 13+   | Claude Code          | Paul peut utiliser les agents pour du code qu'il _comprend_, mentor verifie la comprehension |
+| 15    | Multi-agent          | Paul orchestre, mentor valide l'architecture                                                 |
+
+**Regle** : a chaque phase, Paul doit pouvoir expliquer chaque ligne generee par l'IA.
+
+---
+
 ## MAJ CONTEXTE
+
+### Fin de Task
+
+1. `copilot-instructions.md` → MAJ progression (status task)
+2. `tech-spec` → MAJ details techniques (ce qui a change)
+3. Proposer commit message
+
+### Fin de Story
+
+1. `copilot-instructions.md` → MAJ status story (done)
+2. `tech-spec` → Section story complete avec resume
+3. `todo.md` → Cocher les tasks + AC
+4. Proposer merge + commit
+
+### Fin de Phase
+
+1. **AUDIT** : verifier code vs docs (imports, exports, hooks, structure)
+2. **ARCHIVER** : stories terminees → `tech-spec-vX-archive.md`
+3. `copilot-instructions.md` → resumer la phase en 1-2 lignes, retirer details
+4. `tech-spec` → nettoyer (plus de details stories archivees)
+5. `todo.md` → MAJ status + prochaine etape en haut
+6. Bump version dans `package.json`
+7. Verifier coherence des 3 fichiers
 
 Mettre a jour ce fichier + tech-spec a chaque task/phase completee.
 Paul utilise `todo.md` pour se reperer.
 
 ## Fichiers de Reference
 
-| Fichier                              | Contenu                          |
-| ------------------------------------ | -------------------------------- |
-| `.github/tech-spec-chef-planning.md` | Details techniques phases 9+     |
-| `todo.md`                            | Plan d'apprentissage (pour Paul) |
+| Fichier                              | Contenu                                      |
+| ------------------------------------ | -------------------------------------------- |
+| `.github/tech-spec-chef-planning.md` | Details techniques toutes phases (long-term) |
+| `todo.md`                            | Plan d'apprentissage (pour Paul)             |
 
 ---
 

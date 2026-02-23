@@ -1,13 +1,30 @@
 ﻿---
 title: ChefPlanning - Tech Spec
-updated: 2026-02-21
+updated: 2026-02-23
 currentPhase: 9
 completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 stack: [React 19.2, Vite 7, TailwindCSS 4, localStorage]
-future: [TypeScript, Hono, PostgreSQL]
+future:
+  [
+    TypeScript,
+    Zod,
+    Hono,
+    PostgreSQL,
+    Drizzle,
+    Tanstack Query,
+    Zustand,
+    Bun,
+    Docker,
+    Radix UI,
+    Playwright,
+  ]
+aiTools: [Copilot (current), Cursor (Phase 11), Claude Code (Phase 13)]
 ---
 
 # Tech-Spec: ChefPlanning
+
+> **Role** : Memoire etendue de l'IA. Consulter pour details d'implementation, historique, phases futures.
+> Les references rapides (Data Models, Structure, Design System, Imports) sont dans `copilot-instructions.md`.
 
 ## Phases 0-8 : COMPLETEES
 
@@ -84,7 +101,6 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - AC 9.2 : Clic cellule AM vide -> shift matin assigne (DONE)
 - AC 9.3 : Gestionnaire shifts : creer/editer/supprimer (DONE)
 - AC 9.4 : Bouton ">" -> affiche semaine +1 (DONE)
-- AC 9.5 : Shift "Journee" -> cellules AM+PM visuellement connectees
 
 ---
 
@@ -94,112 +110,232 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Creer un AppContext pour partager state global (employees, shifts, assignments)
 - Comprendre quand useState vs useReducer vs Context
 - Preparer la transition vers Zustand (phase 13)
+- AC 9.5 : Shift "Journee" -> cellules AM+PM visuellement connectees
+- 🤖 Outil IA : Copilot autocomplete (comme depuis le debut)
+- Note : useLocalReducer (useReducer + localStorage) existe deja dans src/hooks/
 
-## PHASE 10 : TypeScript + React Router (A VENIR)
+## PHASE 10A : TypeScript + Zod (A VENIR)
 
-- Setup TS + Vite
-- Typer Data Models (Employee, Shift, Assignment)
-- Typer Custom Hooks + Composants
-- React Router : pages Planning, Settings, Login (future)
-- Navigation multi-pages, routes protegees (prep auth)
+**Objectif** : Typer l'app, valider les donnees avec Zod.
 
-## PHASE 11 : Backend API (A VENIR)
+### 10.1 : TypeScript
 
-Architecture : React (TS) <-> Hono API (TS) <-> PostgreSQL
+- Setup TS + Vite (renommer .jsx → .tsx, vite config)
+- Typer Data Models (Employee, Shift, Assignment) — interfaces/types
+- Typer Custom Hooks (params, return types, generics useLocalStorage)
+- Typer Composants (Props interfaces, children, event handlers)
 
-- API REST (Hono + Node.js)
-- Migration localStorage -> API (fetch/axios)
-- Loading states, error handling, optimistic updates
+### 10.2 : Zod (validation de donnees)
 
-## PHASE 12 : Database + Tanstack Query (A VENIR)
+- Schema Zod pour Employee, Shift, Assignment
+- Validation formulaires (EmployeeForm, ShiftForm) avec Zod
+- Inference de types depuis schemas (z.infer<typeof schema>)
+- Preparation backend : memes schemas reutilisables front et back
 
-- PostgreSQL + Drizzle ORM
-- Tanstack Query (React Query) : cache, refetch, mutations
+- 🤖 Outil IA : Copilot autocomplete (TypeScript = beaucoup d'aide sur les types)
+
+## PHASE 10B : Vitest + React Router + Git avance (A VENIR)
+
+**Objectif** : Tester les utils/hooks, routing multi-pages, bases SQL theoriques.
+
+### 10.3 : Vitest (premiers tests)
+
+- Setup Vitest + config
+- Tests unitaires : utils (timeUtils, shiftUtils, colorUtils, generateId)
+- Tests unitaires : hooks avec renderHook (useWeekNav, useLocalStorage)
+- Objectif : comprendre test, expect, describe, beforeEach, mock
+
+### 10.4 : React Router
+
+- Pages : Planning (/), Settings (/settings), futur Login (/login)
+- Navigation, Layout partagé, routes protegees (prep auth)
+- Lazy loading pages (React.lazy + Suspense)
+
+### 10.5 : Git avance
+
+- git rebase (vs merge), cherry-pick, stash
+- Gestion de conflits de merge
+- .gitignore avance, git log/diff
+
+### 10.6 : SQL theorique (preparation Phase 12)
+
+- Concepts : tables, relations, cles primaires/etrangeres, normalisation
+- Comprendre le schema relationnel ChefPlanning : employees → assignments ← shifts
+- Exercices SQL basics en ligne (SELECT, INSERT, JOIN)
+
+- 🤖 Outil IA : Copilot autocomplete
+
+## PHASE 11 : Backend API + Hono (A VENIR)
+
+**Objectif** : Creer l'API REST, comprendre HTTP, architecture client-serveur.
+**Architecture** : React (TS) <-> Hono API (TS) <-> In-memory (puis PostgreSQL)
+
+### 11.1 : Setup Backend
+
+- Monorepo setup (pnpm workspaces : packages/frontend + packages/backend)
+- Hono + Node.js setup (TypeScript)
+- Bun comme package manager (remplace npm, 10x plus rapide)
+- Variables d'environnement (.env, dotenv, .env.example, .gitignore)
+
+### 11.2 : HTTP et REST en profondeur
+
+- Methodes HTTP (GET, POST, PUT, DELETE, PATCH)
+- Status codes (200, 201, 400, 404, 409, 500)
+- Headers, CORS (cross-origin entre front et back)
+- Request/Response bodies (JSON)
+
+### 11.3 : API REST (Hono)
+
+- Routes CRUD : /api/employees, /api/shifts, /api/assignments
+- Middlewares Hono (cors, logger, error handler)
+- Validation requetes avec Zod (schemas partages front/back)
+- Gestion erreurs structuree (try/catch, error responses)
+
+### 11.4 : Migration Frontend
+
+- Remplacer localStorage par fetch vers API
+- Loading states, error states dans les composants
+- Optimistic updates (UX reactive)
+- Custom hooks d'API (useApi ou patterns fetch)
+
+### 11.5 : Securite basics
+
+- Ne jamais exposer de secrets cote client
+- Sanitization des inputs
+- Rate limiting basics
+- HTTPS en production
+
+- 🤖 Outil IA : **Cursor IDE** — navigation multi-fichiers front/back, aide contextuelle, prompt engineering
+
+## PHASE 12 : Database + Tanstack Query + Docker (A VENIR)
+
+**Objectif** : Persister les donnees, cache intelligent, containerisation.
+
+### 12.1 : Docker basics
+
+- Docker Desktop, Dockerfile, docker-compose.yml
+- Container PostgreSQL local (plus besoin d'installer PG nativement)
+- docker-compose up/down pour le dev environment
+
+### 12.2 : PostgreSQL + Drizzle ORM
+
+- SQL basics : CREATE TABLE, SELECT, INSERT, UPDATE, DELETE, JOIN
+- Drizzle ORM : schema definition, migrations, queries typees
+- Relations : employees <-> assignments, shifts <-> assignments
+- Seeds : donnees initiales pour le dev
+
+### 12.3 : Tanstack Query (React Query)
+
+- useQuery, useMutation, queryClient
+- Cache, refetch, stale time, invalidation
 - Remplace useEffect+useState pour les appels API
+- Gestion loading/error/success declarative
+- Optimistic updates avec Tanstack Query
 
-## PHASE 13 : Auth + Zustand (A VENIR)
+### 12.4 : Tests API
 
-- Auth (JWT ou session-based)
-- Zustand pour state global (user, settings, notifications)
-- Remplace Context pour le state complexe cross-app
+- Tests endpoints avec Vitest (integration tests)
+- Tester les routes Hono avec app.request()
+- Mock de la database pour les tests
 
-## PHASE 14 : Deploy + Radix UI (A VENIR)
+- 🤖 Outil IA : Cursor agent mode — scaffolding de code que Paul _comprend deja_
 
-- Deploy : Vercel (front) + Railway (back)
-- Radix UI : composants headless accessibles (Dialog, Dropdown, Tooltip)
-- Remplace les composants UI maison par des composants accessibles pro
-- Monetisation (Freemium SaaS)
+## PHASE 13 : Auth + Zustand + Redis (A VENIR)
 
-## PHASE 15 : Testing (A VENIR)
+**Objectif** : Securiser l'app, state global pro, cache serveur.
 
-- Vitest : tests unitaires (hooks, utils)
-- React Testing Library : tests composants
-- Playwright ou Cypress : tests E2E (optionnel)
+### 13.1 : Auth (JWT)
 
----
+- Concepts : authentication vs authorization
+- JWT : access token, refresh token, expiration
+- Middleware auth Hono (routes protegees)
+- Login/Register pages + formulaires
+- Stocker tokens (httpOnly cookies vs localStorage — securite)
 
-## Git Workflow
+### 13.2 : Zustand
 
-### Branching Strategy
+- Remplacer Context par Zustand pour le state cross-app
+- Stores : useAuthStore, useUIStore (modals, notifications)
+- Devtools, persist middleware
+- Comprendre quand Context vs Zustand vs props
 
-- Branche `main` = version stable, toujours fonctionnelle
-- 1 branche par Story : `feature/X.Y-description`
-- Merge dans `main` uniquement apres validation de la Story
-- Nettoyage des branches mergees
+### 13.3 : Redis (basics)
 
-### Conventional Commits
+- Cache serveur (sessions, rate limiting)
+- Redis avec Docker (ajout au docker-compose)
+- Invalidation de cache
+- Usage : sessions JWT, cache requetes couteuses
 
-Format : `type(scope): description` (anglais)
-Types : `feat`, `fix`, `refactor`, `style`, `chore`, `docs`
+- 🤖 Outil IA : **Claude Code (terminal agent)** — refactoring large, generation de config, scaffolding
 
-### Versioning (SemVer `0.MINOR.PATCH`)
+## PHASE 14 : Deploy + CI/CD + Radix UI + Bun Runtime (A VENIR)
 
-| Version | Phase | Description                      |
-| ------- | ----- | -------------------------------- |
-| `0.1.0` | 0-8   | MVP + custom hooks               |
-| `0.2.0` | 9     | Composition avancee + refonte UI |
-| `0.3.0` | 9.5   | useReducer + Context             |
-| `0.4.0` | 10    | TypeScript + Router              |
-| `1.0.0` | 14    | Premier deploy public            |
+**Objectif** : Mettre en production, accessibilite pro, migration Bun.
 
-Version actuelle : `0.1.0` (Phases 0-8 completees, Phase 9 en cours)
+### 14.1 : CI/CD (GitHub Actions)
 
----
+- Workflow : lint + type-check + tests automatiques a chaque push
+- Build verification, preview deployments
+- Branch protection rules sur main
 
-## Reference : Data Models
+### 14.2 : Deploy
 
-```javascript
-// Employee
-{ id, name, color, weeklyMinutes, skills: [] }
+- Frontend : Vercel (build + deploy automatique)
+- Backend : Railway ou Fly.io (Node/Bun + PostgreSQL + Redis)
+- Domaine custom, HTTPS, variables d'environnement en production
 
-// Shift (DEFAULT_SHIFTS) — hours et colorClass sont derives
-{ id, name, type, startTime, endTime }
-// type: 'am' | 'pm' | 'full' | 'split'
-// Si split : { ...shift, breakStart: "12:00", breakEnd: "14:00" }
-// getShiftColorClass(type) → classes Tailwind
-// calcShiftMinutes(shift) → duree en minutes (soustrait pause si split)
+### 14.3 : Migration Bun runtime
 
-// Assignment
-{ id, employeeId, day, shiftId, weekOf }
-// weekOf: string ISO du lundi de la semaine (ex: "2026-02-16")
-// Injecte automatiquement par useAssignments via currentWeek
-```
+- Backend : remplacer Node.js par Bun (Hono est compatible, quasi 0 changement)
+- Benefices : demarrage plus rapide, performances, APIs natives (Bun.serve, Bun.file)
+- Frontend reste sur Vite (meilleur ecosysteme HMR/plugins)
+- Benchmark avant/apres pour comprendre les gains
 
-## Reference : Design System
+### 14.4 : Radix UI + Accessibilite
 
-Couleurs dans index.css via CSS vars. Classes : bg-bg-primary, text-text-primary, border-border, bg-accent, bg-shift-matin/aprem/journee/coupe, text-danger. Pas de dark: variants.
+- Remplacer composants UI maison (Modal, Dropdown) par Radix primitives
+- Accessibilite : ARIA, keyboard navigation, screen readers
+- Lighthouse audit (performance, a11y, SEO, best practices)
 
-## Reference : Structure
+### 14.5 : Performance web
 
-```
-src/
-  components/ui/     Button, Badge, Modal, Input, HoursInput, ColorInput, ThemeToggle
-  components/layout/ Header, Container
-  features/employees/  EmployeeCard, EmployeeList, EmployeeForm, useEmployees
-  features/shifts/     ShiftSelector, ShiftForm, ShiftManager, useShifts
-  features/assignments/ useAssignments
-  features/planning/   PlanningTable, EmployeeRow, PlanningCell, WeekNav
-  hooks/             useLocalStorage, useTheme, useWeekNav
-  utils/             generateId, colorUtils, timeUtils, shiftUtils (getShiftColorClass, calcShiftMinutes, groupShiftsByType)
-  constants/         days.js, shifts.js
-```
+- Code splitting, lazy loading (React.lazy deja vu en Phase 10)
+- Bundle analysis (vite-plugin-visualizer)
+- Image optimization, caching headers
+- Core Web Vitals
+
+### 14.6 : Monetisation
+
+- Freemium model (features gratuites vs payantes)
+- Stripe integration basics (paiement)
+- Landing page
+
+- 🤖 Outil IA : Claude Code agent — generation de CI/CD configs, migration automatisee, **vibe coding maitrise**
+
+## PHASE 15 : E2E Testing + Polish (A VENIR)
+
+**Objectif** : Tests end-to-end, qualite production.
+
+> Tests unitaires (utils, hooks) et tests API deja couverts en Phases 10 et 12.
+
+### 15.1 : Playwright (E2E)
+
+- Setup Playwright
+- Tests parcours utilisateur : login → creer employe → assigner shift → naviguer semaines
+- Tests responsive (mobile, tablet, desktop)
+- CI : E2E dans GitHub Actions
+
+### 15.2 : React Testing Library (composants)
+
+- Tests composants avec interactions (click, type, submit)
+- Tests integration : formulaires complets
+- Mock de context/providers
+
+### 15.3 : Polish final
+
+- Error boundaries
+- SEO meta tags
+- PWA basics (manifest, service worker — optionnel)
+- Documentation README pour le repo public
+
+- 🤖 Outil IA : **Multi-agent vibe coding** — Cursor + Claude Code en parallele, Paul orchestre les agents
