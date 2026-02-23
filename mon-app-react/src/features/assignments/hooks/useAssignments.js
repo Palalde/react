@@ -1,18 +1,44 @@
-import { useLocalStorage } from "@/hooks";
+import { useLocalReducer } from "@/hooks";
 import { generateId, getEmployeeHours } from "@/utils";
 
+function assignmentsReducer(assignments, action) {
+  switch (action.type) {
+    case "ADD":
+      return [...assignments, action.payload];
+    case "UPDATE":
+      return assignments
+        .filter((a) => !action.payload.conflictingIds.includes(a.id))
+        .map((a) =>
+          a.id === action.payload.assignment.id ? action.payload.assignment : a,
+        );
+    case "DELETE":
+      return assignments.filter((a) => a.id !== action.payload);
+    case "DELETE_BY_EMPLOYEE":
+      return assignments.filter((a) => a.employeeId !== action.payload);
+    case "DELETE_BY_SHIFT":
+      return assignments.filter((a) => a.shiftId !== action.payload);
+    default:
+      return assignments;
+  }
+}
+
 export default function useAssignments(shifts = [], currentWeek = "") {
-  const [assignments, setAssignments] = useLocalStorage("assignments", []);
+  // reducer
+  const [assignments, dispatch] = useLocalReducer(
+    "assignments",
+    assignmentsReducer,
+    [],
+  );
 
   // filtrer les assignments par semaine
   const weeklyAssignments = assignments.filter((a) => a.weekOf === currentWeek);
 
-  // Ajouter une assignation (id généré), ajout de la semaine dans le composant de création
+  // Ajouter une nouvelle assignation
   const addAssignment = (assignmentData) => {
-    setAssignments([
-      ...assignments,
-      { ...assignmentData, id: generateId(), weekOf: currentWeek },
-    ]);
+    dispatch({
+      type: "ADD",
+      payload: { ...assignmentData, id: generateId(), weekOf: currentWeek },
+    });
   };
 
   // Modifier une assignation existante (avec gestion des conflits)
@@ -49,26 +75,24 @@ export default function useAssignments(shifts = [], currentWeek = "") {
         return conflictMap[newType]?.includes(existingShift?.type);
       })
       .map((a) => a.id);
-
-    // 5. En une seule opération : supprimer les conflits + mettre à jour l'assignation
-    setAssignments(
-      assignments
-        .filter((a) => !conflictingIds.includes(a.id))
-        .map((a) => (a.id === assignmentData.id ? assignmentData : a)),
-    );
+    //5. dispatch finale pour mettre a jour le states
+    dispatch({
+      type: "UPDATE",
+      payload: { assignment: assignmentData, conflictingIds },
+    });
   };
 
   // Supprimer une assignation par id
   const deleteAssignment = (assignmentId) =>
-    setAssignments(assignments.filter((a) => a.id !== assignmentId));
+    dispatch({ type: "DELETE", payload: assignmentId });
 
   // Supprimer toutes les assignations d'un employé
   const deleteAssignmentsByEmployee = (employeeId) =>
-    setAssignments(assignments.filter((a) => a.employeeId !== employeeId));
+    dispatch({ type: "DELETE_BY_EMPLOYEE", payload: employeeId });
 
   // Supprimer toutes les assignations d'un shift
   const deleteAssignmentsByShift = (shiftId) =>
-    setAssignments(assignments.filter((a) => a.shiftId !== shiftId));
+    dispatch({ type: "DELETE_BY_SHIFT", payload: shiftId });
 
   // Filtrer les assignations d'un jour
   const getAssignmentsByDay = (day) =>
