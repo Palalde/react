@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Modal, Button } from "@/components/ui";
-import { DEFAULT_SHIFTS } from "@/constants";
 import { getEmployeeHours } from "@/utils";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
+import { useAppContext } from "@/context/AppContext";
 
-function EmployeeList({
-  employees,
-  assignments,
-  addEmployee,
-  updateEmployee,
-  onDeleteEmployee,
-}) {
+function EmployeeList({ onDeleteEmployee }) {
+  // context
+  const { employees, addEmployee, updateEmployee, assignments, shifts } =
+    useAppContext();
+
   // State pour gérer l'ouverture/fermeture du modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -78,7 +76,7 @@ function EmployeeList({
               key={employee.id}
               employee={employee}
               workedMinutes={
-                getEmployeeHours(employee.id, assignments, DEFAULT_SHIFTS).total
+                getEmployeeHours(employee.id, assignments, shifts).total
               }
               onEdit={() => handleEditClick(employee)}
               onDelete={() => handleDeleteEmployee(employee.id)}

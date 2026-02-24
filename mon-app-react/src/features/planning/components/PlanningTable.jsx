@@ -3,16 +3,12 @@
 
 import { DAYS_OF_WEEK } from "@/constants";
 import { EmployeeRow } from "@/features/planning";
+import { useAppContext } from "@/context/AppContext";
 
-function PlanningTable({
-  employees,
-  assignments,
-  shifts,
-  onAddAssignment,
-  onEditAssignment,
-  onDeleteAssignment,
-  onCellClick,
-}) {
+function PlanningTable({ onCellClick }) {
+  // context
+  const { employees } = useAppContext();
+
   return (
     <div className="bg-bg-primary rounded-xl shadow-md border border-border overflow-hidden">
       {/* Wrapper scroll horizontal */}
@@ -45,18 +41,13 @@ function PlanningTable({
               ))}
             </tr>
           </thead>
-          {/* Corps du tableau — les EmployeeRow viendront ici (Task 9.1.2) */}
+          {/* Corps du tableau */}
           <tbody>
             {employees.length > 0 ? (
               employees.map((employee) => (
                 <EmployeeRow
                   key={employee.id}
                   employee={employee}
-                  assignments={assignments}
-                  shifts={shifts}
-                  onAddAssignment={onAddAssignment}
-                  onEditAssignment={onEditAssignment}
-                  onDeleteAssignment={onDeleteAssignment}
                   onCellClick={onCellClick}
                 />
               ))

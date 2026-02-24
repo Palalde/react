@@ -1,12 +1,11 @@
 import { Header, Container } from "@/components/layout";
 import { Modal, Button } from "@/components/ui";
-import { EmployeeList, useEmployees } from "@/features/employees";
-import { useAssignments } from "@/features/assignments";
+import { EmployeeList } from "@/features/employees";
 import { PlanningTable, WeekNav } from "@/features/planning";
-import { useShifts, ShiftManager } from "@/features/shifts";
+import { ShiftManager } from "@/features/shifts";
 import { getShiftColorClass, groupShiftsByType } from "@/utils";
-import { useWeekNav } from "@/hooks";
 import { useState } from "react";
+import { useAppContext } from "./context/AppContext.jsx";
 
 function App() {
   // states
@@ -17,23 +16,16 @@ function App() {
   // shift modal state
   const [isShiftModOpen, setIsShiftModOpen] = useState(false);
 
-  // custom Hooks
-  // employees
-  const { employees, addEmployee, updateEmployee, deleteEmployee } =
-    useEmployees();
-  // shifts
-  const { shifts, updateShift, addShift, deleteShift } = useShifts();
-  // weekNav
-  const { currentWeek, goNext, goPrev, goToday } = useWeekNav();
-  // Assignments (reçoit shifts pour la résolution des conflits par type)
+  // context
   const {
-    assignments,
-    addAssignment,
+    deleteEmployee,
+    shifts,
+    deleteShift,
     updateAssignment,
     deleteAssignment,
     deleteAssignmentsByEmployee,
     deleteAssignmentsByShift,
-  } = useAssignments(shifts, currentWeek);
+  } = useAppContext();
 
   // HANDLERS
 
@@ -68,12 +60,8 @@ function App() {
               📋 Planning de la semaine
             </h2>
             {/* Navigation semaines */}
-            <WeekNav
-              currentWeek={currentWeek}
-              onPrev={goPrev}
-              onNext={goNext}
-              onToday={goToday}
-            />
+            <WeekNav />
+            {/* Button de CRUD */}
             <div className="flex items-center gap-2">
               <Button
                 variant="secondary"
@@ -93,15 +81,7 @@ function App() {
           </div>
 
           {/* Tableau pleine largeur */}
-          <PlanningTable
-            employees={employees}
-            assignments={assignments}
-            shifts={shifts}
-            onAddAssignment={addAssignment}
-            onEditAssignment={updateAssignment}
-            onDeleteAssignment={deleteAssignment}
-            onCellClick={handleCellClick}
-          />
+          <PlanningTable onCellClick={handleCellClick} />
 
           {/* Modal CRUD employés */}
           <Modal
@@ -110,13 +90,7 @@ function App() {
             title="👥 Gestion des employés"
             size="lg"
           >
-            <EmployeeList
-              employees={employees}
-              assignments={assignments}
-              addEmployee={addEmployee}
-              updateEmployee={updateEmployee}
-              onDeleteEmployee={handleDeleteEmployee}
-            />
+            <EmployeeList onDeleteEmployee={handleDeleteEmployee} />
           </Modal>
           {/* Modal CRUD Shift */}
           <Modal
@@ -125,12 +99,7 @@ function App() {
             title="🕒 Gestion des shifts"
             size="lg"
           >
-            <ShiftManager
-              shifts={shifts}
-              addShift={addShift}
-              updateShift={updateShift}
-              onDeleteShift={handleDeleteShift}
-            />
+            <ShiftManager onDeleteShift={handleDeleteShift} />
           </Modal>
           {/* Modal assignment cellule */}
           <Modal

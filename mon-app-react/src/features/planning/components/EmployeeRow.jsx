@@ -4,16 +4,11 @@
 import { DAYS_OF_WEEK } from "@/constants";
 import { formatMinutesToDisplay, getEmployeeHours } from "@/utils";
 import PlanningCell from "./PlanningCell";
+import { useAppContext } from "@/context/AppContext";
 
-function EmployeeRow({
-  employee,
-  assignments,
-  shifts,
-  onAddAssignment,
-  onEditAssignment,
-  onDeleteAssignment,
-  onCellClick,
-}) {
+function EmployeeRow({ employee, onCellClick }) {
+  // context
+  const { assignments, addAssignment, shifts } = useAppContext();
   // Calcul des heures (total, AM, PM) via utilitaire centralisé
   const {
     total: totalMinutes,
@@ -56,15 +51,15 @@ function EmployeeRow({
             period={period}
             onClick={() =>
               !dailyAssignment
-                ? onAddAssignment({
+                ? // ajouter un assignment si case vide
+                  addAssignment({
                     employeeId: employee.id,
                     day: day.id,
                     shiftId: shifts.find((s) => s.type === period)?.id,
                   })
-                : onCellClick(dailyAssignment)
+                : // si case pleine mode edition
+                  onCellClick(dailyAssignment)
             }
-            onDeleteAssignment={onDeleteAssignment}
-            onEditAssignment={onEditAssignment}
           />
         </td>
       );

@@ -1,9 +1,9 @@
-export default function WeekNavigator({
-  currentWeek,
-  onPrev,
-  onNext,
-  onToday,
-}) {
+import { useAppContext } from "@/context/AppContext";
+
+export default function WeekNavigator() {
+  // context
+  const { currentWeek, goPrev, goNext, goToday } = useAppContext();
+
   // Afficher la date de façon lisible "Semaine du 16 févr. 2026"
   const formattedWeek = new Date(currentWeek + "T12:00:00").toLocaleDateString(
     "fr-FR",
@@ -18,7 +18,7 @@ export default function WeekNavigator({
     <div className="flex items-center justify-center gap-2 sm:gap-3">
       {/* Bouton semaine précédente */}
       <button
-        onClick={onPrev}
+        onClick={goPrev}
         className="p-2 rounded-lg border border-border bg-bg-primary text-text-secondary
           hover:bg-bg-tertiary hover:text-text-primary transition-colors cursor-pointer"
         aria-label="Semaine précédente"
@@ -28,7 +28,7 @@ export default function WeekNavigator({
 
       {/* Bouton Aujourd'hui + affichage semaine */}
       <button
-        onClick={onToday}
+        onClick={goToday}
         className="px-4 py-2 rounded-lg border border-border bg-bg-primary text-text-primary
           hover:bg-bg-tertiary transition-colors cursor-pointer min-w-[220px] text-center"
       >
@@ -37,7 +37,7 @@ export default function WeekNavigator({
 
       {/* Bouton semaine suivante */}
       <button
-        onClick={onNext}
+        onClick={goNext}
         className="p-2 rounded-lg border border-border bg-bg-primary text-text-secondary
           hover:bg-bg-tertiary hover:text-text-primary transition-colors cursor-pointer"
         aria-label="Semaine suivante"

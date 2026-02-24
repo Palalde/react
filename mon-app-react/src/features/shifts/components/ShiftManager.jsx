@@ -7,13 +7,12 @@ import {
   groupShiftsByType,
 } from "@/utils";
 import ShiftForm from "./ShiftForm";
+import { useAppContext } from "@/context/AppContext";
 
-export default function ShiftManager({
-  shifts,
-  addShift,
-  updateShift,
-  onDeleteShift,
-}) {
+export default function ShiftManager({ onDeleteShift }) {
+  // context
+  const { shifts, addShift, updateShift } = useAppContext();
+
   //  state isModalOpen
   const [isModalOpen, setIsModalOpen] = useState(false);
   //  state shiftToEdit (null = création)
