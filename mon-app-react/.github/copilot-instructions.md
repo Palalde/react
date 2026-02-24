@@ -89,8 +89,8 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 
 | Phase | Concept                                                     | Outil IA           |
 | ----- | ----------------------------------------------------------- | ------------------ |
-| 9.5   | useReducer + Context (mini-phase)                           | Copilot            |
-| 10A   | TypeScript + Zod                                            | Copilot            |
+| 9.5   | useReducer + Context + useMemo/useCallback (mini-phase)     | Copilot            |
+| 10A   | TypeScript + Zod + React Hook Form                          | Copilot            |
 | 10B   | Vitest + React Router + Git avance + SQL theorique          | Copilot            |
 | 11    | Backend API (Hono + Node) + Monorepo + .env + HTTP + bun PM | **Cursor IDE**     |
 | 12    | Database (PostgreSQL, Drizzle, Docker) + Tanstack Query     | Cursor agent       |
@@ -113,7 +113,7 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 
 ### Stack future (voir tech-spec pour details)
 
-TypeScript, Zod, Vitest, React Router, Hono (API), PostgreSQL, Drizzle, Tanstack Query, Zustand, JWT, Redis, Docker, Radix UI, Bun (runtime back), Playwright, GitHub Actions, Sentry.
+TypeScript, Zod, Vitest, React Router, Hono (API), PostgreSQL, Drizzle, Tanstack Query, Zustand, JWT, Redis, Docker, Radix UI, Bun (runtime back), Playwright, GitHub Actions, Sentry, React Hook Form.
 
 ### Stack Python (Phase 16-17)
 

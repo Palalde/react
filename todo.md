@@ -77,6 +77,7 @@
   - [ ] Task 9.5.1 : Refactorer `useAssignments` avec `useReducer`
   - [ ] Task 9.5.2 : Créer `AppContext` + `AppProvider`
   - [ ] Task 9.5.3 : Consommer le Context dans les composants (supprimer prop drilling)
+  - [ ] Task 9.5.4 : Découvrir `useMemo`/`useCallback` (optimiser les re-renders du Context)
 
 **🧪 Acceptance Criteria** :
 
@@ -107,10 +108,13 @@
   - [ ] Task 10.1.3 : Typer les Custom Hooks (params, return types)
   - [ ] Task 10.1.4 : Typer les Composants (Props interfaces, event handlers)
   - [ ] Task 10.1.5 : Typer les utilitaires et constantes
-- [ ] **Story 10.2 : Zod (validation)**
+- [ ] **Story 10.2 : Zod + React Hook Form (validation)**
   - [ ] Task 10.2.1 : Installer Zod, créer schemas (Employee, Shift, Assignment)
   - [ ] Task 10.2.2 : Valider les formulaires avec Zod (EmployeeForm, ShiftForm)
   - [ ] Task 10.2.3 : Inférence de types depuis schemas (z.infer)
+  - [ ] Task 10.2.4 : Installer React Hook Form + `@hookform/resolvers`
+  - [ ] Task 10.2.5 : Refactorer les formulaires avec RHF (register, handleSubmit, errors)
+  - [ ] Task 10.2.6 : Découvrir `useRef` via RHF (accès aux inputs sans re-render)
 
 **🧪 Acceptance Criteria Phase 10A** :
 

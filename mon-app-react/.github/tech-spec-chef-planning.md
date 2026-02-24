@@ -1,6 +1,6 @@
 ﻿---
 title: ChefPlanning - Tech Spec
-updated: 2026-02-23
+updated: 2026-02-24
 currentPhase: 9
 completedPhases: [0, 1, 2, 3, 4, 5, 6, 7, 8]
 stack: [React 19.2, Vite 7, TailwindCSS 4, localStorage]
@@ -21,6 +21,7 @@ future:
     Python,
     FastAPI,
     OR-Tools,
+    React Hook Form,
     Ollama,
     pgvector,
     Next.js,
@@ -123,6 +124,7 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Creer un AppContext pour partager state global (employees, shifts, assignments)
 - Comprendre quand useState vs useReducer vs Context
 - Preparer la transition vers Zustand (phase 13)
+- **Decouverte useMemo/useCallback** : quand le Context provoque des re-renders inutiles, introduire useMemo (stabiliser la value du Provider) et useCallback (stabiliser les fonctions passees). Approche socratique : Paul rencontre le probleme d'abord, puis decouvre la solution.
 - AC 9.5 : Shift "Journee" -> cellules AM+PM visuellement connectees
 - 🤖 Outil IA : Copilot autocomplete (comme depuis le debut)
 - Note : useLocalReducer (useReducer + localStorage) existe deja dans src/hooks/
@@ -138,11 +140,14 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Typer Custom Hooks (params, return types, generics useLocalStorage)
 - Typer Composants (Props interfaces, children, event handlers)
 
-### 10.2 : Zod (validation de donnees)
+### 10.2 : Zod + React Hook Form (validation de donnees)
 
 - Schema Zod pour Employee, Shift, Assignment
 - Validation formulaires (EmployeeForm, ShiftForm) avec Zod
 - Inference de types depuis schemas (z.infer<typeof schema>)
+- **React Hook Form** + `@hookform/resolvers/zod` : remplacer la gestion manuelle des formulaires par RHF
+- **Decouverte useRef** : RHF utilise des refs pour acceder aux inputs sans re-render — Paul decouvre useRef dans ce contexte concret
+- register(), handleSubmit(), formState.errors, Controller (composants custom)
 - Preparation backend : memes schemas reutilisables front et back
 
 - 🤖 Outil IA : Copilot autocomplete (TypeScript = beaucoup d'aide sur les types)
