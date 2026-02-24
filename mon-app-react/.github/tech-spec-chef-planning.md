@@ -17,8 +17,13 @@ future:
     Docker,
     Radix UI,
     Playwright,
+    Sentry,
+    Python,
+    FastAPI,
+    OR-Tools,
     Ollama,
     pgvector,
+    Next.js,
   ]
 aiTools:
   [
@@ -110,7 +115,7 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - AC 9.3 : Gestionnaire shifts : creer/editer/supprimer (DONE)
 - AC 9.4 : Bouton ">" -> affiche semaine +1 (DONE)
 
----
+  ***
 
 ## PHASE 9.5 : useReducer + Context (MINI-PHASE, A VENIR)
 
@@ -315,7 +320,16 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 - Image optimization, caching headers
 - Core Web Vitals
 
-### 14.6 : Monetisation
+### 14.6 : Monitoring & Observabilite
+
+- Sentry : error tracking frontend + backend (free tier suffit)
+- Structured logging backend (pino ou winston, JSON logs)
+- Health check endpoint (/api/health) — uptime monitoring
+- Alertes basiques (Sentry alerts, UptimeRobot gratuit)
+- Comprendre : logs vs metrics vs traces (les 3 piliers de l'observabilite)
+- Question entretien classique : "comment tu sais si ton app a un probleme en prod ?"
+
+### 14.7 : Monetisation
 
 - Freemium model (features gratuites vs payantes)
 - Stripe integration basics (paiement)
@@ -323,6 +337,14 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
 
 - 🤖 Outil IA : Claude Code agent — generation de CI/CD configs, migration automatisee, **vibe coding maitrise**
 - 💡 Sensibilisation IA : Ollama est un service Docker comme les autres — il sera ajoute au docker-compose en Phase 16
+
+### Acceptance Criteria Phase 14
+
+- AC 14.1 : App accessible sur une URL publique
+- AC 14.2 : CI/CD fonctionne (tests + build auto a chaque push)
+- AC 14.3 : Backend tourne sur Bun
+- AC 14.4 : Lighthouse score > 90 (perf + a11y)
+- AC 14.5 : Sentry capte les erreurs en prod (dashboard visible)
 
 ## PHASE 15 : E2E Testing + Polish (A VENIR)
 
@@ -363,12 +385,16 @@ Chef (navigateur)
   +-- Planning UI (tableau — tout faisable a la main)
   +-- Chat Panel (side panel style Copilot)
               |
-        Hono API (backend)
-        +-- Planning Engine (algo pur TS — le coeur)
+        Hono API (backend TS — orchestrateur)
+        +-- Planning Engine (micro-service Python/FastAPI + OR-Tools)
         +-- Ollama (LLM local — Mistral 7B)
         +-- pgvector (historique — dans PostgreSQL)
         +-- Function Calling (NL -> actions)
 ```
+
+> **Architecture microservices** : Hono reste l'API principale (auth, CRUD, orchestration).
+> Le Planning Engine est un service Python independant que Hono appelle en HTTP interne.
+> Paul apprend Python dans un contexte reel, pas un tuto deconnecte.
 
 **Principe cle** : le LLM est une **interface** (comprend le chef), pas le **moteur** (l'algo genere le planning). Le SaaS reste 100% utilisable sans le chat.
 
@@ -384,16 +410,23 @@ Chef (navigateur)
 - UI Settings (React + Radix) pour gerer les contraintes
 - 100% faisable sans IA — le chef configure manuellement
 
-### 16.2 : Planning Engine (algorithme pur, 0 IA)
+### 16.2 : Planning Engine — micro-service Python/FastAPI (algorithme pur, 0 IA)
 
-- Algo de scoring TypeScript pur (la feature la plus importante du SaaS)
-- Inputs : employees[] + shifts[] + constraints[] + exceptions[]
+**1er contact avec Python** — Paul apprend le langage ici, dans un contexte reel.
+
+- Setup FastAPI micro-service (packages/engine/ dans le monorepo)
+- Apprendre syntaxe Python : variables, fonctions, classes, list comprehensions, decorateurs
+- FastAPI : routes, Pydantic models (equivalent Zod), async, docs auto (Swagger)
+- Google OR-Tools (cp_model) : constraint programming pour optimisation planning
+- Algo : Inputs employees[] + shifts[] + constraints[] + exceptions[]
 - Hard constraints (dispo, skills) → elimine
 - Soft constraints (preferences, affinites) → score
 - Heures contrat → pondere
 - Historique (equite semaines precedentes) → ajuste
 - Output : assignments[] (planning optimal de la semaine)
-- Le chef clique "Generer" → planning propose → il valide/modifie
+- Communication : Hono appelle FastAPI en HTTP interne (POST /api/engine/generate)
+- Docker : container Python separe dans docker-compose
+- Le chef clique "Generer" → Hono → FastAPI → OR-Tools → planning propose → validation
 
 ### 16.3 : LLM API cloud (apprentissage, petit budget ~5-10€)
 
@@ -439,3 +472,47 @@ Chef (navigateur)
 - AC 16.6 : Le chef tape "Marie est en vacances, genere le planning" → le systeme execute
 
 - 🤖 Outil IA : **Multi-agent + Ollama** — Cursor + Claude Code, Paul integre l'IA dans le produit
+- 💡 Python : Paul apprend Python via le Planning Engine (16.2), competence reutilisee en Phase 17
+
+## PHASE 17 : Next.js + Python Fullstack (A VENIR)
+
+**Objectif** : Elargir le profil — SSR/RSC (Next.js) + dual-stack Python (FastAPI CRUD).
+**Duree** : ~2-3 semaines
+**Prerequis** : Phase 16 terminee (Paul connait deja les bases Python via 16.2)
+
+> Phase 17 n'est PAS obligatoire pour ChefPlanning. C'est un **investissement carriere**.
+> Paul a deja un SaaS deploye — Phase 17 elargit son profil pour le marche.
+
+### 17.1 : Next.js (SSR & React Server Components)
+
+- Comprendre SSR vs CSR vs SSG vs RSC (et quand utiliser quoi)
+- Recreer 1-2 pages de ChefPlanning en Next.js (App Router)
+- Server Components : data fetching cote serveur, moins de JS client
+- Comparer : Vite SPA (actuel) vs Next.js SSR (alternative)
+- API Routes Next.js (alternative a Hono pour certains cas)
+- SEO : meta tags dynamiques, Open Graph, sitemap
+
+### 17.2 : Python Fullstack (FastAPI CRUD)
+
+- Recreer l'API CRUD ChefPlanning en FastAPI (employees, shifts, assignments)
+- SQLAlchemy ou Tortoise ORM (equivalent Drizzle en Python)
+- Pydantic v2 (validation — equivalent Zod, Paul connait deja via 16.2)
+- Auth JWT en Python (meme logique que Phase 13, syntaxe differente)
+- Tests avec pytest (equivalent Vitest)
+- Comparer : Hono/TS vs FastAPI/Python (DX, performance, ecosysteme)
+- Objectif : pouvoir dire en entretien "je peux travailler dans les 2 ecosystemes"
+
+### 17.3 : Portfolio & Positionnement
+
+- README pro pour le repo GitHub (screenshots, architecture, stack)
+- Landing page (deja faite en 14.7, affiner le message)
+- Profil : "React/TS fullstack + Python AI" — le combo le plus recherche
+- Preparer les reponses techniques entretien (architecture, choix tech, trade-offs)
+
+### Acceptance Criteria Phase 17
+
+- AC 17.1 : Une page ChefPlanning rendue en SSR via Next.js
+- AC 17.2 : API CRUD complete en FastAPI (memes endpoints que Hono)
+- AC 17.3 : README pro + repo public pret pour les recruteurs
+
+- 🤖 Outil IA : Multi-agent — Paul maitrise les outils, focus sur la productivite

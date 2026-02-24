@@ -1,6 +1,6 @@
 ﻿# Copilot Instructions - ChefPlanning
 
-> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-23
+> **Utilisateur** : Paul | **Langue** : Francais | **MAJ** : 2026-02-24
 > **Modele IA** : Claude Opus 4.6 (taches lourdes) / Sonnet 4.6 (petites demandes)
 
 ## Fichiers IA
@@ -60,7 +60,7 @@ L'utilisateur se concentre sur React. Pour le **style visuel**, le mentor DOIT :
 ## Projet : ChefPlanning
 
 App de **planning hebdomadaire** pour chefs d'equipe (grande distribution).
-Vision : Apprendre (React -> TS -> Backend -> IA) -> Deployer -> Monetiser (SaaS intelligent).
+Vision : Apprendre (React -> TS -> Backend -> Python -> IA) -> Deployer -> Monetiser (SaaS intelligent).
 
 ---
 
@@ -95,9 +95,10 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 | 11    | Backend API (Hono + Node) + Monorepo + .env + HTTP + bun PM | **Cursor IDE**     |
 | 12    | Database (PostgreSQL, Drizzle, Docker) + Tanstack Query     | Cursor agent       |
 | 13    | Auth (JWT) + Zustand + Redis                                | **Claude Code**    |
-| 14    | Deploy + CI/CD + Radix UI + Bun runtime + Performance       | Claude Code avance |
+| 14    | Deploy + CI/CD + Radix UI + Bun runtime + Monitoring        | Claude Code avance |
 | 15    | E2E (Playwright) + Component tests + Polish                 | Multi-agent        |
-| 16    | AI Integration (Algo + LLM local + RAG + Chat Panel)        | Multi-agent+Ollama |
+| 16    | AI Integration (Algo Python/FastAPI + LLM + RAG + Chat)     | Multi-agent+Ollama |
+| 17    | Next.js SSR + Python Fullstack (FastAPI CRUD) + Portfolio   | Multi-agent        |
 
 ---
 
@@ -112,11 +113,19 @@ Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
 
 ### Stack future (voir tech-spec pour details)
 
-TypeScript, Zod, Vitest, React Router, Hono (API), PostgreSQL, Drizzle, Tanstack Query, Zustand, JWT, Redis, Docker, Radix UI, Bun (runtime back), Playwright, GitHub Actions.
+TypeScript, Zod, Vitest, React Router, Hono (API), PostgreSQL, Drizzle, Tanstack Query, Zustand, JWT, Redis, Docker, Radix UI, Bun (runtime back), Playwright, GitHub Actions, Sentry.
+
+### Stack Python (Phase 16-17)
+
+Python, FastAPI, Pydantic, OR-Tools (constraint programming), SQLAlchemy, pytest.
 
 ### Stack IA (Phase 16)
 
 Ollama (Docker), Mistral 7B / Llama 3.1 8B, pgvector (extension PostgreSQL), SSE (streaming), Function Calling, RAG.
+
+### Stack Phase 17
+
+Next.js (SSR/RSC), FastAPI CRUD (dual-stack Python).
 
 ---
 
@@ -208,7 +217,8 @@ Paul apprend progressivement a coder avec l'IA. Le mentor adapte son approche :
 | 11-12 | Cursor IDE           | Mentor autorise l'IA pour le boilerplate backend, Paul ecrit la logique metier               |
 | 13-14 | Claude Code          | Paul peut utiliser les agents pour du code qu'il _comprend_, mentor verifie la comprehension |
 | 15    | Multi-agent          | Paul orchestre, mentor valide l'architecture                                                 |
-| 16    | Multi-agent + Ollama | Paul integre l'IA dans le produit, mentor valide architecture IA + securite                  |
+| 16    | Multi-agent + Ollama | Paul integre l'IA + apprend Python (micro-service), mentor valide architecture IA + securite |
+| 17    | Multi-agent          | Paul elargit son profil (Next.js + FastAPI CRUD), mentor valide les comparaisons             |
 
 **Regle** : a chaque phase, Paul doit pouvoir expliquer chaque ligne generee par l'IA.
 

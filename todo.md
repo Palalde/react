@@ -4,7 +4,7 @@
 
 **Objectif Triple** :
 
-1. 📚 Devenir développeur fullstack (React → TS → Backend → IA)
+1. 📚 Devenir développeur fullstack dual-stack (React/TS + Python/FastAPI)
 2. 🚀 Déployer ChefPlanning en production
 3. 💰 Monétisation SaaS intelligent (algo + LLM local)
 
@@ -322,10 +322,14 @@ packages/
 - [ ] **Story 14.5 : Performance**
   - [ ] Task 14.5.1 : Bundle analysis
   - [ ] Task 14.5.2 : Core Web Vitals optimization
-- [ ] **Story 14.6 : Monétisation (optionnel)**
-  - [ ] Task 14.6.1 : Freemium model (features gratuites vs payantes)
-  - [ ] Task 14.6.2 : Stripe integration basics
-  - [ ] Task 14.6.3 : Landing page
+- [ ] **Story 14.6 : Monitoring & Observabilité**
+  - [ ] Task 14.6.1 : Sentry (error tracking frontend + backend)
+  - [ ] Task 14.6.2 : Structured logging backend (pino/winston, JSON logs)
+  - [ ] Task 14.6.3 : Health check endpoint + uptime monitoring
+- [ ] **Story 14.7 : Monétisation (optionnel)**
+  - [ ] Task 14.7.1 : Freemium model (features gratuites vs payantes)
+  - [ ] Task 14.7.2 : Stripe integration basics
+  - [ ] Task 14.7.3 : Landing page
 
 **🧪 Acceptance Criteria Phase 14** :
 
@@ -333,6 +337,7 @@ packages/
 - [ ] AC 14.2 : CI/CD : tests + build automatiques à chaque push
 - [ ] AC 14.3 : Backend tourne sur Bun
 - [ ] AC 14.4 : Lighthouse score > 90 (perf + a11y)
+- [ ] AC 14.5 : Sentry capte les erreurs en prod (dashboard visible)
 
 ---
 
@@ -394,12 +399,14 @@ Chef (navigateur)
   ├── Planning UI (tableau — tout faisable à la main)
   └── Chat Panel (side panel style Copilot)
               │
-        Hono API (backend)
-        ├── Planning Engine (algo pur TS)
+        Hono API (backend TS — orchestrateur)
+        ├── Planning Engine (micro-service Python/FastAPI + OR-Tools)
         ├── Ollama (LLM local — Mistral 7B)
         ├── pgvector (historique — dans PostgreSQL)
         └── Function Calling (NL → actions)
 ```
+
+> 🐍 **1er contact Python** : Paul apprend Python via le Planning Engine (Story 16.2)
 
 **✅ Tasks** :
 
@@ -407,10 +414,13 @@ Chef (navigateur)
   - [ ] Task 16.1.1 : Data Models (EmployeeAvailability, SkillRequirement, AffinityRule, WeeklyException, EmployeePreference)
   - [ ] Task 16.1.2 : API routes CRUD pour chaque model
   - [ ] Task 16.1.3 : UI Settings (React + Radix) pour gérer les contraintes
-- [ ] **Story 16.2 : Planning Engine (algorithme pur, 0 IA)**
-  - [ ] Task 16.2.1 : Algo de scoring (hard constraints → élimine, soft constraints → score)
-  - [ ] Task 16.2.2 : Pondération heures contrat + équité historique
-  - [ ] Task 16.2.3 : Bouton "Générer" → planning proposé → validation
+- [ ] **Story 16.2 : Planning Engine — micro-service Python/FastAPI (1er contact Python, 0 IA)**
+  - [ ] Task 16.2.1 : Apprendre les bases Python (syntaxe, fonctions, classes, list comprehensions)
+  - [ ] Task 16.2.2 : Setup FastAPI micro-service (packages/engine/) + Pydantic models
+  - [ ] Task 16.2.3 : Google OR-Tools (constraint programming, algo de scoring)
+  - [ ] Task 16.2.4 : Communication Hono → FastAPI (HTTP interne, POST /api/engine/generate)
+  - [ ] Task 16.2.5 : Container Docker Python dans docker-compose
+  - [ ] Task 16.2.6 : Bouton "Générer" → Hono → FastAPI → OR-Tools → planning proposé
 - [ ] **Story 16.3 : LLM API cloud (apprentissage, ~5-10€)**
   - [ ] Task 16.3.1 : Appel API (OpenAI/Anthropic) depuis Hono
   - [ ] Task 16.3.2 : Structured output (JSON) + function calling
@@ -442,6 +452,49 @@ Chef (navigateur)
 
 ---
 
+## 🐍 Phase 17 : Next.js + Python Fullstack (2-3 semaines)
+
+> Phase 17 n'est PAS obligatoire pour ChefPlanning. C'est un **investissement carrière**.
+> Paul a déjà un SaaS déployé — Phase 17 élargit son profil pour le marché.
+
+**📖 Lecture recommandée** :
+
+- https://nextjs.org/docs — Next.js App Router
+- https://fastapi.tiangolo.com/ — FastAPI
+- https://docs.python.org/3/tutorial/ — Python tutorial officiel
+- https://docs.pydantic.dev/latest/ — Pydantic v2
+- https://docs.pytest.org/ — pytest
+
+**🎯 Objectif** : Élargir le profil — SSR/RSC (Next.js) + dual-stack Python (FastAPI CRUD).
+
+**🤖 Outil IA** : Multi-agent — Paul maîtrise les outils, focus productivité
+
+**✅ Tasks** :
+
+- [ ] **Story 17.1 : Next.js (SSR & React Server Components)**
+  - [ ] Task 17.1.1 : Comprendre SSR vs CSR vs SSG vs RSC
+  - [ ] Task 17.1.2 : Recréer 1-2 pages ChefPlanning en Next.js (App Router)
+  - [ ] Task 17.1.3 : Server Components + data fetching côté serveur
+  - [ ] Task 17.1.4 : SEO dynamique (meta tags, Open Graph, sitemap)
+- [ ] **Story 17.2 : Python Fullstack (FastAPI CRUD)**
+  - [ ] Task 17.2.1 : Recréer l'API CRUD ChefPlanning en FastAPI
+  - [ ] Task 17.2.2 : SQLAlchemy/Tortoise ORM (équivalent Drizzle)
+  - [ ] Task 17.2.3 : Auth JWT en Python (même logique Phase 13)
+  - [ ] Task 17.2.4 : Tests avec pytest (équivalent Vitest)
+  - [ ] Task 17.2.5 : Comparer Hono/TS vs FastAPI/Python (DX, perf, écosystème)
+- [ ] **Story 17.3 : Portfolio & Positionnement**
+  - [ ] Task 17.3.1 : README pro (screenshots, architecture, stack)
+  - [ ] Task 17.3.2 : Profil "React/TS fullstack + Python AI"
+  - [ ] Task 17.3.3 : Préparer les réponses techniques entretien
+
+**🧪 Acceptance Criteria Phase 17** :
+
+- [ ] AC 17.1 : Une page ChefPlanning rendue en SSR via Next.js
+- [ ] AC 17.2 : API CRUD complète en FastAPI (mêmes endpoints que Hono)
+- [ ] AC 17.3 : README pro + repo public prêt pour les recruteurs
+
+---
+
 ## 📁 Fichiers Importants
 
 | Fichier                              | Description                         |
@@ -463,13 +516,14 @@ Chef (navigateur)
 
 **Progression IA** :
 
-| Phase | Outil                | Comment j'apprends                                         |
-| ----- | -------------------- | ---------------------------------------------------------- |
-| 9-10  | Copilot autocomplete | Je code tout à la main, l'IA aide sur la syntaxe           |
-| 11-12 | Cursor IDE           | L'IA m'aide sur le boilerplate backend, j'écris la logique |
-| 13-14 | Claude Code          | J'utilise les agents pour du code que je _comprends_       |
-| 15    | Multi-agent          | J'orchestre les outils, vibe coding productif              |
-| 16    | Multi-agent + Ollama | J'intègre l'IA dans le produit, algo + LLM + RAG           |
+| Phase | Outil                | Comment j'apprends                                            |
+| ----- | -------------------- | ------------------------------------------------------------- |
+| 9-10  | Copilot autocomplete | Je code tout à la main, l'IA aide sur la syntaxe              |
+| 11-12 | Cursor IDE           | L'IA m'aide sur le boilerplate backend, j'écris la logique    |
+| 13-14 | Claude Code          | J'utilise les agents pour du code que je _comprends_          |
+| 15    | Multi-agent          | J'orchestre les outils, vibe coding productif                 |
+| 16    | Multi-agent + Ollama | J'intègre l'IA dans le produit, algo + LLM + RAG + **Python** |
+| 17    | Multi-agent          | Dual-stack : Next.js SSR + Python FastAPI CRUD                |
 
 **Règle d'or** : je peux laisser l'IA générer du code quand je suis capable de review chaque ligne.
 
@@ -535,4 +589,4 @@ Chef (navigateur)
 
 ---
 
-_Dernière mise à jour : 2026-02-23_
+_Dernière mise à jour : 2026-02-24_
