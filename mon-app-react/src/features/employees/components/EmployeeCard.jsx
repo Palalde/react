@@ -47,7 +47,7 @@ function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
             <Button
               size="icon"
               variant="ghost"
-              onClick={() => onEdit(employee)}
+              onClick={() => onEdit()}
               className="!min-w-[36px] !min-h-[36px] !p-1.5 text-sm"
               aria-label="Éditer"
               title="Éditer"

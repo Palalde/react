@@ -128,7 +128,7 @@ src/
 +-- context/         # AppContext (AppProvider, useAppContext)
 +-- features/
 |   +-- employees/   # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
-|   +-- shifts/      # ShiftSelector, ShiftForm, ShiftManager, useShifts
+|   +-- shifts/      # ShiftForm, ShiftManager, useShifts
 |   +-- assignments/ # useAssignments (assignmentsReducer)
 |   +-- planning/    # PlanningTable, EmployeeRow, PlanningCell, WeekNav
 +-- hooks/           # useLocalStorage, useLocalReducer, useTheme, useWeekNav

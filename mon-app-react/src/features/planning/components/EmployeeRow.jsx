@@ -37,7 +37,7 @@ function EmployeeRow({ employee, onCellClick }) {
       });
 
       // trouver le shift correspondant pour accéder à ses infos (ex: couleur)
-      const Shift = shifts.find((s) => s.id === dailyAssignment?.shiftId);
+      const shift = shifts.find((s) => s.id === dailyAssignment?.shiftId);
 
       // retourner la cellule du planning pour ce jour + shift
       return (
@@ -47,7 +47,7 @@ function EmployeeRow({ employee, onCellClick }) {
         >
           <PlanningCell
             assignment={dailyAssignment}
-            shift={Shift}
+            shift={shift}
             period={period}
             onClick={() =>
               !dailyAssignment

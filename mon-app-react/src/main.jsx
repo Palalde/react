@@ -5,9 +5,10 @@ import App from "./App.jsx";
 import { AppProvider } from "./context/AppContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <AppProvider>
-    <StrictMode>
+  <StrictMode>
+    <AppProvider>
       <App />
-    </StrictMode>
-  </AppProvider>,
+    </AppProvider>
+    ,
+  </StrictMode>,
 );
