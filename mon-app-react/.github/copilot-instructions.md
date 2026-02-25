@@ -9,7 +9,7 @@
 | -------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------- |
 | `copilot-instructions.md` (ce fichier) | **Memoire vive** — comportement, etat courant, references rapides                    | Charge a CHAQUE requete                       |
 | `.github/tech-spec-chef-planning.md`   | **Memoire etendue** — details d'implementation, historique decisions, phases futures | Consulter SI BESOIN de plus de contexte       |
-| `.github/tech-spec-*-archive.md`       | Archives des phases terminees                                                        | Consulter UNIQUEMENT pour contexte historique |
+| `.github/tech-spec-archive.md`         | Archive des phases terminees (0-9)                                                   | Consulter UNIQUEMENT pour contexte historique |
 
 > **Regle** : si une info n'est pas dans ce fichier, chercher dans tech-spec avant de demander a Paul.
 
@@ -66,30 +66,19 @@ Vision : Apprendre (React -> TS -> Backend -> Python -> IA) -> Deployer -> Monet
 
 ## PROGRESSION
 
-### Phases 0-8 completees
+### Phases 0-9 completees
 
 Phases 0-6 (MVP) : JSX, Props, useState, Listes, CRUD, useEffect, hooks.
 Phase 7 : Lifting State Up (assignments, click-to-assign).
 Phase 8 : Custom Hooks (useEmployees, useShifts, useAssignments).
+Phase 9 : Refonte UI (PlanningTable Employee×Jour AM/PM), click-to-assign conflictMap, shifts CRUD, navigation semaines, useReducer + AppContext + useMemo/useCallback. Details dans `tech-spec-archive.md`.
 
-### Phase 9 : Composition Avancee + Refonte UI (EN COURS)
-
-**Repartition** : Tailwind = Mentor | React = Paul (socratique)
-
-| Story | Description             | Status |
-| ----- | ----------------------- | ------ |
-| 9.1   | Refonte layout planning | done   |
-| 9.2   | Click-to-assign adapte  | done   |
-| 9.3   | Shifts CRUD dynamiques  | done   |
-| 9.4   | Navigation semaines     | done   |
-
-> Stories 9.1-9.4 : Tableau Employee x Jour (AM/PM), click-to-assign avec conflictMap, shifts CRUD (useShifts + ShiftForm/ShiftManager), navigation semaines (useWeekNav + WeekNav). Shift model avec `type` (am/pm/full/split). Assignments filtres par `weekOf`. Details dans tech-spec.
+### Phase 10A : TypeScript + Zod (A VENIR)
 
 ### A venir
 
 | Phase | Concept                                                     | Outil IA           |
 | ----- | ----------------------------------------------------------- | ------------------ |
-| 9.5   | useReducer + Context + useMemo/useCallback (mini-phase)     | Copilot            |
 | 10A   | TypeScript + Zod + React Hook Form                          | Copilot            |
 | 10B   | Vitest + React Router + Git avance + SQL theorique          | Copilot            |
 | 11    | Backend API (Hono + Node) + Monorepo + .env + HTTP + bun PM | **Cursor IDE**     |
@@ -136,10 +125,11 @@ src/
 +-- components/
 |   +-- ui/          # Button, Badge, Modal, Input, HoursInput, ColorInput, ThemeToggle
 |   +-- layout/      # Header, Container
++-- context/         # AppContext (AppProvider, useAppContext)
 +-- features/
 |   +-- employees/   # EmployeeCard, EmployeeList, EmployeeForm, useEmployees
 |   +-- shifts/      # ShiftSelector, ShiftForm, ShiftManager, useShifts
-|   +-- assignments/ # useAssignments
+|   +-- assignments/ # useAssignments (assignmentsReducer)
 |   +-- planning/    # PlanningTable, EmployeeRow, PlanningCell, WeekNav
 +-- hooks/           # useLocalStorage, useLocalReducer, useTheme, useWeekNav
 +-- utils/           # generateId, colorUtils, timeUtils (getEmployeeHours), shiftUtils (getShiftColorClass, calcShiftMinutes, groupShiftsByType)
@@ -242,7 +232,7 @@ Paul apprend progressivement a coder avec l'IA. Le mentor adapte son approche :
 ### Fin de Phase
 
 1. **AUDIT** : verifier code vs docs (imports, exports, hooks, structure)
-2. **ARCHIVER** : stories terminees → `tech-spec-vX-archive.md`
+2. **ARCHIVER** : stories terminees → `tech-spec-archive.md`
 3. `copilot-instructions.md` → resumer la phase en 1-2 lignes, retirer details
 4. `tech-spec` → nettoyer (plus de details stories archivees)
 5. `todo.md` → MAJ status + prochaine etape en haut

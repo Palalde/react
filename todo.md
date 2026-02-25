@@ -10,7 +10,7 @@
 
 ---
 
-## ➡️ Prochaine étape : Story 9.5 — useReducer + Context
+## ➡️ Prochaine étape : Phase 10A — TypeScript + Zod
 
 ---
 
@@ -35,55 +35,9 @@
 
 ---
 
-## 🔜 EN COURS : Phase 9 (Composition Avancée + Refonte UI)
+## ✅ COMPLÉTÉ : Phase 9 (Composition Avancée + Refonte UI)
 
-**📖 Lecture recommandée** :
-
-- https://react.dev/learn/thinking-in-react
-- Date manipulation avec `date-fns` ou natif
-- CSS Grid/Table layouts responsive
-
-**🎯 Objectif** : Refonte layout planning (tableau Employé×Jour AM/PM), shifts CRUD, navigation semaines.
-
-**Répartition** : 🎨 Tailwind = Mentor | ⚛️ React = Paul (socratique)
-
-**✅ Tasks** :
-
-- [x] Task 9.1.1 : `PlanningTable` — nouveau composant tableau
-- [x] Task 9.1.2 : `EmployeeRow` — ligne employé (AM/PM)
-- [x] Task 9.1.3 : `PlanningCell` — cellule individuelle
-- [x] Task 9.1.4 : Adapter `App.jsx` au nouveau layout + nettoyage legacy
-- [x] Story 9.2 : Click-to-assign adapté (🔀 Mix)
-  - [x] Task 9.2.1 : Clic cellule vide → assigner shift AM/PM
-  - [x] Task 9.2.2 : Clic cellule remplie → modal éditer/supprimer
-  - [x] Bonus : Gestion conflits shifts (conflictMap dans useAssignments)
-  - [x] Bonus : Cellules affichent horaires au lieu des noms
-  - [x] Bonus : Barre couleur employé + fond teinté dans EmployeeRow
-  - [x] Bonus : Champ `type` ajouté au modèle Shift (am/pm/full)
-  - [x] Bonus : getEmployeeHours refactoré (split AM/PM basé sur type + midi)
-- [x] Story 9.3 : Shifts CRUD dynamiques (⚛️ Socratique)
-  - [x] Task 9.3.1 : Transformer `useShifts` en hook avec state + localStorage
-  - [x] Task 9.3.2 : Créer `ShiftForm` (type selector, split conditionnel)
-  - [x] Task 9.3.3 : Créer `ShiftManager` (liste groupée par type + CRUD)
-  - [x] Task 9.3.4 : Intégrer dans App.jsx + deleteAssignmentsByShift
-  - [x] Bugfix : ShiftForm perd id à l'édition (destructuring)
-  - [x] Refacto : type-based matching (EmployeeRow + useAssignments)
-  - [x] Style : groupShiftsByType() + tri startTime dans les modals
-- [x] Story 9.4 : Navigation semaines (⚛️ Socratique)
-  - [x] Task 9.4.1 : Créer `useWeekNav` hook (getMondayISO, addWeeks, currentWeek ISO)
-  - [x] Task 9.4.2 : Créer `WeekNav` composant (◀ / Semaine du... / ▶)
-  - [x] Task 9.4.3 : Filtrer assignments par `weekOf` dans useAssignments
-- [ ] Story 9.5 : useReducer + Context (⚛️ Socratique)
-  - [ ] Task 9.5.1 : Refactorer `useAssignments` avec `useReducer`
-  - [ ] Task 9.5.2 : Créer `AppContext` + `AppProvider`
-  - [ ] Task 9.5.3 : Consommer le Context dans les composants (supprimer prop drilling)
-  - [ ] Task 9.5.4 : Découvrir `useMemo`/`useCallback` (optimiser les re-renders du Context)
-
-**🧪 Acceptance Criteria** :
-
-- [x] AC 9.4 : Bouton ">" → affiche semaine +1
-- [ ] AC 9.5 : useAssignments utilise useReducer (ADD, DELETE, DELETE_BY_EMPLOYEE, DELETE_BY_SHIFT)
-- [ ] AC 9.5 : employees, shifts, assignments accessibles via useAppContext() sans prop drilling
+> Tableau Employee×Jour AM/PM, click-to-assign conflictMap, shifts CRUD, navigation semaines, useReducer + AppContext + useMemo/useCallback. Details dans `tech-spec-archive.md`.
 
 ---
 
