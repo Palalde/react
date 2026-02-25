@@ -49,17 +49,22 @@ function EmployeeRow({ employee, onCellClick }) {
             assignment={dailyAssignment}
             shift={shift}
             period={period}
-            onClick={() =>
-              !dailyAssignment
-                ? // ajouter un assignment si case vide
+            onClick={() => {
+              if (!dailyAssignment) {
+                // ajouter un assignment si case vide (guard: shift doit exister)
+                const defaultShift = shifts.find((s) => s.type === period);
+                if (defaultShift) {
                   addAssignment({
                     employeeId: employee.id,
                     day: day.id,
-                    shiftId: shifts.find((s) => s.type === period)?.id,
-                  })
-                : // si case pleine mode edition
-                  onCellClick(dailyAssignment)
-            }
+                    shiftId: defaultShift.id,
+                  });
+                }
+              } else {
+                // si case pleine mode edition
+                onCellClick(dailyAssignment);
+              }
+            }}
           />
         </td>
       );

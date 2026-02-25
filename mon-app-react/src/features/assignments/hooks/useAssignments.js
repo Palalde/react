@@ -76,6 +76,7 @@ export default function useAssignments(shifts = [], currentWeek = "") {
           if (a.id === assignmentData.id) return false;
           if (a.employeeId !== assignmentData.employeeId) return false;
           if (a.day !== assignmentData.day) return false;
+          if (a.weekOf !== assignmentData.weekOf) return false;
           const existingShift = shifts.find((s) => s.id === a.shiftId);
           return conflictMap[newType]?.includes(existingShift?.type);
         })
