@@ -1,14 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { useEmployees } from "@/features/employees";
 import { useShifts } from "@/features/shifts";
 import { useAssignments } from "@/features/assignments";
 import { useWeekNav } from "@/hooks";
 
+// creation du context pour utiliser le provider
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  // custom Hooks
+  // all custom Hooks
   // employees
   const { employees, addEmployee, updateEmployee, deleteEmployee } =
     useEmployees();
@@ -26,38 +27,64 @@ export function AppProvider({ children }) {
     deleteAssignmentsByShift,
   } = useAssignments(shifts, currentWeek);
 
+  // useMemo
+  const valueMemo = useMemo(() => {
+    return {
+      // Employees
+      employees,
+      addEmployee,
+      updateEmployee,
+      deleteEmployee,
+      // shifts
+      shifts,
+      updateShift,
+      addShift,
+      deleteShift,
+      // semaine
+      currentWeek,
+      goNext,
+      goPrev,
+      goToday,
+      // assignments
+      assignments,
+      addAssignment,
+      updateAssignment,
+      deleteAssignment,
+      deleteAssignmentsByEmployee,
+      deleteAssignmentsByShift,
+    };
+  }, [
+    // Employees
+    employees,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee,
+    // shifts
+    shifts,
+    updateShift,
+    addShift,
+    deleteShift,
+    // semaine
+    currentWeek,
+    goNext,
+    goPrev,
+    goToday,
+    // assignments
+    assignments,
+    addAssignment,
+    updateAssignment,
+    deleteAssignment,
+    deleteAssignmentsByEmployee,
+    deleteAssignmentsByShift,
+  ]);
+
+  // provider
   return (
-    <AppContext.Provider
-      value={{
-        // Employees
-        employees,
-        addEmployee,
-        updateEmployee,
-        deleteEmployee,
-        // shifts
-        shifts,
-        updateShift,
-        addShift,
-        deleteShift,
-        // semaine
-        currentWeek,
-        goNext,
-        goPrev,
-        goToday,
-        // assignments
-        assignments,
-        addAssignment,
-        updateAssignment,
-        deleteAssignment,
-        deleteAssignmentsByEmployee,
-        deleteAssignmentsByShift,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={valueMemo}>{children}</AppContext.Provider>
   );
 }
 
+// AppContext custom hook
 export function useAppContext() {
   const context = useContext(AppContext);
   if (!context)

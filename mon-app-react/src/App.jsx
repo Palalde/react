@@ -83,6 +83,7 @@ function App() {
           {/* Tableau pleine largeur */}
           <PlanningTable onCellClick={handleCellClick} />
 
+          {/* TOUT LES MODALS */}
           {/* Modal CRUD employés */}
           <Modal
             isOpen={isEmpModOpen}
