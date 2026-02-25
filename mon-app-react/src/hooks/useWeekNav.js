@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 // calculer la date du lundi de la semaine courante à partir d'une date donnée
 function getMondayISO(date) {
   const dayOfWeek = date.getDay();
@@ -18,19 +18,19 @@ export default function useWeekNav() {
   const [currentWeek, setCurrentWeek] = useState(getMondayISO(new Date()));
 
   // goNext → avancer d'une semaine
-  const goNext = () => {
-    setCurrentWeek(addWeeks(currentWeek, 1));
-  };
+  const goNext = useCallback(() => {
+    setCurrentWeek((prev) => addWeeks(prev, 1));
+  }, [setCurrentWeek]);
 
   // goPrev → reculer d'une semaine
-  const goPrev = () => {
-    setCurrentWeek(addWeeks(currentWeek, -1));
-  };
+  const goPrev = useCallback(() => {
+    setCurrentWeek((prev) => addWeeks(prev, -1));
+  }, [setCurrentWeek]);
 
   // goToday → revenir à la semaine actuelle
-  const goToday = () => {
+  const goToday = useCallback(() => {
     setCurrentWeek(getMondayISO(new Date()));
-  };
+  }, [setCurrentWeek]);
 
   return { currentWeek, goNext, goPrev, goToday };
 }

@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useLocalStorage } from "@/hooks";
 import { MOCK_EMPLOYEES } from "@/data";
 import { generateId } from "@/utils";
@@ -9,31 +10,35 @@ export default function useEmployees() {
   );
 
   // Ajouter un employé (id généré automatiquement)
-  const addEmployee = (employeeData) => {
-    setEmployees([...employees, { ...employeeData, id: generateId() }]);
-  };
+  const addEmployee = useCallback(
+    (employeeData) => {
+      setEmployees((prev) => [...prev, { ...employeeData, id: generateId() }]);
+    },
+    [setEmployees],
+  );
 
   // Modifier un employé existant
-  const updateEmployee = (employeeData) => {
-    setEmployees(
-      employees.map((e) => (e.id === employeeData.id ? employeeData : e)),
-    );
-  };
+  const updateEmployee = useCallback(
+    (employeeData) => {
+      setEmployees((prev) =>
+        prev.map((p) => (p.id === employeeData.id ? employeeData : p)),
+      );
+    },
+    [setEmployees],
+  );
 
   // Supprimer un employé par id
-  const deleteEmployee = (employeeId) => {
-    setEmployees(employees.filter((e) => e.id !== employeeId));
-  };
-
-  // Retrouver un employé par son id
-  const getEmployeeById = (employeeId) =>
-    employees.find((e) => e.id === employeeId);
+  const deleteEmployee = useCallback(
+    (employeeId) => {
+      setEmployees((prev) => prev.filter((p) => p.id !== employeeId));
+    },
+    [setEmployees],
+  );
 
   return {
     employees,
     addEmployee,
     updateEmployee,
     deleteEmployee,
-    getEmployeeById,
   };
 }

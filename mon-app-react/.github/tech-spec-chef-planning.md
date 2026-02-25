@@ -107,7 +107,6 @@ Phase 8 : Custom Hooks useEmployees, useShifts, useAssignments, useHoursCalculat
   - addAssignment injecte weekOf: currentWeek automatiquement
   - weeklyAssignments = assignments.filter(a => a.weekOf === currentWeek)
   - Retourne weeklyAssignments (filtre), mutations sur liste complete
-  - calculateHours et getAssignmentsByDay utilisent weeklyAssignments
 
 ### Acceptance Criteria Phase 9
 
