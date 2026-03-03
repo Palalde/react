@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-03 | **Total** : 116 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-03 | **Total** : 117 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -119,8 +119,8 @@ em {
 | `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                    |
 | `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                      |
 | `Dev::06-Entretien`       | 7       | Q/R (7)                                    |
-| `Dev::07-LeetCode-Algo`   | 16      | Q/R (8) + Cloze (5) + Rev (1) + Output (2) |
-| **Total**                 | **116** |                                            |
+| `Dev::07-LeetCode-Algo`   | 17      | Q/R (8) + Cloze (6) + Rev (1) + Output (2) |
+| **Total**                 | **117** |                                            |
 
 ---
 
@@ -280,6 +280,7 @@ em {
 - Q/R : for classique vs for...of vs for...in — quand utiliser chaque ⭐
 - Q/R : Boucle for vs Array method (.map, .filter) — LeetCode vs React ⭐⭐
 - Cloze : for...of (valeurs array) vs for...in (clés objet) + piège for...in sur array
+- Cloze : Destructuring dans for...of sur Map — `[key, value]`, pattern comparaison frequency maps
 - Reversible : Besoin de l'index → for classique
 
 #### Algo Thinking (2 cards)
@@ -460,7 +461,7 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 | Phase    | Status      | Cards attendues                                          |
 | -------- | ----------- | -------------------------------------------------------- |
 | 0-9      | ✅ Done     | JS, React, CSS, Tooling, Entretien — **100 cards**       |
-| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **16 cards**          |
+| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **17 cards**          |
 | 10A      | 🔜 Next     | TypeScript, Zod, React Hook Form                         |
 | 10B      | À venir     | Vitest, React Router, Git avancé, SQL théorique          |
 | 11       | À venir     | Backend (Hono, HTTP, REST, CORS) → deck `05-Backend-API` |
