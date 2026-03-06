@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-03 | **Total** : 117 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-06 | **Total** : 119 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -119,8 +119,8 @@ em {
 | `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                    |
 | `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                      |
 | `Dev::06-Entretien`       | 7       | Q/R (7)                                    |
-| `Dev::07-LeetCode-Algo`   | 17      | Q/R (8) + Cloze (6) + Rev (1) + Output (2) |
-| **Total**                 | **117** |                                            |
+| `Dev::07-LeetCode-Algo`   | 19      | Q/R (9) + Cloze (7) + Rev (1) + Output (2) |
+| **Total**                 | **119** |                                            |
 
 ---
 
@@ -255,7 +255,7 @@ em {
 
 ---
 
-### Dev::07-LeetCode-Algo (16 cards)
+### Dev::07-LeetCode-Algo (19 cards)
 
 > Deck créé pour accompagner NeetCode 150 (easy → medium). Concepts fondamentaux pour résoudre des problèmes d'algo.
 
@@ -282,6 +282,11 @@ em {
 - Cloze : for...of (valeurs array) vs for...in (clés objet) + piège for...in sur array
 - Cloze : Destructuring dans for...of sur Map — `[key, value]`, pattern comparaison frequency maps
 - Reversible : Besoin de l'index → for classique
+
+#### Complement Map (2 cards)
+
+- Q/R : Complement Map pattern (One-pass Map) — `target - nums[i]` + `map.has()`, piège `set()` après le check ⭐⭐
+- Cloze : Syntaxe complète du pattern + 4 trous (complement, has, set, ordre)
 
 #### Algo Thinking (2 cards)
 
@@ -461,7 +466,7 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 | Phase    | Status      | Cards attendues                                          |
 | -------- | ----------- | -------------------------------------------------------- |
 | 0-9      | ✅ Done     | JS, React, CSS, Tooling, Entretien — **100 cards**       |
-| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **17 cards**          |
+| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **19 cards**          |
 | 10A      | 🔜 Next     | TypeScript, Zod, React Hook Form                         |
 | 10B      | À venir     | Vitest, React Router, Git avancé, SQL théorique          |
 | 11       | À venir     | Backend (Hono, HTTP, REST, CORS) → deck `05-Backend-API` |
@@ -476,4 +481,4 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 
 ---
 
-_Dernière vérification complète : 2026-03-03 (ajout deck LeetCode-Algo 16 cards)_
+_Dernière vérification complète : 2026-03-06 (ajout Complement Map pattern après Two Sum)_
