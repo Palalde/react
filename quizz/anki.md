@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-06 | **Total** : 119 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-07 | **Total** : 120 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -111,16 +111,16 @@ em {
 
 ## 2. Structure des Decks
 
-| Deck                      | Cards   | Modèles utilisés                           |
-| ------------------------- | ------- | ------------------------------------------ |
-| `Dev::01-JavaScript-Core` | 51      | Q/R (31) + Cloze (15) + Rev (5)            |
-| `Dev::02-React`           | 28      | Q/R (17) + Corrections (7) + Rev (4)       |
-| `Dev::03-CSS-HTML`        | 8       | Q/R (8)                                    |
-| `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                    |
-| `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                      |
-| `Dev::06-Entretien`       | 7       | Q/R (7)                                    |
-| `Dev::07-LeetCode-Algo`   | 19      | Q/R (9) + Cloze (7) + Rev (1) + Output (2) |
-| **Total**                 | **119** |                                            |
+| Deck                      | Cards   | Modèles utilisés                            |
+| ------------------------- | ------- | ------------------------------------------- |
+| `Dev::01-JavaScript-Core` | 51      | Q/R (31) + Cloze (15) + Rev (5)             |
+| `Dev::02-React`           | 28      | Q/R (17) + Corrections (7) + Rev (4)        |
+| `Dev::03-CSS-HTML`        | 8       | Q/R (8)                                     |
+| `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                     |
+| `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                       |
+| `Dev::06-Entretien`       | 7       | Q/R (7)                                     |
+| `Dev::07-LeetCode-Algo`   | 20      | Q/R (10) + Cloze (7) + Rev (1) + Output (2) |
+| **Total**                 | **120** |                                             |
 
 ---
 
@@ -255,14 +255,15 @@ em {
 
 ---
 
-### Dev::07-LeetCode-Algo (19 cards)
+### Dev::07-LeetCode-Algo (20 cards)
 
 > Deck créé pour accompagner NeetCode 150 (easy → medium). Concepts fondamentaux pour résoudre des problèmes d'algo.
 
-#### Big O (5 cards)
+#### Big O (6 cards)
 
 - Q/R : Notation Big O — définition, 5 complexités courantes (O(1) à O(n²)), exemples visuels ⭐
 - Q/R : Comment déterminer la complexité Big O d'un code — règles pratiques, piège .includes() dans for ⭐⭐
+- Q/R : O(n²) vs O(n × m) — nested loops sur même collection vs 2 dimensions différentes, piège mental ⭐⭐
 - Q/R Output : Contains Duplicate brute force O(n²) vs Set O(n) — comparaison ⭐⭐
 - Cloze : Complexités des opérations courantes (arr[i], includes, Set.has, push, sort)
 - Cloze : Classement des 5 complexités rapide → lente
@@ -466,7 +467,7 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 | Phase    | Status      | Cards attendues                                          |
 | -------- | ----------- | -------------------------------------------------------- |
 | 0-9      | ✅ Done     | JS, React, CSS, Tooling, Entretien — **100 cards**       |
-| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **19 cards**          |
+| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **20 cards**          |
 | 10A      | 🔜 Next     | TypeScript, Zod, React Hook Form                         |
 | 10B      | À venir     | Vitest, React Router, Git avancé, SQL théorique          |
 | 11       | À venir     | Backend (Hono, HTTP, REST, CORS) → deck `05-Backend-API` |
@@ -481,4 +482,4 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 
 ---
 
-_Dernière vérification complète : 2026-03-06 (ajout Complement Map pattern après Two Sum)_
+_Dernière vérification complète : 2026-03-07 (ajout O(n×m) vs O(n²) après Longest Common Prefix)_
