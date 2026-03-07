@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-07 | **Total** : 120 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-07 | **Total** : 121 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -119,8 +119,8 @@ em {
 | `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                     |
 | `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                       |
 | `Dev::06-Entretien`       | 7       | Q/R (7)                                     |
-| `Dev::07-LeetCode-Algo`   | 20      | Q/R (10) + Cloze (7) + Rev (1) + Output (2) |
-| **Total**                 | **120** |                                             |
+| `Dev::07-LeetCode-Algo`   | 21      | Q/R (11) + Cloze (7) + Rev (1) + Output (2) |
+| **Total**                 | **121** |                                             |
 
 ---
 
@@ -255,7 +255,7 @@ em {
 
 ---
 
-### Dev::07-LeetCode-Algo (20 cards)
+### Dev::07-LeetCode-Algo (21 cards)
 
 > Deck créé pour accompagner NeetCode 150 (easy → medium). Concepts fondamentaux pour résoudre des problèmes d'algo.
 
@@ -288,6 +288,10 @@ em {
 
 - Q/R : Complement Map pattern (One-pass Map) — `target - nums[i]` + `map.has()`, piège `set()` après le check ⭐⭐
 - Cloze : Syntaxe complète du pattern + 4 trous (complement, has, set, ordre)
+
+#### Read/Write Pointer (1 card)
+
+- Q/R : Read/Write Pointer pattern — reader (i) avance toujours, writer (k) avance si condition, in-place O(n) O(1) ⭐⭐
 
 #### Algo Thinking (2 cards)
 
@@ -467,7 +471,7 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 | Phase    | Status      | Cards attendues                                          |
 | -------- | ----------- | -------------------------------------------------------- |
 | 0-9      | ✅ Done     | JS, React, CSS, Tooling, Entretien — **100 cards**       |
-| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **20 cards**          |
+| LeetCode | 🔄 En cours | Algo fondamentaux (NeetCode 150) — **21 cards**          |
 | 10A      | 🔜 Next     | TypeScript, Zod, React Hook Form                         |
 | 10B      | À venir     | Vitest, React Router, Git avancé, SQL théorique          |
 | 11       | À venir     | Backend (Hono, HTTP, REST, CORS) → deck `05-Backend-API` |
@@ -482,4 +486,4 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 
 ---
 
-_Dernière vérification complète : 2026-03-07 (ajout O(n×m) vs O(n²) après Longest Common Prefix)_
+_Dernière vérification complète : 2026-03-07 (ajout Read/Write Pointer après Remove Element)_
