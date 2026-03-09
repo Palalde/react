@@ -1,333 +1,246 @@
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
+
+Return the array in the form [x1,y1,x2,y2,...,xn,yn].
 
 Example 1:
 
-Input: strs = ["eat","tea","tan","ate","nat","bat"]
-
-Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
-
-Explanation:
-
-There is no string in strs that can be rearranged to form "bat".
-The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+Input: nums = [2,5,1,3,4,7], n = 3
+Output: [2,3,5,4,1,7]
+Explanation: Since x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 then the answer is [2,3,5,4,1,7].
 Example 2:
 
-Input: strs = [""]
-
-Output: [[""]]
-
+Input: nums = [1,2,3,4,4,3,2,1], n = 4
+Output: [1,4,2,3,3,2,4,1]
 Example 3:
 
-Input: strs = ["a"]
-
-Output: [["a"]]
+Input: nums = [1,1,2,2], n = 2
+Output: [1,2,1,2]
 
 Constraints:
 
-1 <= strs.length <= 104
-0 <= strs[i].length <= 100
-strs[i] consists of lowercase English letters.
+1 <= n <= 500
+nums.length == 2n
+1 <= nums[i] <= 10^3
 
 ```javaScript
-// solution 1
+//solution 1:
 /**
- * @param {string[]} strs
- * @return {string[][]}
+ * @param {number[]} nums
+ * @param {number} n
+ * @return {number[]}
  */
-var groupAnagrams = function (strs) {
-    // const
-    const result = [];
-    const charSumMap = new Map();
-    let charSum = 0;
+var shuffle = function (nums, n) {
+    //const
+    let result = Array(nums.length).fill(0);
+    // second cursor to change the right index
+    let k = 0;
 
-    // for each word
-    for (const word of strs) {
-        // reset charSum
-        charSum = 0;
-        // for each char of word
-        for (const char of word) {
-            // define the sum of each letter
-            charSum += char.charCodeAt(0);
-        }
 
-        // if key already is charSum
-        if (charSumMap.has(charSum)) {
-            // then push the actual word
-            charSumMap.get(charSum).push(word);
+    for (let i = 0; i < nums.length; i++) {
+        // if first num
+        if (i === 0) {
+            result[0] = nums[0];
+            k += 2;
+        // if nums of first part
+        } else if (i < nums.length / 2) {
+            result[k] = nums[i];
+            k += 2;
+        // if first num of second part
+        } else if (i === nums.length / 2) {
+            // reset k
+            k = 1;
+            result[k] = nums[i];
+            k += 2;
+        // if num of second part
         } else {
-            // if not create a new key with the word
-            charSumMap.set(charSum, [word]);
+            result[k] = nums[i];
+            k += 2;
         }
-    }
-
-    // for each key of the map
-    for (const [key, value] of charSumMap) {
-        result.push(value);
     }
 
     return result;
-};
+}
 
 // solution 2
+
 /**
- * @param {string[]} strs
- * @return {string[][]}
+ * @param {number[]} nums
+ * @param {number} n
+ * @return {number[]}
  */
-var groupAnagrams = function (strs) {
-    // const
-    const result = [];
-    let aStrs = strs;
+var shuffle = function (nums, n) {
+    //const
+    let result = Array(nums.length);
+    // second cursor to change the right index
+    let k = 0;
 
-    // while there is word on the actual string
-    while (aStrs.length > 0) {
-        // true and false stack
-        let aTStack = [];
-        let aFStack = [];
-        // first word Map
-        let fwMap = new Map();
-        for (const word of aStrs) {
-            // actual word map
-            let wMap = new Map();
 
-            for (const char of word) {
-                // setup first refMap for first word
-                if (word === aStrs[0]) {
-                    fwMap.set(char, (fwMap.get(char) || 0) + 1);
-                }
-                // setup for other word
-                wMap.set(char, (wMap.get(char) || 0) + 1);
-            }
+    for (let i = 0; i < nums.length; i++) {
 
-            // firstword
-            if (word === aStrs[0]) {
-                // push the word in the actual true stack
-                aTStack.push(word);
-
-                // otherword
-            } else if (wMap.size !== fwMap.size) {
-                // if different length push in false Stack
-                aFStack.push(word);
-            } else {
-                // flag to check if the for made to the end
-                let failled = false;
-                // check if anagram with the fword
-                for (const [c, value] of fwMap) {
-                    if (wMap.get(c) !== value) {
-                        aFStack.push(word);
-                        failled = true;
-                        break;
-                    }
-                }
-                // if failled there is anagram
-                if (!failled) {
-                    // so push in the actual true stack
-                    aTStack.push(word);
-                }
-            }
+        if (i === n) {
+            // reset k
+            k = 1;
         }
 
-        //push both stack
-        result.push(aTStack);
-        aStrs = aFStack;
+        result[k] = nums[i];
+        k += 2;
+    }
+
+    return result;
+}
+
+// solution 3
+
+/**
+ * @param {number[]} nums
+ * @param {number} n
+ * @return {number[]}
+ */
+var shuffle = function (nums, n) {
+    //const
+    let result = []
+    // first cursor
+    let i = 0
+    // second cursor start at the middle
+    let j = n;
+
+    while ( result.length < nums.length ) {
+        // push first the first part
+        result.push(nums[i]);
+        i++;
+        // push in second the second part
+        result.push(nums[j]);
+        j++;
+    }
+
+    return result;
+}
+
+// solution 4 :
+
+for (let i = 0; i < n; i++) {
+    result.push(nums[i], nums[i + n]);
+}
+
+// solution 5 :
+
+var shuffle = function(nums, n) {
+    const result = new Array(2 * n);
+
+    for (let i = 0; i < n; i++) {
+        result[2 * i] = nums[i];
+        result[2 * i + 1] = nums[i + n];
     }
 
     return result;
 };
 
-//solution 3
-
-/**
- * @param {string[]} strs
- * @return {string[][]}
- */
-var groupAnagrams = function (strs) {
-    // const
-    const result = [];
-    //hashMap result
-    let rMap = new Map();
-    //checkMap
-    let cMap = new Map();
-
-    for (const word of strs) {
-        //letterMap
-        let lMap = new Map();
-
-        for (const char of word) {
-            //set the actual letter map
-            lMap.set(char, (lMap.get(char) || 0) + 1);
-        }
-
-        for (const [w, inner] of cMap) {
-            let failed = false;
-            for (const [char, count] of inner) {
-                if (lmap.get(char) !== count) {
-                    failed = true;
-                    cMap.set(word, lMap);
-                    break;
-                }
-            }
-
-            if (!failed) {
-
-
-            }
-        }
-
-    }
-
-};
-
-// solution 4
-
-/**
- * @param {string[]} strs
- * @return {string[][]}
- */
-var groupAnagrams = function (strs) {
-    //hashMap result
-    let rMap = new Map();
-
-    //create the hashMap result
-    for (const word of strs) {
-        //letterfreq
-        let lFreq = Array(26).fill(0);
-
-        for (const char of word) {
-            lFreq[char.charCodeAt(0) - 97]++;
-        }
-
-        // create the key with # join
-        const freqKey = lFreq.join('#');
-
-        // if there is one anagram in the map push it
-        if (rMap.has(freqKey)) {
-            rMap.get(freqKey).push(word);
-        } else {
-            // if not create a new one
-            rMap.set(freqKey, [word]);
-        }
-    }
-
-    return [...rMap.values()];
-};
-
 ```
 
----
-
-## **Résumé de la conversation – Résolution de `groupAnagrams`**
-
-### **1. Blocages initiaux**
-
-1. **Map avec des tableaux comme valeurs**
-   - Tu voulais stocker des tableaux de mots comme valeurs dans une Map (`Map<clé, [mots]>`).
-   - Tu étais confus sur la syntaxe et la logique pour ajouter un mot à un tableau existant ou en créer un nouveau.
-
-2. **Calcul d’un `charSum` pour identifier les anagrammes**
-   - Tu essayais d’utiliser la somme des codes caractères (`charCodeAt`) pour identifier les anagrammes.
-   - Problème : plusieurs mots non-anagrammes peuvent donner la même somme → logique incorrecte.
-   - Tu as compris que ça ne marche pas pour garantir l’unicité.
-
-3. **Boucles imbriquées et `break` / `return`**
-   - Tu voulais interrompre certaines boucles mais continuer d’autres.
-   - Confusion sur la portée de `break` et `return`.
-   - Tu as appris la différence entre :
-     - `break` → quitte la boucle courante
-     - `return` → quitte toute la fonction
-     - `label: break label` → peut quitter une boucle externe mais il faut faire attention
-
-4. **Comparaison de Maps et objets**
-   - Tu voulais comparer des Maps `{a:2,b:1}` pour savoir si elles étaient identiques.
-   - Problème : `Map` ou objet en JS se compare par **référence**, pas par valeur.
-   - Tu as appris qu’il faut :
-     - Convertir en string (`JSON.stringify([...map])`)
-     - Ou faire une comparaison manuelle clé par clé
-
-5. **Problème avec Map + `JSON.stringify([...map])`**
-   - Tu as réalisé que l’ordre des clés dans une Map influence le string → `"eat"` et `"tea"` donnaient des clés différentes.
-   - Solution envisagée : soit trier les clés, soit utiliser une Map initialisée avec toutes les lettres dans l’ordre fixe.
-
-6. **Performance / Complexité**
-   - Tes premières solutions avec boucle imbriquée donnaient **O(n²)** → Time Limit Exceeded sur LeetCode.
-   - Tu as compris qu’il fallait une approche **O(n·k)** (n = nombre de mots, k = longueur moyenne des mots).
+**Contexte :**
+Je travaille sur le problème LeetCode **Shuffle the Array** :
+Étant donné un tableau `nums` de taille `2n` avec la forme `[x1,x2,...,xn,y1,y2,...,yn]`, il faut retourner `[x1,y1,x2,y2,...,xn,yn]`.
 
 ---
 
-### **2. Ce que tu as appris et intégré**
+**Étapes de réflexion et solutions explorées :**
 
-1. **Tableau de fréquences plutôt que Map**
-   - Pour `'a'..'z'`, tu peux faire :
+1. **Première approche avec `Map`**
+   - J’ai essayé de séparer le tableau en deux parties dans une `Map`.
+   - Problèmes rencontrés :
+     - Mauvaise logique dans la boucle : les éléments étaient ajoutés dans les deux tableaux.
+     - Mauvaise utilisation de `push()` dans le `return` (car `push` retourne la longueur et non le tableau).
 
-     ```javascript
-     let freq = Array(26).fill(0);
-     for (const char of word) freq[char.charCodeAt(0) - 97]++;
-     const key = freq.join("#");
-     ```
-
-   - Avantages :
-     - Complexité O(n·k)
-     - Clé stable
-     - Plus simple et léger qu’une Map ou un tri
-
-2. **Comparaison d’objets / Map**
-   - `JSON.stringify([...map])` permet de comparer des Maps par valeur, mais l’ordre compte.
-   - Si ordre garanti (comme tableau de fréquence), plus besoin de `.sort()`.
-
-3. **Map comme structure pour grouper les anagrammes**
-   - Clé : fréquence des lettres ou string triée
-   - Valeur : tableau des mots correspondants
-   - Ajout conditionnel :
-
-     ```javascript
-     if (map.has(key)) map.get(key).push(word);
-     else map.set(key, [word]);
-     ```
-
-4. **Optimisation finale**
-   - Supprimer les variables inutilisées (`lString`, `result`)
-   - Retourner directement `return [...rMap.values()]`
-   - Pas besoin de boucle supplémentaire pour remplir un tableau intermédiaire
+   - Conclusion : solution inutilement complexe pour ce problème.
 
 ---
 
-### **3. Points forts de ton apprentissage**
+2. **Deuxième approche avec pointeur d’écriture (`k`)**
+   - Création d’un tableau `result`.
 
-- Compréhension de **Map + tableau comme valeur** pour regrouper des éléments.
-- Différence entre `break` et `return` et utilisation correcte dans des boucles imbriquées.
-- Limites des méthodes basées sur `charCode` pour les anagrammes.
-- Avantages des **tableaux de fréquences** vs `.sort()` : complexité O(n·k) vs O(n·k log k).
-- Conversion d’objets/Maps en string pour comparaison par valeur.
-- Nettoyage du code : supprimer variables inutilisées, simplifier le retour.
+   - Utilisation d’un curseur `k` pour écrire dans les index pairs puis impairs.
+
+   - Problèmes rencontrés :
+     - J’avais écrit `k + 2` au lieu de `k += 2`, donc `k` ne changeait jamais.
+     - Trop de conditions `if / else` qui rendaient le code compliqué.
+
+   - Amélioration : simplification des conditions pour n’avoir qu’un seul `if` pour réinitialiser `k`.
 
 ---
 
-### **4. Résultat final**
+3. **Troisième approche avec deux pointeurs de lecture**
+   - Utilisation de deux curseurs :
+     - `i` pour la première moitié
+     - `j = n` pour la seconde moitié
 
-- Une solution propre, efficace, O(n·k), utilisant un tableau de fréquences pour `'a'..'z'` et une Map pour grouper les mots :
+   - Ajout des éléments dans `result` avec `push`.
+
+   Exemple :
+
+   ```javascript
+   while (i < n) {
+     result.push(nums[i]);
+     result.push(nums[j]);
+     i++;
+     j++;
+   }
+   ```
+
+   Amélioration :
+   - utiliser `while (i < n)` plutôt que `result.length < nums.length`.
+
+---
+
+4. **Découvertes JavaScript importantes**
+
+- `push()` peut accepter **plusieurs arguments** :
 
 ```javascript
-const rMap = new Map();
-for (const word of strs) {
-  const freq = Array(26).fill(0);
-  for (const char of word) freq[char.charCodeAt(0) - 97]++;
-  const key = freq.join("#");
-  if (!rMap.has(key)) rMap.set(key, []);
-  rMap.get(key).push(word);
-}
-return [...rMap.values()];
+result.push(nums[i], nums[i + n]);
 ```
 
-- Clé stable, pas besoin de `.sort()`, très rapide pour de grandes entrées.
+- `.fill()` n’est **pas nécessaire** si toutes les cases du tableau sont écrites ensuite.
+
+- Un tableau peut être créé de plusieurs façons :
+  - `new Array(size)`
+  - `Array(size)`
+  - `[]` (JavaScript agrandit le tableau automatiquement si on écrit à un index plus loin)
 
 ---
 
-### **5. Comment tu t’es servi de l’IA**
+5. **Solution algorithmique la plus propre**
 
-- Vérification de syntaxe et logique (Map, boucle, break/return).
-- Explication de la limite de `charCodeAt` pour un charSum.
-- Comparaison Map / objet par valeur vs référence.
-- Simplification et optimisation du code (tableau de fréquence, suppression de variables inutilisées).
-- Confirmation de la complexité et recommandations pour O(n·k) plutôt que O(n·k log k).
+Utiliser la relation mathématique entre les index :
+
+```
+x → 2*i
+y → 2*i + 1
+```
+
+```javascript
+for (let i = 0; i < n; i++) {
+  result[2 * i] = nums[i];
+  result[2 * i + 1] = nums[i + n];
+}
+```
 
 ---
+
+**Principaux apprentissages :**
+
+- Éviter les `if` quand le pattern est régulier.
+- Identifier les relations entre les index peut simplifier énormément un algorithme.
+- `push()` peut ajouter plusieurs éléments en une fois.
+- Attention aux expressions sans affectation (`k + 2` vs `k += 2`).
+- Réduire les duplications de code dans les branches `if`.
+- Choisir une condition de boucle qui reflète la vraie logique (`i < n`).
+
+---
+
+**Conclusion personnelle :**
+
+J’ai réussi à résoudre le problème avec plusieurs approches et j’ai compris que :
+
+- les solutions les plus simples viennent souvent d’un **pattern mathématique clair**
+- JavaScript offre des **raccourcis syntaxiques utiles (`push(a,b)`)**
+- mon code initial fonctionnait mais pouvait être **simplifié pour plus de lisibilité**.

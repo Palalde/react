@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-09 | **Total** : 123 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-09 | **Total** : 124 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -113,14 +113,14 @@ em {
 
 | Deck                      | Cards   | Modèles utilisés                            |
 | ------------------------- | ------- | ------------------------------------------- |
-| `Dev::01-JavaScript-Core` | 51      | Q/R (31) + Cloze (15) + Rev (5)             |
+| `Dev::01-JavaScript-Core` | 52      | Q/R (31) + Cloze (16) + Rev (5)             |
 | `Dev::02-React`           | 28      | Q/R (17) + Corrections (7) + Rev (4)        |
 | `Dev::03-CSS-HTML`        | 8       | Q/R (8)                                     |
 | `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                     |
 | `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                       |
 | `Dev::06-Entretien`       | 7       | Q/R (7)                                     |
 | `Dev::07-LeetCode-Algo`   | 23      | Q/R (13) + Cloze (7) + Rev (1) + Output (2) |
-| **Total**                 | **123** |                                             |
+| **Total**                 | **124** |                                             |
 
 ---
 
@@ -164,6 +164,7 @@ em {
 - box-sizing border-box
 - localStorage stocke strings → JSON
 - React.memo empêche re-render enfants
+- push() accepte plusieurs arguments (push(a, b))
 
 #### Reversible (5)
 
@@ -491,4 +492,4 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 
 ---
 
-_Dernière vérification complète : 2026-03-09 (ajout Frequency Array + Hashable Key après Group Anagrams)_
+_Dernière vérification complète : 2026-03-09 (ajout push() multi-args après Shuffle the Array)_
