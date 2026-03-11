@@ -43,50 +43,49 @@ export function getEmployeeHours(
     breakEnd?: string;
   }[],
 ): { total: number; am: number; pm: number } {
-  // Filtrer les assignations de cet employé
-  const employeeAssignments = assignments.filter(
-    (a) => a.employeeId === employeeId,
-  );
+  // variables
+  const shiftMap = new Map(shifts.map((s) => [s.id, s]));
+  const result = { total: 0, am: 0, pm: 0 };
 
-  // total heures + matin et aprem {total, am, pm}
-  return employeeAssignments.reduce(
-    (acc, assignment) => {
-      const shift = shifts.find((s) => assignment.shiftId === s.id);
-      if (!shift) return acc;
+  // Parcours des affectations de l'employé
+  for (const { employeeId: eid, shiftId } of assignments) {
+    // guard
+    if (eid !== employeeId) continue;
 
-      const start = timeToMinutes(shift.startTime);
-      const end = timeToMinutes(shift.endTime);
+    // récupère le shift
+    const shift = shiftMap.get(shiftId);
+    if (!shift) continue;
 
-      // Répartition AM / PM basée sur le type du shift
-      if (shift.type === "am") {
-        // Shift matin → tout en AM
-        const totalMinutes = end - start;
-        acc.total += totalMinutes;
-        acc.am += totalMinutes;
-      } else if (shift.type === "pm") {
-        // Shift après-midi → tout en PM
-        const totalMinutes = end - start;
-        acc.total += totalMinutes;
-        acc.pm += totalMinutes;
-      } else if (shift.type === "full") {
-        // Shift journée → splitter sur midi
-        const totalMinutes = end - start;
-        acc.total += totalMinutes;
-        acc.am += NOON - start;
-        acc.pm += end - NOON;
-      } else if (shift.type === "split") {
-        // Shift coupé → AM = start→breakStart, PM = breakEnd→end
-        const breakStart = timeToMinutes(shift.breakStart!);
-        const breakEnd = timeToMinutes(shift.breakEnd!);
-        const amMinutes = breakStart - start;
-        const pmMinutes = end - breakEnd;
-        acc.total += amMinutes + pmMinutes;
-        acc.am += amMinutes;
-        acc.pm += pmMinutes;
-      }
+    // calcul des minutes pour ce shift
+    const start = timeToMinutes(shift.startTime);
+    const end = timeToMinutes(shift.endTime);
 
-      return acc;
-    },
-    { total: 0, am: 0, pm: 0 },
-  );
+    // acc
+    let am = 0;
+    let pm = 0;
+
+    // calcul en fonction du type de shift
+    if (shift.type === "am") {
+      am = end - start;
+    } else if (shift.type === "pm") {
+      pm = end - start;
+    } else if (shift.type === "full") {
+      // calcul en tenant compte du midi
+      am = NOON - start;
+      pm = end - NOON;
+    } else if (shift.type === "split") {
+      // guard
+      if (!shift.breakStart || !shift.breakEnd) continue;
+      // calcul en tenant compte de la pause
+      am = timeToMinutes(shift.breakStart) - start;
+      pm = end - timeToMinutes(shift.breakEnd);
+    }
+
+    // accumulation des résultats
+    result.total += am + pm;
+    result.am += am;
+    result.pm += pm;
+  }
+
+  return result;
 }
