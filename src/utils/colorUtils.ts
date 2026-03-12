@@ -1,3 +1,5 @@
+import { Employee } from "@/types";
+
 // palettes de couleur predefinis
 const DEFAULT_COLORS: string[] = [
   "#6366F1", // Indigo
@@ -15,9 +17,7 @@ const DEFAULT_COLORS: string[] = [
 ];
 
 // trouve une couleur disponible pour un nouvel employé en vérifiant les couleurs déjà utilisées
-export function getAvailableColor(
-  employees: { color?: string }[] = [],
-): string {
+export function getAvailableColor(employees: Employee[] = []): string {
   // Récupère toutes les couleurs déjà utilisées
   const usedColors = new Set(employees.map((emp) => emp.color?.toUpperCase()));
 
