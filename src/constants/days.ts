@@ -1,4 +1,10 @@
-export const DAYS_OF_WEEK = [
+import { DayOfWeek } from "@/types";
+
+export const DAYS_OF_WEEK: {
+  id: DayOfWeek;
+  name: string;
+  shortName: string;
+}[] = [
   { id: "monday", name: "Lundi", shortName: "Lun" },
   { id: "tuesday", name: "Mardi", shortName: "Mar" },
   { id: "wednesday", name: "Mercredi", shortName: "Mer" },
