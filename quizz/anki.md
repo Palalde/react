@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-10 | **Total** : 126 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-12 | **Total** : 128 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -119,8 +119,8 @@ em {
 | `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                     |
 | `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                       |
 | `Dev::06-Entretien`       | 7       | Q/R (7)                                     |
-| `Dev::07-LeetCode-Algo`   | 23      | Q/R (13) + Cloze (7) + Rev (1) + Output (2) |
-| **Total**                 | **126** |                                             |
+| `Dev::07-LeetCode-Algo`   | 25      | Q/R (15) + Cloze (7) + Rev (1) + Output (2) |
+| **Total**                 | **128** |                                             |
 
 ---
 
@@ -305,6 +305,11 @@ em {
 
 - Q/R : Approche Brute Force → Optimize — méthode 4 étapes, exemple Contains Duplicate ⭐⭐
 - Cloze : 4 étapes LeetCode (Comprendre → Brute Force → Bottleneck → Optimiser)
+
+#### Linked List (2 cards)
+
+- Q/R : Linked List — structure Node, parcours while(cur), suppression prev.next = cur.next, pièges (boucle infinie, null ≠ suppression) ⭐⭐
+- Q/R : Dummy Head Node — sentinelle pour éliminer les cas spéciaux, pattern cur.next, usage hash table buckets ⭐⭐
 
 #### Concepts à carder plus tard (NeetCode 150 progression)
 
@@ -494,4 +499,4 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 
 ---
 
-_Dernière vérification complète : 2026-03-10 (ajout Math.max/min + ternaire expression vs statement après Max Consecutive Ones)_
+_Dernière vérification complète : 2026-03-12 (ajout Linked List + Dummy Head après Design HashSet)_
