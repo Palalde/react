@@ -1,6 +1,6 @@
 # Anki — Contexte IA pour création de cards
 
-> **MAJ** : 2026-03-12 | **Total** : 128 cards | **Decks** : 7 | **Modèles** : 3
+> **MAJ** : 2026-03-13 | **Total** : 131 cards | **Decks** : 7 | **Modèles** : 3
 >
 > Ce fichier sert de **mémoire** pour l'IA lors de la création/modification de cartes Anki.
 > Consulter AVANT de créer de nouvelles cards pour garantir cohérence et éviter les doublons.
@@ -113,14 +113,14 @@ em {
 
 | Deck                      | Cards   | Modèles utilisés                            |
 | ------------------------- | ------- | ------------------------------------------- |
-| `Dev::01-JavaScript-Core` | 54      | Q/R (32) + Cloze (18) + Rev (5)             |
+| `Dev::01-JavaScript-Core` | 57      | Q/R (33) + Cloze (20) + Rev (5)             |
 | `Dev::02-React`           | 28      | Q/R (17) + Corrections (7) + Rev (4)        |
 | `Dev::03-CSS-HTML`        | 8       | Q/R (8)                                     |
 | `Dev::04-Tooling-Git`     | 6       | Q/R (6)                                     |
 | `Dev::05-Backend-API`     | 0       | _(réservé Phase 11+)_                       |
 | `Dev::06-Entretien`       | 7       | Q/R (7)                                     |
 | `Dev::07-LeetCode-Algo`   | 25      | Q/R (15) + Cloze (7) + Rev (1) + Output (2) |
-| **Total**                 | **128** |                                             |
+| **Total**                 | **131** |                                             |
 
 ---
 
@@ -147,6 +147,7 @@ em {
 - **Destructuring** : Array/Object, renommage, valeurs par défaut, nested, paramètres
 - **localStorage** : getItem, setItem, JSON.stringify/parse, 5MB, synchrone
 - **Math.max/min** : comparaison multi-args, spread pour tableau, pièges -Infinity/Infinity
+- **Object.keys/values/entries** : parcourir un {}, {} pas itérable directement, vs Map
 
 #### Cloze (15)
 
@@ -167,6 +168,8 @@ em {
 - React.memo empêche re-render enfants
 - push() accepte plusieurs arguments (push(a, b))
 - Ternaire = expression (valeur) pas statement (actions) — OK pour assigner/return, pas pour .push/.set
+- delete obj[key] vs obj[key] = undefined (supprime la clé vs garde la clé)
+- {} clés converties en string (obj[42] === obj['42']), vs Map qui garde le type
 
 #### Reversible (5)
 
@@ -499,4 +502,4 @@ mcp_anki-mcp_createModel(modelName, inOrderFields, css, isCloze, cardTemplates)
 
 ---
 
-_Dernière vérification complète : 2026-03-12 (ajout Linked List + Dummy Head après Design HashSet)_
+_Dernière vérification complète : 2026-03-13 (ajout delete obj, Object.entries, {} clés string après Design HashMap)_
