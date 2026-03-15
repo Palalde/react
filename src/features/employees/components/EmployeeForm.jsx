@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input, Button, ColorInput, HoursInput } from "@/components/ui";
-import { getAvailableColor } from "@/utils";
+import { getAvailableColor } from "@/employees";
 
 // formulaire de création/édition d'un employé
 export default function EmployeeForm({
