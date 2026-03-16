@@ -5,7 +5,6 @@ export {
   minutesToHoursMinutes,
   hoursMinutesToMinutes,
   formatMinutesToDisplay,
-  getEmployeeHours,
 } from "./timeUtils";
 export {
   getShiftColorClass,

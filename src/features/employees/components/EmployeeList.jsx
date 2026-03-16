@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Modal, Button } from "@/components/ui";
-import { getEmployeeHours } from "@/utils";
+import { getEmployeeHours } from "../utils/employeeHours";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeForm from "./EmployeeForm";
 import { useAppContext } from "@/context/AppContext";

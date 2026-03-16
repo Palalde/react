@@ -2,7 +2,8 @@
 // 🎨 Styling Tailwind = Mentor | ⚛️ Logique React = Paul
 
 import { DAYS_OF_WEEK } from "@/constants";
-import { formatMinutesToDisplay, getEmployeeHours } from "@/utils";
+import { getEmployeeHours } from "@/features/employees";
+import { formatMinutesToDisplay } from "@/utils";
 import PlanningCell from "./PlanningCell";
 import { useAppContext } from "@/context/AppContext";
 
