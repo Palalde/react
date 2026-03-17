@@ -1,25 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
-// Hook personnalisé pour gérer le localStorage
-export default function useLocalStorage(key, initialValue) {
-  // initialiser le state avec default ou valeur du localStorage
-  const [value, setValue] = useState(() => {
+/**
+
+ * @param key localStorage key
+ * @param initialValue initial value if localStorage is empty or corrupted
+ * @returns [value, setValue] tuple
+ */
+export default function useLocalStorage<T>(
+  key: string,
+  initialValue: T,
+): [T, Dispatch<SetStateAction<T>>] {
+  const [value, setValue] = useState<T>(() => {
     try {
-      // Vérifier si une valeur existe dans le localStorage
       const storedValue = localStorage.getItem(key);
-      // Retourner la valeur stockée ou la valeur initiale
+
       return storedValue ? JSON.parse(storedValue) : initialValue;
     } catch (error) {
-      // Si les données sont corrompues, on repart avec la valeur initiale
       console.warn(
         `localStorage key "${key}" corrompu, reset à la valeur initiale`,
         error,
       );
+
       return initialValue;
     }
   });
 
-  // useEffect pour synchroniser le state avec le localStorage
   useEffect(() => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
