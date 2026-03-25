@@ -174,3 +174,13 @@ Rien à carder — exercice trop simple, aucun concept nouveau.
 | **Negative Marking** — marquer `nums[                        | n      | -1] \*= -1` pour tracker les vus in-place, O(1) espace | ✅ Oui | 2e rencontre (Set Mismatch + celui-ci). Pattern réutilisable (Find All Duplicates, First Missing Positive). Fait mémorisable. |
 | "Je peux muter l'input sur LeetCode" (contrairement à React) | ❌ Non | Leçon d'expérience / mindset. Pas un fait mémorisable. |
 | Counting array pour existence                                | ❌ Non | Déjà couvert (Frequency Array pattern + Prefix Sum).   |
+
+---
+
+## 20. Valid Parentheses
+
+| Apprentissage                                                                            | Card ? | Pourquoi                                                                                                                                         |
+| ---------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Stack (LIFO)** — `push()` pour empiler, `pop()` pour dépiler le dernier, ordre inversé | ✅ Oui | Vrai gap : pensait qu'un stack = "juste un array où on accumule". LIFO + `pop()` comme opération centrale est fondamental. 10+ problèmes futurs. |
+| Map pour reverse lookup (closer → opener)                                                | ❌ Non | Déjà couvert (Map/Set cards). Utilisation créative, pas concept nouveau.                                                                         |
+| Edge cases (longueur impaire, stack non vide à la fin)                                   | ❌ Non | Bug fixes ponctuels. Réflexe qui vient avec la pratique.                                                                                         |

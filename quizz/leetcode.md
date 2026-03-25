@@ -1,68 +1,118 @@
-Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
 
 Example 1:
 
-Input: nums = [4,3,2,7,8,2,3,1]
-Output: [5,6]
+Input: s = "()"
+
+Output: true
+
 Example 2:
 
-Input: nums = [1,1]
-Output: [2]
+Input: s = "()[]{}"
+
+Output: true
+
+Example 3:
+
+Input: s = "(]"
+
+Output: false
+
+Example 4:
+
+Input: s = "([])"
+
+Output: true
+
+Example 5:
+
+Input: s = "([)]"
+
+Output: false
 
 Constraints:
 
-n == nums.length
-1 <= n <= 105
-1 <= nums[i] <= n
-
-Follow up: Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
 
 ```javaScript
-// solution 1:
-
+//solution 1
 /**
- * @param {number[]} nums
- * @return {number[]}
+ * @param {string} s
+ * @return {boolean}
  */
-var findDisappearedNumbers = function (nums) {
-    let count = Array(nums.length).fill(0);
-    let result = [];
+var isValid = function (s) {
 
-    for (const n of nums) {
-        count[n - 1] = n;
-    }
+   const PCheck = new Map([
+        [")", "("],
+        ["}", "{"],
+        ["]", "["],
+    ]);
 
-    for (let i = 0; i < count.length; i++) {
-        if (!count[i]) {
-            result.push(i + 1);
+    let pStack = [];
+
+    for (let i = 0; i < s.length; i++) {
+
+        if (PCheck.has(s[i])) {
+
+            let val = pStack.pop();
+
+            if (val !== PCheck.get(s[i])) {
+                return false;
+            }
+            continue;
         }
+
+        pStack.push(s[i]);
     }
 
-    return result;
+    return true;
 };
 
-//solution 2:
+//solution 2
 
 /**
- * @param {number[]} nums
- * @return {number[]}
+ * @param {string} s
+ * @return {boolean}
  */
-var findDisappearedNumbers = function (nums) {
-    let result = [];
+var isValid = function (s) {
 
-    for (const n of nums) {
+    if (s.length % 2 !== 0) return false;
 
-        let a = Math.abs(n);
-        let p = Math.abs(nums[a - 1]);
-        nums[a - 1] = p * -1;
-    }
+    const PCheck = new Map([
+        [")", "("],
+        ["}", "{"],
+        ["]", "["],
+    ]);
 
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] > 0) {
-            result.push(i + 1);
+    let pStack = [];
+
+    for (let i = 0; i < s.length; i++) {
+
+        if (PCheck.has(s[i])) {
+
+            let val = pStack.pop();
+
+            if (val !== PCheck.get(s[i])) {
+                return false;
+            }
+            continue;
         }
-    }
-    return result;
-};
 
+        pStack.push(s[i]);
+    }
+
+    if (pStack.length) {
+        return false;
+    } else {
+        return true;
+    }
+
+};
 ```
