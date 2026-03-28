@@ -197,3 +197,14 @@ Rien à carder — exercice trop simple, aucun concept nouveau.
 | `isFinite()` seul séparément                         | ❌ Non | Même pattern que isNaN, couvert dans la card ci-dessus                                      |
 | ChatGPT hallucine sur isNaN                          | ❌ Non | Leçon d'expérience, pas un fait mémorisable                                                 |
 | Stack (push/pop/at)                                  | ❌ Non | Déjà couvert (card Stack LIFO — Valid Parentheses)                                          |
+
+---
+
+## 225. Implement Stack using Queues
+
+| Apprentissage                                             | Card ? | Pourquoi                                                                  |
+| --------------------------------------------------------- | ------ | ------------------------------------------------------------------------- |
+| Linked list pour implémenter un stack (prepend, pop head) | ❌ Non | Déjà couvert (cards Linked List : Node, traversal). Application correcte. |
+| Class syntax JS (class, constructor, this, méthodes)      | ❌ Non | Pratiqué naturellement, pas un gap                                        |
+| `??` utilisé correctement dans pop()/top()                | ❌ Non | Application de la card Baseball Game, bien ancré                          |
+| Queue (FIFO) — concept découvert                          | ❌ Non | Trop tôt. Pas pratiqué. Reviendra sur BFS / level-order traversal.        |

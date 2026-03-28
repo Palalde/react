@@ -1,79 +1,119 @@
-# 682. Baseball Game
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
 
-You are keeping the scores for a baseball game with strange rules. At the beginning of the game, you start with an empty record.
+Implement the MyStack class:
 
-You are given a list of strings operations, where operations[i] is the ith operation you must apply to the record and is one of the following:
+void push(int x) Pushes element x to the top of the stack.
+int pop() Removes the element on the top of the stack and returns it.
+int top() Returns the element on the top of the stack.
+boolean empty() Returns true if the stack is empty, false otherwise.
+Notes:
 
-An integer x.
-Record a new score of x.
-'+'.
-Record a new score that is the sum of the previous two scores.
-'D'.
-Record a new score that is the double of the previous score.
-'C'.
-Invalidate the previous score, removing it from the record.
-Return the sum of all the scores on the record after applying all the operations.
-
-The test cases are generated such that the answer and all intermediate calculations fit in a 32-bit integer and that all operations are valid.
+You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
 
 Example 1:
 
-Input: ops = ["5","2","C","D","+"]
-Output: 30
-Explanation:
-"5" - Add 5 to the record, record is now [5].
-"2" - Add 2 to the record, record is now [5, 2].
-"C" - Invalidate and remove the previous score, record is now [5].
-"D" - Add 2 \* 5 = 10 to the record, record is now [5, 10].
-"+" - Add 5 + 10 = 15 to the record, record is now [5, 10, 15].
-The total sum is 5 + 10 + 15 = 30.
-Example 2:
+Input
+["MyStack", "push", "push", "top", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 2, 2, false]
 
-Input: ops = ["5","-2","4","C","D","9","+","+"]
-Output: 27
-Explanation:
-"5" - Add 5 to the record, record is now [5].
-"-2" - Add -2 to the record, record is now [5, -2].
-"4" - Add 4 to the record, record is now [5, -2, 4].
-"C" - Invalidate and remove the previous score, record is now [5, -2].
-"D" - Add 2 \* -2 = -4 to the record, record is now [5, -2, -4].
-"9" - Add 9 to the record, record is now [5, -2, -4, 9].
-"+" - Add -4 + 9 = 5 to the record, record is now [5, -2, -4, 9, 5].
-"+" - Add 9 + 5 = 14 to the record, record is now [5, -2, -4, 9, 5, 14].
-The total sum is 5 + -2 + -4 + 9 + 5 + 14 = 27.
-Example 3:
+Explanation
+MyStack myStack = new MyStack();
+myStack.push(1);
+myStack.push(2);
+myStack.top(); // return 2
+myStack.pop(); // return 2
+myStack.empty(); // return False
 
-Input: ops = ["1","C"]
-Output: 0
-Explanation:
-"1" - Add 1 to the record, record is now [1].
-"C" - Invalidate and remove the previous score, record is now [].
-Since the record is empty, the total sum is 0.
+Constraints:
+
+1 <= x <= 9
+At most 100 calls will be made to push, pop, top, and empty.
+All the calls to pop and top are valid.
+
+Follow-up: Can you implement the stack using only one queue?
 
 ```javaScript
+
 //solution 1
-/**
- * @param {string[]} operations
- * @return {number}
- */
-var calPoints = function (operations) {
-    let stack = [];
+class Node {
+    constructor(num) {
+        this.val = num;
+        this.next = null;
+    }
+}
 
-    for (const op of operations) {
-        let last = stack.at(-1) ?? 0;
-        let prevLast = stack.at(-2) ?? 0;
-
-        if (!isNaN(op)) {
-            stack.push(Number(op));
-        } else if (op === "C") {
-            stack.pop();
-        } else if (op === "D") {
-            stack.push(last * 2);
-        } else if (op === "+") {
-            stack.push(prevLast + last);
-        }
+class MyStack {
+    constructor() {
+        this.list = new Node(null);
     }
 
-    return stack.reduce((acc, s) => acc + s, 0);
-};
+
+    push(num) {
+        let last = new Node(num);
+        last.next = this.list;
+        this.list = last;
+    }
+
+    pop() {
+        let num = this.list.val ?? undefined;
+        let prev = this.list.next;
+        this.list = prev;
+        return num;
+    }
+
+    top() {
+        return this.list.val ?? undefined;
+    }
+
+    empty() {
+        return this.list.next ? false : true;
+    }
+}
+
+//solution 2
+class MyStack {
+    constructor() {
+        this.q = null;
+    }
+
+    /**
+     * @param {number} x
+     * @return {void}
+     */
+    push(x) {
+        const newQueue = new Queue();
+        newQueue.enqueue(x);
+        newQueue.enqueue(this.q);
+        this.q = newQueue;
+    }
+
+    /**
+     * @return {number}
+     */
+    pop() {
+        if (this.q === null) return -1;
+
+        const top = this.q.dequeue();
+        this.q = this.q.dequeue();
+        return top;
+    }
+
+    /**
+     * @return {number}
+     */
+    top() {
+        if (this.q === null) return -1;
+        return this.q.front();
+    }
+
+    /**
+     * @return {boolean}
+     */
+    empty() {
+        return this.q === null;
+    }
+}
 ```
