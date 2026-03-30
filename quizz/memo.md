@@ -219,3 +219,15 @@ Rien à carder — exercice trop simple, aucun concept nouveau.
 | **Tail pointer — O(1) append sur linked list**         | ✅ Oui | Vrai gap : pensait impossible d'avoir push O(1). Pattern fondamental (queue, deque, LRU cache). `tail.next = node` + `tail = node` oubliable. |
 | Référence partagée head/tail = même objet mémoire      | ❌ Non | Déjà couvert (cards référence vs valeur). Insight intégré dans la card tail pointer                                                           |
 | Queue FIFO concept                                     | ❌ Non | Trop tôt — même verdict que 225. Reviendra sur BFS                                                                                            |
+
+---
+
+## 347. Top K Frequent Elements
+
+| Apprentissage                                                                | Card ? | Pourquoi                                                                                                         |
+| ---------------------------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------- |
+| **Bucket Sort (frequency bucket)** — index = fréquence, itérer depuis la fin | ✅ Oui | Pattern top K en O(n). Pas trouvé malgré intuition correcte. Réutilisable (top K, sort O(n) quand range limitée) |
+| `.push()` retourne la length, pas l'array                                    | ❌ Non | Bug ponctuel. Fix simple, pas un pattern                                                                         |
+| `Array.from({ length: n }, () => [])` pour buckets                           | ❌ Non | Syntaxe trouvable, écrite correctement après avoir vu l'approche                                                 |
+| Math.max(...keys) pas adapté pour top K                                      | ❌ Non | Leçon de design, pas un concept mémorisable                                                                      |
+| Être proche mais pas trouver le bucket                                       | ❌ Non | Process/frustration, pas technique                                                                               |

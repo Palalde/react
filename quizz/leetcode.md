@@ -1,120 +1,132 @@
-Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
-
-Implement the MyQueue class:
-
-void push(int x) Pushes element x to the back of the queue.
-int pop() Removes the element from the front of the queue and returns it.
-int peek() Returns the element at the front of the queue.
-boolean empty() Returns true if the queue is empty, false otherwise.
-Notes:
-
-You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
-Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 
 Example 1:
 
-Input
-["MyQueue", "push", "push", "peek", "pop", "empty"]
-[[], [1], [2], [], [], []]
-Output
-[null, null, null, 1, 1, false]
+Input: nums = [1,1,1,2,2,3], k = 2
 
-Explanation
-MyQueue myQueue = new MyQueue();
-myQueue.push(1); // queue is: [1]
-myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
-myQueue.peek(); // return 1
-myQueue.pop(); // return 1, queue is [2]
-myQueue.empty(); // return false
+Output: [1,2]
+
+Example 2:
+
+Input: nums = [1], k = 1
+
+Output: [1]
+
+Example 3:
+
+Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
+
+Output: [1,2]
 
 Constraints:
 
-1 <= x <= 9
-At most 100 calls will be made to push, pop, peek, and empty.
-All the calls to pop and peek are valid.
+1 <= nums.length <= 105
+-104 <= nums[i] <= 104
+k is in the range [1, the number of unique elements in the array].
+It is guaranteed that the answer is unique.
 
-Follow-up: Can you implement the queue such that each operation is amortized O(1) time complexity? In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
+Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
 ```javaScript
 
 //solution 1
-class Node {
-    constructor(num) {
-        this.val = num;
-        this.next = null;
-    }
-}
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+    let freqMap = new Map();
+    let checkMap = new Map();
+    let result = [];
 
-class MyQueue {
-    constructor(num) {
-        this.queue = new Node(null);
+    for (const n of nums) {
+        freqMap.set(n, (freqMap.get(n) || 0) + 1);
     }
 
-    push(num) {
-        let cur = this.queue
-        while (cur.next) {
-            if (!cur.next.next) {
-                cur.next.next = new Node(num);
-                return;
-            }
-            cur = cur.next;
+    for (const [val, freq] of freqMap) {
+        if (!checkMap.has(freq)) {
+            checkMap.set(freq, [val]);
+        } else {
+            checkMap.set(freq, checkMap.get(freq).push(val));
         }
-        cur.next = new Node(num);
     }
 
-    pop() {
-        let element = this.queue.next.val?? undefined;
-        this.queue.next = this.queue.next.next;
-        return element;
+    let allFreq = checkMap.keys();
+    let n = 0
+
+    while (n <= k) {
+        let max = Math.max(...allFreq);
+        result.push(max);
+        freqMap.delete(max);
+        n++;
     }
 
-    peek() {
-        return this.queue.next.val ?? undefined;
-    }
+    return result;
+};
 
-    empty() {
-        return this.queue.next ? false : true;
-    }
-}
 
 //solution 2
-class Node {
-    constructor(num) {
-        this.val = num;
-        this.next = null;
-    }
-}
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+    let freqMap = new Map();
+    let checkMap = new Map();
+    let checkSet = new Set();
+    let result = [];
 
-class MyQueue {
-    constructor() {
-        this.head = null;
-        this.tail = null;
+    for (const n of nums) {
+        freqMap.set(n, (freqMap.get(n) || 0) + 1);
     }
 
-    push(num) {
-        const node = new Node(num);
-        if (!this.tail) {
-            this.head = this.tail = node;
+    for (const [val, freq] of freqMap) {
+        if (!checkMap.has(freq)) {
+            checkMap.set(freq, [val]);
         } else {
-            this.tail.next = node;
-            this.tail = node;
+            checkMap.set(freq, checkMap.get(freq).push(val));
+        }
+
+        checkSet.add(freq);
+    }
+
+   let n = 0;
+    while (n <= k) {
+        max = Math.max(...checkSet);
+        checkSet.delete(max);
+        result.push(...checkMap.get(max));
+        n++;
+    }
+
+    return result;
+
+};
+//solution 3
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+    let freqMap = new Map();
+    let bucket = Array.from({ length: nums.length + 1 }, () => []);
+    let result = [];
+
+    for (const n of nums) {
+        freqMap.set(n, (freqMap.get(n) || 0) + 1);
+    }
+    for (const [num, freq] of freqMap) {
+        bucket[freq].push(num);
+    }
+
+    for (let i = bucket.length - 1; i > 0; i--) {
+        for (let num of bucket[i]) {
+            result.push(num);
+            if (result.length === k) return result;
         }
     }
-
-    pop() {
-        if (!this.head) return undefined;
-        const val = this.head.val;
-        this.head = this.head.next;
-        if (!this.head) this.tail = null;
-        return val;
-    }
-
-    peek() {
-        return this.head ? this.head.val : undefined;
-    }
-
-    empty() {
-        return this.head === null;
-    }
-}
+};
 ```
