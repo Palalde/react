@@ -208,3 +208,14 @@ Rien à carder — exercice trop simple, aucun concept nouveau.
 | Class syntax JS (class, constructor, this, méthodes)      | ❌ Non | Pratiqué naturellement, pas un gap                                        |
 | `??` utilisé correctement dans pop()/top()                | ❌ Non | Application de la card Baseball Game, bien ancré                          |
 | Queue (FIFO) — concept découvert                          | ❌ Non | Trop tôt. Pas pratiqué. Reviendra sur BFS / level-order traversal.        |
+
+---
+
+## 232. Implement Queue using Stacks
+
+| Apprentissage                                          | Card ? | Pourquoi                                                                                                                                      |
+| ------------------------------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Push O(n) sans tail pointer (parcourir toute la liste) | ❌ Non | Compris par la pratique, conséquence logique                                                                                                  |
+| **Tail pointer — O(1) append sur linked list**         | ✅ Oui | Vrai gap : pensait impossible d'avoir push O(1). Pattern fondamental (queue, deque, LRU cache). `tail.next = node` + `tail = node` oubliable. |
+| Référence partagée head/tail = même objet mémoire      | ❌ Non | Déjà couvert (cards référence vs valeur). Insight intégré dans la card tail pointer                                                           |
+| Queue FIFO concept                                     | ❌ Non | Trop tôt — même verdict que 225. Reviendra sur BFS                                                                                            |
