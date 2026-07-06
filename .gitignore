@@ -16,7 +16,8 @@ dist-ssr
 .vscode/*
 !.vscode/extensions.json
 .github
-.quizz
+quizz/
+mcp.json
 .idea
 .DS_Store
 *.suo
