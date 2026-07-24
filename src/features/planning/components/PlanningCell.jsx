@@ -1,7 +1,7 @@
 // 🎯 Task 9.1.3 : PlanningCell — Cellule individuelle AM ou PM
 // 🎨 Styling Tailwind = Mentor | ⚛️ Câblage dans EmployeeRow = Paul
 
-import { getShiftColorClass } from "@/utils";
+import { SHIFT_TYPE_CONFIG } from "@/constants";
 
 function PlanningCell({ assignment, shift, period, onClick }) {
   // Cellule vide → zone cliquable
@@ -37,7 +37,7 @@ function PlanningCell({ assignment, shift, period, onClick }) {
     : "rounded";
 
   // Couleur dérivée du type (plus de colorClass stockée)
-  const colorClass = getShiftColorClass(shift?.type);
+  const colorClass = SHIFT_TYPE_CONFIG[shift?.type].colorClass;
 
   // Texte affiché dans la cellule selon le type
   const getCellLabel = () => {

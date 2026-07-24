@@ -89,8 +89,3 @@ export function calcShiftAmPm(shift: Shift): HoursSummary {
 
   return { total: am + pm, am, pm };
 }
-
-/** get CSS class for a shift type */
-export function getShiftColorClass(type: ShiftType): string {
-  return SHIFT_TYPE_CONFIG[type].colorClass;
-}

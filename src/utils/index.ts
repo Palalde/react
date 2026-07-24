@@ -6,8 +6,4 @@ export {
   hoursMinutesToMinutes,
   formatMinutesToDisplay,
 } from "./timeUtils";
-export {
-  getShiftColorClass,
-  calcShiftAmPm,
-  groupShiftsByType,
-} from "./shiftUtils";
+export { calcShiftAmPm, groupShiftsByType } from "./shiftUtils";
