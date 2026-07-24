@@ -22,8 +22,7 @@
     "noEmit": true,
     "skipLibCheck": true,
 
-    /* Alias @/ → ./src/ */
-    "baseUrl": ".",
+    /* Alias @/ → ./src/ (résolu relativement à ce fichier, sans baseUrl) */
     "paths": {
       "@/*": ["./src/*"]
     }

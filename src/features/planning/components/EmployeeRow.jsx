@@ -48,7 +48,7 @@ function EmployeeRow({ employee, onCellClick }) {
       return (
         <td
           key={`${employee.id}-${day.id}-${period}`}
-          className="border-r border-border/50 last:border-r-0 p-1 h-[44px] align-middle"
+          className="border-r border-border/50 last:border-r-0 p-1 h-11 align-middle"
         >
           <PlanningCell
             assignment={dailyAssignment}
@@ -88,25 +88,25 @@ function EmployeeRow({ employee, onCellClick }) {
           <div className="flex h-full">
             {/* Barre latérale couleur employé */}
             <div
-              className="w-1 flex-shrink-0 rounded-l-sm"
+              className="w-1 shrink-0 rounded-l-sm"
               style={{ backgroundColor: employee.color }}
             />
             <div className="flex flex-col flex-1 min-w-0">
               {/* ── Ligne AM : Nom + pastille |  total AM ── */}
-              <div className="flex items-center justify-between gap-2 px-3 sm:px-4 h-[44px] border-b border-border/30">
+              <div className="flex items-center justify-between gap-2 px-3 sm:px-4 h-11 border-b border-border/30">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="font-semibold text-sm text-text-primary truncate">
                     {employee.name}
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-text-muted flex-shrink-0">
+                <div className="flex items-center gap-1.5 text-xs text-text-muted shrink-0">
                   <span>☀️</span>
                   <span>{formatMinutesToDisplay(amMinutes)}</span>
                 </div>
               </div>
 
               {/* ── Ligne PM : Heures total/contrat | total PM ── */}
-              <div className="flex items-center justify-between gap-2 px-3 sm:px-4 h-[44px]">
+              <div className="flex items-center justify-between gap-2 px-3 sm:px-4 h-11">
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs text-text-muted">●</span>
                   <span
@@ -124,7 +124,7 @@ function EmployeeRow({ employee, onCellClick }) {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-text-muted flex-shrink-0">
+                <div className="flex items-center gap-1.5 text-xs text-text-muted shrink-0">
                   <span>🌙</span>
                   <span>{formatMinutesToDisplay(pmMinutes)}</span>
                 </div>

@@ -9,7 +9,7 @@ function PlanningCell({ assignment, shift, period, onClick }) {
     return (
       <div
         onClick={onClick}
-        className="w-full h-full min-h-[36px] rounded cursor-pointer
+        className="w-full h-full min-h-9 rounded cursor-pointer
           hover:bg-bg-secondary/50 transition-colors
           flex items-center justify-center"
         role="button"
@@ -62,7 +62,7 @@ function PlanningCell({ assignment, shift, period, onClick }) {
   return (
     <div
       onClick={onClick}
-      className={`w-full h-full min-h-[36px] ${multiLineClasses} border cursor-pointer
+      className={`w-full h-full min-h-9 ${multiLineClasses} border cursor-pointer
         ${colorClass}
         hover:shadow-md hover:brightness-95 active:scale-[0.97]
         transition-all duration-200

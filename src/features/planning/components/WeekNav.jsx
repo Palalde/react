@@ -30,7 +30,7 @@ export default function WeekNavigator() {
       <button
         onClick={goToday}
         className="px-4 py-2 rounded-lg border border-border bg-bg-primary text-text-primary
-          hover:bg-bg-tertiary transition-colors cursor-pointer min-w-[220px] text-center"
+          hover:bg-bg-tertiary transition-colors cursor-pointer min-w-55 text-center"
       >
         <span className="text-sm font-medium">Semaine du {formattedWeek}</span>
       </button>

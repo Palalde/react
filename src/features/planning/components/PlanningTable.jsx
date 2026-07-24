@@ -13,12 +13,12 @@ function PlanningTable({ onCellClick }) {
     <div className="bg-bg-primary rounded-xl shadow-md border border-border overflow-hidden">
       {/* Wrapper scroll horizontal */}
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse min-w-[700px]">
+        <table className="w-full border-collapse min-w-175">
           {/* En-tête : colonne Employé + 7 jours */}
           <thead>
             <tr className="bg-bg-tertiary border-b border-border">
               {/* Colonne Employé — sticky à gauche */}
-              <th className="sticky left-0 z-20 bg-bg-tertiary text-left px-3 sm:px-4 py-3 min-w-[180px] sm:min-w-[220px] border-r border-border">
+              <th className="sticky left-0 z-20 bg-bg-tertiary text-left px-3 sm:px-4 py-3 min-w-45 sm:min-w-55 border-r border-border">
                 <span className="text-sm font-semibold text-text-secondary">
                   👤 Employé
                 </span>
@@ -28,7 +28,7 @@ function PlanningTable({ onCellClick }) {
               {DAYS_OF_WEEK.map((day) => (
                 <th
                   key={day.id}
-                  className="px-2 sm:px-3 py-3 text-center min-w-[90px] sm:min-w-[110px] border-r border-border last:border-r-0"
+                  className="px-2 sm:px-3 py-3 text-center min-w-22.5 sm:min-w-27.5 border-r border-border last:border-r-0"
                 >
                   {/* Nom court mobile, complet desktop */}
                   <span className="text-sm font-semibold text-text-primary sm:hidden">

@@ -9,7 +9,7 @@ function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
     <div className="group flex items-center gap-3 p-3 rounded-xl border border-border bg-bg-primary hover:bg-bg-tertiary/50 hover:border-accent/30 transition-all duration-200">
       {/* Pastille couleur */}
       <div
-        className="w-3 h-3 rounded-full flex-shrink-0 ring-2 ring-border"
+        className="w-3 h-3 rounded-full shrink-0 ring-2 ring-border"
         style={{ backgroundColor: employee.color }}
         title={`Couleur: ${employee.color}`}
       />
@@ -22,7 +22,7 @@ function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
             {employee.name}
           </span>
           <span
-            className={`text-xs flex-shrink-0 ${isOvertime ? "text-danger font-semibold" : "text-text-muted"}`}
+            className={`text-xs shrink-0 ${isOvertime ? "text-danger font-semibold" : "text-text-muted"}`}
           >
             {formatMinutesToDisplay(workedMinutes)}/
             {formatMinutesToDisplay(employee.weeklyMinutes)}
@@ -42,13 +42,13 @@ function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
 
       {/* Actions — visibles au hover */}
       {(onEdit || onDelete) && (
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity flex-shrink-0">
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity shrink-0">
           {onEdit && (
             <Button
               size="icon"
               variant="ghost"
               onClick={() => onEdit()}
-              className="!min-w-[36px] !min-h-[36px] !p-1.5 text-sm"
+              className="min-w-9! min-h-9! p-1.5! text-sm"
               aria-label="Éditer"
               title="Éditer"
             >
@@ -60,7 +60,7 @@ function EmployeeCard({ employee = {}, workedMinutes, onEdit, onDelete }) {
               size="icon"
               variant="ghost"
               onClick={() => onDelete(employee.id)}
-              className="!min-w-[36px] !min-h-[36px] !p-1.5 text-sm text-danger hover:text-danger hover:bg-danger/10 hover:border-danger/30"
+              className="min-w-9! min-h-9! p-1.5! text-sm text-danger hover:text-danger hover:bg-danger/10 hover:border-danger/30"
               aria-label="Supprimer"
               title="Supprimer"
             >

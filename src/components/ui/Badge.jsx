@@ -33,7 +33,7 @@ function Badge({ label, color = "default", icon, size = "sm" }) {
     `}
     >
       {/* Badge content */}
-      {icon && <span className="flex-shrink-0">{icon}</span>}
+      {icon && <span className="shrink-0">{icon}</span>}
       {label}
     </span>
   );
