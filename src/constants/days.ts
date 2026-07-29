@@ -1,4 +1,4 @@
-import { DayOfWeek } from "@/types";
+import type { DayOfWeek } from "@/types";
 
 export const DAYS_OF_WEEK: {
   id: DayOfWeek;

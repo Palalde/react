@@ -1,4 +1,4 @@
-import { Shift, ShiftType, ShiftTypeConfig } from "@/types";
+import type { Shift, ShiftType, ShiftTypeConfig } from "@/types";
 
 // --- Shift Type Config (UI: label, emoji, order, colorClass) ---
 

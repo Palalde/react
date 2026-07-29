@@ -1,4 +1,4 @@
-import { Assignment, HoursSummary, Shift } from "@/types";
+import type { Assignment, HoursSummary, Shift } from "@/types";
 import { calcShiftAmPm } from "@/utils";
 
 /**

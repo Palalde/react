@@ -1,4 +1,4 @@
-import { Employee } from "@/types";
+import type { Employee } from "@/types";
 
 // Color palette
 const DEFAULT_COLORS: string[] = [
