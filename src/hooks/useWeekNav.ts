@@ -15,6 +15,15 @@ function addWeeks(isoString: ISODateString, weeks: number): ISODateString {
   return date.toISOString().split("T")[0] as ISODateString;
 }
 
+/**
+ * Custom hook to manage week navigation
+ * @returns { currentWeek, goNext, goPrev, goToday }
+ * - currentWeek: ISO string of the Monday of the current week
+ * - goNext: function to go to the next week
+ * - goPrev: function to go to the previous week
+ * - goToday: function to go to the current week
+ */
+
 export default function useWeekNav(): {
   currentWeek: ISODateString;
   goNext: () => void;
