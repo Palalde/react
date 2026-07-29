@@ -51,7 +51,7 @@ export type Assignment = {
   day: DayOfWeek;
 
   shiftId: string; // "matin"
-  weekOf: `${number}-${number}-${number}`; // "2024-06-17"
+  weekOf: ISODateString; // "2024-06-17"
 };
 
 // --- Hours ---
@@ -60,3 +60,6 @@ export type HoursSummary = {
   am: number;
   pm: number;
 };
+
+// --- Date ---
+export type ISODateString = `${number}-${number}-${number}`; // "2024-06-17"

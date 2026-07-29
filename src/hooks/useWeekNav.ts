@@ -1,0 +1,41 @@
+import { useState, useCallback } from "react";
+import { ISODateString } from "@/types";
+// calculate the ISO string of the Monday of the week for a given date
+function getMondayISO(date: Date): ISODateString {
+  const dayOfWeek = date.getDay();
+  const monday = new Date(date);
+  monday.setDate(date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
+  return monday.toISOString().split("T")[0] as ISODateString;
+}
+
+// add a number of weeks to an ISO date string and return the new ISO date string
+function addWeeks(isoString: ISODateString, weeks: number): ISODateString {
+  const date = new Date(isoString);
+  date.setDate(date.getDate() + weeks * 7);
+  return date.toISOString().split("T")[0] as ISODateString;
+}
+
+export default function useWeekNav(): {
+  currentWeek: ISODateString;
+  goNext: () => void;
+  goPrev: () => void;
+  goToday: () => void;
+} {
+  const [currentWeek, setCurrentWeek] = useState<ISODateString>(
+    getMondayISO(new Date()),
+  );
+
+  const goNext = useCallback(() => {
+    setCurrentWeek((prev) => addWeeks(prev, 1));
+  }, [setCurrentWeek]);
+
+  const goPrev = useCallback(() => {
+    setCurrentWeek((prev) => addWeeks(prev, -1));
+  }, [setCurrentWeek]);
+
+  const goToday = useCallback(() => {
+    setCurrentWeek(getMondayISO(new Date()));
+  }, [setCurrentWeek]);
+
+  return { currentWeek, goNext, goPrev, goToday };
+}
