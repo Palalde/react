@@ -1,7 +1,7 @@
 import type { Employee } from "@/types";
 
 // Color palette
-const DEFAULT_COLORS: string[] = [
+const DEFAULT_COLORS: readonly string[] = [
   "#6366F1", // Indigo
   "#10B981", // Emerald
   "#F59E0B", // Amber
@@ -17,8 +17,8 @@ const DEFAULT_COLORS: string[] = [
 ];
 
 // return the first available color or a random one if all are used
-export default function getAvailableColor(employees: Employee[] = []): string {
-  const usedColors = new Set(employees.map((emp) => emp.color?.toUpperCase()));
+export default function getAvailableColor(employees: Employee[]): string {
+  const usedColors = new Set(employees.map((emp) => emp.color.toUpperCase()));
 
   const availableColor = DEFAULT_COLORS.find(
     (color) => !usedColors.has(color.toUpperCase()),

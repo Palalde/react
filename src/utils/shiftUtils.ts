@@ -85,6 +85,9 @@ export function calcShiftAmPm(shift: Shift): HoursSummary {
   } else if (shift.type === "split") {
     am = timeToMinutes(shift.breakStart) - start;
     pm = end - timeToMinutes(shift.breakEnd);
+  } else {
+    const _exhaustive: never = shift.type;
+    throw new Error(`Unhandled shift type: ${_exhaustive}`);
   }
 
   return { total: am + pm, am, pm };
