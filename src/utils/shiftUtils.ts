@@ -1,4 +1,4 @@
-import { Shift, ShiftType, ShiftTypeConfig, HoursSummary } from "@/types";
+import type { Shift, ShiftType, ShiftTypeConfig, HoursSummary } from "@/types";
 import { SHIFT_TYPE_CONFIG } from "@/constants/shifts";
 import { timeToMinutes } from "./timeUtils";
 
